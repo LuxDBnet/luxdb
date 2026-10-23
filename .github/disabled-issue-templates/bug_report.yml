@@ -1,0 +1,19 @@
+name: SDK bug report
+description: Prepared for later activation; issues are disabled at launch.
+title: ''
+body:
+  - type: markdown
+    attributes:
+      value: Never include keys, account IDs, paid responses, images or exports. Security reports go privately to support@luxdb.net.
+  - type: input
+    id: version
+    attributes:
+      label: SDK and Python version
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Synthetic offline reproducer and expected behaviour
+    validations:
+      required: true

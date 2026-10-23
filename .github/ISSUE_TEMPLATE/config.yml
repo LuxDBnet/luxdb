@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Private support and security
+    url: mailto:support@luxdb.net
+    about: Issues are off at launch. Do not publish credentials or paid responses.

@@ -1,0 +1,17 @@
+SPDX-License-Identifier: CC-BY-4.0
+
+Original documentation identified in NOTICE.md is licensed under the Creative
+Commons Attribution 4.0 International license, whose governing legal text is:
+
+https://creativecommons.org/licenses/by/4.0/legalcode.en
+
+This is a license grant by reference, not a reproduction of the legal text.
+The following is only a summary: you may share and adapt the documentation,
+including commercially, with appropriate attribution, a license reference and
+an indication of changes. No endorsement, trademark permission or rights to
+paid catalogue data or third-party material are granted. The official legal
+text governs, including its limitations, exceptions and disclaimers.
+
+Attribution: the project documentation's contributors. Preserve the project
+name and a reference to the documentation version you used. The final public
+repository address can be added once the owner has created the organisation.

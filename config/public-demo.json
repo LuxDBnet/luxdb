@@ -1,0 +1,46 @@
+{
+  "status": "public_demo_only",
+  "articles": [
+    {"brand": "dior", "article": "15JOU090I602_C545"},
+    {"brand": "dior", "article": "2ESBC002CDI_H00N"},
+    {"brand": "dior", "article": "3LO186ACB_H750"},
+    {"brand": "dior", "article": "452P69A3377_X5419"},
+    {"brand": "dior", "article": "6WBM13TEEC_Y013"},
+    {"brand": "dior", "article": "HYJ01RDE0L_C970"},
+    {"brand": "dior", "article": "JRDV95019_0000"},
+    {"brand": "dior", "article": "KCK211OBE_S33G"},
+    {"brand": "dior", "article": "M0455CBAA_M900"},
+    {"brand": "dior", "article": "XTRMMUAT_10B8"},
+    {"brand": "hermes", "article": "H041054CK18"},
+    {"brand": "hermes", "article": "H084830CC37"},
+    {"brand": "hermes", "article": "H200005FO64PM"},
+    {"brand": "hermes", "article": "H214456Bv00ST"},
+    {"brand": "hermes", "article": "H261046Zv02"},
+    {"brand": "hermes", "article": "H261064NvMN"},
+    {"brand": "hermes", "article": "H6H0452D402"},
+    {"brand": "hermes", "article": "H800690Ev01"},
+    {"brand": "hermes", "article": "P038207P"},
+    {"brand": "hermes", "article": "V107570V0"},
+    {"brand": "lv", "article": "1ACVHU"},
+    {"brand": "lv", "article": "1AIK81"},
+    {"brand": "lv", "article": "1AKR9S"},
+    {"brand": "lv", "article": "M14880"},
+    {"brand": "lv", "article": "M26323"},
+    {"brand": "lv", "article": "M46373"},
+    {"brand": "lv", "article": "M46828"},
+    {"brand": "lv", "article": "M81085"},
+    {"brand": "lv", "article": "R08453"},
+    {"brand": "lv", "article": "R09978"},
+    {"brand": "lv", "article": "W9TI12"}
+  ],
+  "approved_example_urls": [
+    {
+      "brand": "lv",
+      "variant_article": "1ACVHO",
+      "demo_article": "1ACVHU",
+      "json_pointer": "/components/schemas/Article/properties/lv_url/example",
+      "value": "/eng-au/products/rivoli-sneaker-nvprod5190267v/1ACVHO",
+      "evidence_sha256": "c3b75c838a4bfce8750adb18ca8a85e267d7bc9f84503f81ed1fa9f8c491af04"
+    }
+  ]
+}

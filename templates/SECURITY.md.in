@@ -1,0 +1,14 @@
+# {{PROJECT_NAME}} security reporting
+
+Report security concerns privately to {{CONTACT}}. Do not create a public issue,
+pull request or response recording containing a vulnerability, credential, customer
+information or paid catalogue data. Issues are off at launch.
+
+Describe the affected SDK version, expected behaviour and a synthetic reproducer.
+Do not attach keys, cookies, product exports or screenshots from paid cards. Contact
+us first if sharing sensitive evidence is necessary. Do not test outside accounts
+or systems you are authorised to use.
+
+The API and storefront are live. This repository provides no bounty or
+response-time guarantee. Supported SDK versions will be stated after a reviewed
+release; the current tree is a draft.

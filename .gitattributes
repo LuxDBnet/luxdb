@@ -1,0 +1,6 @@
+* text=auto eol=lf
+clients/python/src/luxdb_client/generated.py linguist-generated=true
+openapi/openapi.json linguist-generated=true
+README.md linguist-generated=true
+docs/data-dictionary.md linguist-generated=true
+docs/houses.md linguist-generated=true

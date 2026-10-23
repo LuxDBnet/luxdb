@@ -1,0 +1,71 @@
+# LuxDB quickstart
+
+The API is live. Start offline without a key or network request:
+
+```sh
+python3 -B examples/demo.py
+```
+
+The response is invented. No catalogue records are printed.
+For JavaScript run `node examples/demo.mjs`; its [client guide](../clients/js/README.md) covers ESM and TypeScript.
+
+## Python client
+
+Install the client from a reviewed checkout:
+
+```sh
+python3 -m pip install ./clients/python
+```
+
+One demo request:
+
+```python
+from luxdb_client import Client
+
+client = Client()
+response = client.search(q="synthetic", page="1")
+print(response.get("credits_charged"))
+```
+
+The demo is shared and limited to its public selection. A search can be empty. The demo key permits 1 request per minute and 300 per day
+per address. Make one call, then wait at least 60 seconds before another. Do not
+use the rate-remaining header to schedule calls.
+If access is refused, follow Retry-After when supplied. The client does not retry.
+
+## Paid access
+
+Set `LUXDB_API_KEY` locally, never in source code or a public report:
+
+```python
+import os
+from luxdb_client import Client
+
+client = Client(api_key=os.environ["LUXDB_API_KEY"], allow_paid=True)
+```
+
+Creating a client makes no request. An item call can spend credits and, depending
+on the account settings, buy more from the balance. The paid example requires one
+item code and `--accept-credit-usage`; it never prints the item response.
+
+## Families and the index
+
+Family IDs must match `nvprod` followed by digits and `v`. Other family formats
+are not accepted by this endpoint.
+
+The index requires Business access. A successful download uses the account's daily
+allowance, even if the data is unchanged. Do not poll it with this client. The HTTP
+API supports conditional downloads, but this client does not send If-None-Match,
+expose ETag, or return a body-less 304 result.
+
+## Responses and errors
+
+Responses are JSON dictionaries. Generated hints describe nested fields, nullable
+values and the `family` and `resolved` wrappers. They do not validate responses at
+runtime. See the [API reference](api-reference.md) for exact names and types.
+
+Catch `ApiError` for HTTP errors and `TransportError` for connection or decoding
+errors. Check status and code; on 503, mode can be maintenance or stopped. On 402,
+check whether credits or a team member's allowance are unavailable before acting.
+No call is retried automatically. Error messages omit keys and bodies; extra error
+keys are preserved in ApiError.details for explicit programmatic inspection.
+Do not log details, which may contain request-specific information.

@@ -1,0 +1,13 @@
+name: Integration or house request
+description: Prepared for later activation; coverage is not promised.
+title: ''
+body:
+  - type: markdown
+    attributes:
+      value: Describe a use case or a house name only. Do not attach catalogue records, product images, keys or private material.
+  - type: textarea
+    id: use_case
+    attributes:
+      label: Use case and requested capability
+    validations:
+      required: true

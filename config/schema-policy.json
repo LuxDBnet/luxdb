@@ -1,0 +1,3865 @@
+{
+  "status": "canonical_copy_review_pending",
+  "keywords_by_path": {
+    "/components/schemas/Envelope": [
+      "description",
+      "properties",
+      "required",
+      "type"
+    ],
+    "/components/schemas/Envelope/properties/credits_charged": [
+      "description",
+      "minimum",
+      "type"
+    ],
+    "/components/schemas/Envelope/properties/credits_subscription": [
+      "description",
+      "type"
+    ],
+    "/components/schemas/Envelope/properties/credits_retail": [
+      "description",
+      "type"
+    ],
+    "/components/schemas/Envelope/properties/credits_member_left": [
+      "description",
+      "minimum",
+      "type"
+    ],
+    "/components/schemas/Envelope/properties/member_resets_at": [
+      "description",
+      "format",
+      "type"
+    ],
+    "/components/schemas/Envelope/properties/credits_bought": [
+      "description",
+      "type"
+    ],
+    "/components/schemas/Envelope/properties/resets_hour": [
+      "format",
+      "type"
+    ],
+    "/components/schemas/Envelope/properties/resets_day": [
+      "format",
+      "type"
+    ],
+    "/components/schemas/Envelope/properties/resets_month": [
+      "description",
+      "format",
+      "type"
+    ],
+    "/components/schemas/Envelope/properties/snapshot": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Envelope/properties/fields_refreshed_weekly": [
+      "description",
+      "type"
+    ],
+    "/components/schemas/Envelope/properties/field_age_median_weeks": [
+      "description",
+      "type"
+    ],
+    "/components/schemas/Envelope/properties/account_status": [
+      "enum",
+      "type"
+    ],
+    "/components/schemas/Envelope/properties/sandbox": [
+      "description",
+      "type"
+    ],
+    "/components/schemas/Error": [
+      "properties",
+      "required",
+      "type"
+    ],
+    "/components/schemas/Error/properties/error": [
+      "description",
+      "type"
+    ],
+    "/components/schemas/Error/properties/code": [
+      "description",
+      "enum",
+      "type"
+    ],
+    "/components/schemas/Error/properties/mode": [
+      "description",
+      "enum",
+      "type"
+    ],
+    "/components/schemas/Error/properties/scope": [
+      "description",
+      "enum",
+      "type"
+    ],
+    "/components/schemas/Error/properties/member_limit": [
+      "description",
+      "type"
+    ],
+    "/components/schemas/Error/properties/member_used": [
+      "description",
+      "type"
+    ],
+    "/components/schemas/Error/properties/resets_at": [
+      "description",
+      "format",
+      "type"
+    ],
+    "/components/schemas/Error/properties/retry_after_seconds": [
+      "description",
+      "type"
+    ],
+    "/components/schemas/Family": [
+      "properties",
+      "required",
+      "type"
+    ],
+    "/components/schemas/Family/properties/family_id": [
+      "type"
+    ],
+    "/components/schemas/Family/properties/articles": [
+      "items",
+      "type"
+    ],
+    "/components/schemas/Family/properties/articles/items": [
+      "properties",
+      "required",
+      "type"
+    ],
+    "/components/schemas/Family/properties/articles/items/properties/article": [
+      "type"
+    ],
+    "/components/schemas/Family/properties/articles/items/properties/name": [
+      "type"
+    ],
+    "/components/schemas/Family/properties/articles/items/properties/color": [
+      "type"
+    ],
+    "/components/schemas/Family/properties/articles/items/properties/status": [
+      "type"
+    ],
+    "/components/schemas/Family/properties/articles/items/properties/size_scale": [
+      "type"
+    ],
+    "/components/schemas/Resolved": [
+      "oneOf"
+    ],
+    "/components/schemas/Resolved/oneOf/0": [
+      "properties",
+      "required",
+      "type"
+    ],
+    "/components/schemas/Resolved/oneOf/0/properties/status": [
+      "const",
+      "type"
+    ],
+    "/components/schemas/Resolved/oneOf/0/properties/article": [
+      "type"
+    ],
+    "/components/schemas/Resolved/oneOf/0/properties/region": [
+      "type"
+    ],
+    "/components/schemas/Resolved/oneOf/0/properties/lv_url_status": [
+      "type"
+    ],
+    "/components/schemas/Resolved/oneOf/1": [
+      "properties",
+      "required",
+      "type"
+    ],
+    "/components/schemas/Resolved/oneOf/1/properties/status": [
+      "const",
+      "type"
+    ],
+    "/components/schemas/Resolved/oneOf/1/properties/family_id": [
+      "type"
+    ],
+    "/components/schemas/Resolved/oneOf/1/properties/articles": [
+      "items",
+      "type"
+    ],
+    "/components/schemas/Resolved/oneOf/1/properties/articles/items": [
+      "type"
+    ],
+    "/components/schemas/Resolved/oneOf/1/properties/region": [
+      "type"
+    ],
+    "/components/schemas/Resolved/oneOf/2": [
+      "properties",
+      "required",
+      "type"
+    ],
+    "/components/schemas/Resolved/oneOf/2/properties/status": [
+      "const",
+      "type"
+    ],
+    "/components/schemas/Resolved/oneOf/2/properties/key": [
+      "type"
+    ],
+    "/components/schemas/Resolved/oneOf/2/properties/variant_of": [
+      "type"
+    ],
+    "/components/schemas/Resolved/oneOf/2/properties/variant_kind": [
+      "type"
+    ],
+    "/components/schemas/Resolved/oneOf/2/properties/label": [
+      "type"
+    ],
+    "/components/schemas/Resolved/oneOf/2/properties/region": [
+      "type"
+    ],
+    "/components/schemas/Resolved/oneOf/3": [
+      "properties",
+      "required",
+      "type"
+    ],
+    "/components/schemas/Resolved/oneOf/3/properties/status": [
+      "const",
+      "type"
+    ],
+    "/components/schemas/Resolved/oneOf/3/properties/key": [
+      "type"
+    ],
+    "/components/schemas/Resolved/oneOf/3/properties/region": [
+      "type"
+    ],
+    "/components/schemas/Resolved/oneOf/4": [
+      "properties",
+      "required",
+      "type"
+    ],
+    "/components/schemas/Resolved/oneOf/4/properties/status": [
+      "const",
+      "type"
+    ],
+    "/components/schemas/Article": [
+      "properties",
+      "type"
+    ],
+    "/components/schemas/Article/properties/article": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/requested": [
+      "description",
+      "properties",
+      "required",
+      "type"
+    ],
+    "/components/schemas/Article/properties/requested/properties/code": [
+      "description",
+      "type"
+    ],
+    "/components/schemas/Article/properties/requested/properties/article": [
+      "description",
+      "type"
+    ],
+    "/components/schemas/Article/properties/requested/properties/size_label": [
+      "description",
+      "type"
+    ],
+    "/components/schemas/Article/properties/requested/properties/alias_kind": [
+      "description",
+      "type"
+    ],
+    "/components/schemas/Article/properties/brand": [
+      "description",
+      "enum",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/brand_name_en": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/slug": [
+      "description",
+      "type"
+    ],
+    "/components/schemas/Article/properties/name": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/name_source": [
+      "description",
+      "enum",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/name_lang": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/family_id": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/family_alias_of": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/department": [
+      "description",
+      "enum",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/category": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/product_type": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/collection": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/season": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/audience": [
+      "description",
+      "enum",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/campaign": [
+      "description",
+      "items",
+      "type"
+    ],
+    "/components/schemas/Article/properties/campaign/items": [
+      "type"
+    ],
+    "/components/schemas/Article/properties/material": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/material_line": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/composition": [
+      "description",
+      "items",
+      "type"
+    ],
+    "/components/schemas/Article/properties/composition/items": [
+      "type"
+    ],
+    "/components/schemas/Article/properties/color": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/color_group": [
+      "description",
+      "enum",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/made_in": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/made_in_countries": [
+      "description",
+      "items",
+      "type"
+    ],
+    "/components/schemas/Article/properties/made_in_countries/items": [
+      "type"
+    ],
+    "/components/schemas/Article/properties/customizable": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/dimensions": [
+      "description",
+      "properties",
+      "type"
+    ],
+    "/components/schemas/Article/properties/dimensions/properties/raw": [
+      "type"
+    ],
+    "/components/schemas/Article/properties/dimensions/properties/unit_raw": [
+      "type"
+    ],
+    "/components/schemas/Article/properties/dimensions/properties/axes": [
+      "type"
+    ],
+    "/components/schemas/Article/properties/dimensions/properties/length_cm": [
+      "type"
+    ],
+    "/components/schemas/Article/properties/dimensions/properties/height_cm": [
+      "type"
+    ],
+    "/components/schemas/Article/properties/dimensions/properties/width_cm": [
+      "type"
+    ],
+    "/components/schemas/Article/properties/dimensions/properties/length_in": [
+      "type"
+    ],
+    "/components/schemas/Article/properties/dimensions/properties/height_in": [
+      "type"
+    ],
+    "/components/schemas/Article/properties/dimensions/properties/width_in": [
+      "type"
+    ],
+    "/components/schemas/Article/properties/measures": [
+      "description",
+      "type"
+    ],
+    "/components/schemas/Article/properties/specs_json": [
+      "description",
+      "type"
+    ],
+    "/components/schemas/Article/properties/sizes": [
+      "description",
+      "items",
+      "type"
+    ],
+    "/components/schemas/Article/properties/sizes/items": [
+      "type"
+    ],
+    "/components/schemas/Article/properties/family_sizes": [
+      "description",
+      "items",
+      "type"
+    ],
+    "/components/schemas/Article/properties/family_sizes/items": [
+      "type"
+    ],
+    "/components/schemas/Article/properties/colors": [
+      "description",
+      "items",
+      "type"
+    ],
+    "/components/schemas/Article/properties/colors/items": [
+      "type"
+    ],
+    "/components/schemas/Article/properties/colors_untranslated": [
+      "description",
+      "type"
+    ],
+    "/components/schemas/Article/properties/status": [
+      "description",
+      "enum",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/status_as_of": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/weeks_unlisted": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/variants": [
+      "description",
+      "type"
+    ],
+    "/components/schemas/Article/properties/size_variants": [
+      "description",
+      "items",
+      "type"
+    ],
+    "/components/schemas/Article/properties/size_variants/items": [
+      "type"
+    ],
+    "/components/schemas/Article/properties/variant_codes": [
+      "description",
+      "items",
+      "type"
+    ],
+    "/components/schemas/Article/properties/variant_codes/items": [
+      "type"
+    ],
+    "/components/schemas/Article/properties/first_seen": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/last_seen": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/record_completeness": [
+      "description",
+      "enum",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/text_lang": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/text_source_region": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/lv_url": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/lv_url_status": [
+      "description",
+      "enum",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/page_checked_snapshot": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/storefront_urls": [
+      "description",
+      "items",
+      "type"
+    ],
+    "/components/schemas/Article/properties/storefront_urls/items": [
+      "type"
+    ],
+    "/components/schemas/Article/properties/description": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/description_short": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/description_local": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/description_source": [
+      "description",
+      "enum",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/description_short_redundant": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/name_local": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/name_lv": [
+      "description",
+      "type"
+    ],
+    "/components/schemas/Article/properties/features": [
+      "description",
+      "example",
+      "items",
+      "type"
+    ],
+    "/components/schemas/Article/properties/features/items": [
+      "type"
+    ],
+    "/components/schemas/Article/properties/care": [
+      "description",
+      "example",
+      "items",
+      "type"
+    ],
+    "/components/schemas/Article/properties/care/items": [
+      "type"
+    ],
+    "/components/schemas/Article/properties/sustainability": [
+      "description",
+      "example",
+      "items",
+      "type"
+    ],
+    "/components/schemas/Article/properties/sustainability/items": [
+      "type"
+    ],
+    "/components/schemas/Article/properties/unparsed": [
+      "description",
+      "example",
+      "items",
+      "type"
+    ],
+    "/components/schemas/Article/properties/unparsed/items": [
+      "type"
+    ],
+    "/components/schemas/Article/properties/features_source": [
+      "description",
+      "enum",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/description_from": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/names_by_lang": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/carried_fields": [
+      "description",
+      "example",
+      "items",
+      "type"
+    ],
+    "/components/schemas/Article/properties/carried_fields/items": [
+      "type"
+    ],
+    "/components/schemas/Article/properties/text_source_snapshot": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/color_group_lv": [
+      "description",
+      "enum",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/color_group_differs": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/composition_secondary": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/made_in_multi_country": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/size_run": [
+      "description",
+      "example",
+      "items",
+      "type"
+    ],
+    "/components/schemas/Article/properties/size_run/items": [
+      "type"
+    ],
+    "/components/schemas/Article/properties/size_run_region": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/size_scale": [
+      "description",
+      "enum",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/sold_per_unit": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/lv_url_region": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/last_price_countries": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/last_price_regions": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/sellable_anywhere": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/price": [
+      "description",
+      "properties",
+      "type"
+    ],
+    "/components/schemas/Article/properties/price/properties/usd_ref": [
+      "type"
+    ],
+    "/components/schemas/Article/properties/price/properties/usd_min": [
+      "type"
+    ],
+    "/components/schemas/Article/properties/price/properties/usd_max": [
+      "type"
+    ],
+    "/components/schemas/Article/properties/price/properties/usd_fr": [
+      "type"
+    ],
+    "/components/schemas/Article/properties/price/properties/usd_us": [
+      "type"
+    ],
+    "/components/schemas/Article/properties/price/properties/countries": [
+      "type"
+    ],
+    "/components/schemas/Article/properties/price/properties/single_market": [
+      "type"
+    ],
+    "/components/schemas/Article/properties/price/properties/single_market_country": [
+      "type"
+    ],
+    "/components/schemas/Article/properties/price/properties/last_known_usd": [
+      "type"
+    ],
+    "/components/schemas/Article/properties/price/properties/last_known_snapshot": [
+      "type"
+    ],
+    "/components/schemas/Article/properties/price/properties/by_storefront": [
+      "items",
+      "type"
+    ],
+    "/components/schemas/Article/properties/price/properties/by_storefront/items": [
+      "properties",
+      "type"
+    ],
+    "/components/schemas/Article/properties/price/properties/by_storefront/items/properties/region": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/price/properties/by_storefront/items/properties/country": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/price/properties/by_storefront/items/properties/language": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/price/properties/by_storefront/items/properties/tax_note": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/price/properties/by_storefront/items/properties/price_includes_tax": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/price/properties/by_storefront/items/properties/currency": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/price/properties/by_storefront/items/properties/local": [
+      "description",
+      "type"
+    ],
+    "/components/schemas/Article/properties/price/properties/by_storefront/items/properties/usd": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/price/properties/by_storefront/items/properties/availability": [
+      "description",
+      "enum",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/price/properties/by_storefront/items/properties/observed_at": [
+      "description",
+      "example",
+      "format",
+      "type"
+    ],
+    "/components/schemas/Article/properties/price/properties/by_storefront/items/properties/snapshot_id": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/price/properties/by_storefront/items/properties/is_current": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/price/properties/by_storefront/items/properties/state": [
+      "description",
+      "enum",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/price/properties/by_storefront/items/properties/last_checked_week": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/counters": [
+      "description",
+      "properties",
+      "type"
+    ],
+    "/components/schemas/Article/properties/counters/properties/regions_with_price": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/counters/properties/regions_present": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/counters/properties/regions_observed": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/counters/properties/regions_declared": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/counters/properties/regions_present_ex_e1": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/counters/properties/countries_with_price": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/counters/properties/countries_present": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/counters/properties/countries_observed": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/counters/properties/countries_declared": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/counters/properties/weeks_of_history": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/counters/properties/price_events": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/counters/properties/photos": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/counters/properties/photos_ever": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/counters/properties/photos_additional": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/counters/properties/videos": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/history": [
+      "description",
+      "items",
+      "type"
+    ],
+    "/components/schemas/Article/properties/history/items": [
+      "type"
+    ],
+    "/components/schemas/Article/properties/gallery": [
+      "description",
+      "properties",
+      "type"
+    ],
+    "/components/schemas/Article/properties/gallery/properties/photos": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/gallery/properties/videos": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/Article/properties/gallery/properties/links": [
+      "type"
+    ],
+    "/components/schemas/Article/properties/gallery/properties/note": [
+      "type"
+    ],
+    "/components/schemas/SearchRow": [
+      "properties",
+      "type"
+    ],
+    "/components/schemas/SearchRow/properties/article": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/SearchRow/properties/name": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/SearchRow/properties/family_id": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/SearchRow/properties/department": [
+      "description",
+      "enum",
+      "example",
+      "type"
+    ],
+    "/components/schemas/SearchRow/properties/category": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/SearchRow/properties/product_type": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/SearchRow/properties/color_group": [
+      "description",
+      "enum",
+      "example",
+      "type"
+    ],
+    "/components/schemas/SearchRow/properties/status": [
+      "description",
+      "enum",
+      "example",
+      "type"
+    ],
+    "/components/schemas/SearchRow/properties/price_usd_band": [
+      "type"
+    ],
+    "/components/schemas/SearchRow/properties/regions_with_price": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/SearchRow/properties/countries_with_price": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/SearchRow/properties/weeks_of_history": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/SearchRow/properties/photos": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/components/schemas/SearchRow/properties/videos": [
+      "description",
+      "example",
+      "type"
+    ],
+    "/paths//article/get/parameters/0/schema": [
+      "type"
+    ],
+    "/paths//article/get/parameters/1/schema": [
+      "type"
+    ],
+    "/paths//article/get/responses/200/content/application/json/schema": [
+      "allOf"
+    ],
+    "/paths//article/get/responses/200/content/application/json/schema/allOf/0": [
+      "$ref"
+    ],
+    "/paths//article/get/responses/200/content/application/json/schema/allOf/1": [
+      "properties",
+      "type"
+    ],
+    "/paths//article/get/responses/200/content/application/json/schema/allOf/1/properties/results": [
+      "additionalProperties",
+      "type"
+    ],
+    "/paths//article/get/responses/200/content/application/json/schema/allOf/1/properties/results/additionalProperties": [
+      "properties",
+      "type"
+    ],
+    "/paths//article/get/responses/200/content/application/json/schema/allOf/1/properties/results/additionalProperties/properties/status": [
+      "enum",
+      "type"
+    ],
+    "/paths//article/get/responses/200/content/application/json/schema/allOf/1/properties/results/additionalProperties/properties/article": [
+      "$ref"
+    ],
+    "/paths//article/get/responses/400/content/application/json/schema": [
+      "$ref"
+    ],
+    "/paths//article/get/responses/401/content/application/json/schema": [
+      "$ref"
+    ],
+    "/paths//article/get/responses/402/content/application/json/schema": [
+      "$ref"
+    ],
+    "/paths//article/get/responses/403/content/application/json/schema": [
+      "$ref"
+    ],
+    "/paths//article/get/responses/429/content/application/json/schema": [
+      "$ref"
+    ],
+    "/paths//article/get/responses/503/content/application/json/schema": [
+      "$ref"
+    ],
+    "/paths//search/get/parameters/0/schema": [
+      "type"
+    ],
+    "/paths//search/get/parameters/1/schema": [
+      "type"
+    ],
+    "/paths//search/get/parameters/2/schema": [
+      "type"
+    ],
+    "/paths//search/get/parameters/3/schema": [
+      "type"
+    ],
+    "/paths//search/get/parameters/4/schema": [
+      "type"
+    ],
+    "/paths//search/get/parameters/5/schema": [
+      "type"
+    ],
+    "/paths//search/get/parameters/6/schema": [
+      "type"
+    ],
+    "/paths//search/get/parameters/7/schema": [
+      "type"
+    ],
+    "/paths//search/get/responses/200/content/application/json/schema": [
+      "allOf"
+    ],
+    "/paths//search/get/responses/200/content/application/json/schema/allOf/0": [
+      "$ref"
+    ],
+    "/paths//search/get/responses/200/content/application/json/schema/allOf/1": [
+      "properties",
+      "type"
+    ],
+    "/paths//search/get/responses/200/content/application/json/schema/allOf/1/properties/total": [
+      "type"
+    ],
+    "/paths//search/get/responses/200/content/application/json/schema/allOf/1/properties/page": [
+      "type"
+    ],
+    "/paths//search/get/responses/200/content/application/json/schema/allOf/1/properties/pages": [
+      "type"
+    ],
+    "/paths//search/get/responses/200/content/application/json/schema/allOf/1/properties/results": [
+      "items",
+      "type"
+    ],
+    "/paths//search/get/responses/200/content/application/json/schema/allOf/1/properties/results/items": [
+      "$ref"
+    ],
+    "/paths//search/get/responses/400/content/application/json/schema": [
+      "$ref"
+    ],
+    "/paths//search/get/responses/401/content/application/json/schema": [
+      "$ref"
+    ],
+    "/paths//search/get/responses/403/content/application/json/schema": [
+      "$ref"
+    ],
+    "/paths//search/get/responses/429/content/application/json/schema": [
+      "$ref"
+    ],
+    "/paths//search/get/responses/503/content/application/json/schema": [
+      "$ref"
+    ],
+    "/paths//changes/get/parameters/0/schema": [
+      "type"
+    ],
+    "/paths//changes/get/parameters/1/schema": [
+      "type"
+    ],
+    "/paths//changes/get/parameters/2/schema": [
+      "type"
+    ],
+    "/paths//changes/get/responses/200/content/application/json/schema": [
+      "allOf"
+    ],
+    "/paths//changes/get/responses/200/content/application/json/schema/allOf/0": [
+      "$ref"
+    ],
+    "/paths//changes/get/responses/200/content/application/json/schema/allOf/1": [
+      "properties",
+      "type"
+    ],
+    "/paths//changes/get/responses/200/content/application/json/schema/allOf/1/properties/since": [
+      "type"
+    ],
+    "/paths//changes/get/responses/200/content/application/json/schema/allOf/1/properties/departures_from": [
+      "type"
+    ],
+    "/paths//changes/get/responses/200/content/application/json/schema/allOf/1/properties/total": [
+      "type"
+    ],
+    "/paths//changes/get/responses/200/content/application/json/schema/allOf/1/properties/page": [
+      "type"
+    ],
+    "/paths//changes/get/responses/200/content/application/json/schema/allOf/1/properties/pages": [
+      "type"
+    ],
+    "/paths//changes/get/responses/200/content/application/json/schema/allOf/1/properties/events": [
+      "items",
+      "type"
+    ],
+    "/paths//changes/get/responses/200/content/application/json/schema/allOf/1/properties/events/items": [
+      "type"
+    ],
+    "/paths//changes/get/responses/400/content/application/json/schema": [
+      "$ref"
+    ],
+    "/paths//changes/get/responses/401/content/application/json/schema": [
+      "$ref"
+    ],
+    "/paths//changes/get/responses/403/content/application/json/schema": [
+      "$ref"
+    ],
+    "/paths//changes/get/responses/429/content/application/json/schema": [
+      "$ref"
+    ],
+    "/paths//changes/get/responses/503/content/application/json/schema": [
+      "$ref"
+    ],
+    "/paths//family/{id}/get/parameters/0/schema": [
+      "pattern",
+      "type"
+    ],
+    "/paths//family/{id}/get/parameters/1/schema": [
+      "type"
+    ],
+    "/paths//family/{id}/get/responses/200/content/application/json/schema": [
+      "allOf"
+    ],
+    "/paths//family/{id}/get/responses/200/content/application/json/schema/allOf/0": [
+      "$ref"
+    ],
+    "/paths//family/{id}/get/responses/200/content/application/json/schema/allOf/1": [
+      "properties",
+      "required",
+      "type"
+    ],
+    "/paths//family/{id}/get/responses/200/content/application/json/schema/allOf/1/properties/family": [
+      "$ref"
+    ],
+    "/paths//family/{id}/get/responses/400/content/application/json/schema": [
+      "$ref"
+    ],
+    "/paths//family/{id}/get/responses/401/content/application/json/schema": [
+      "$ref"
+    ],
+    "/paths//family/{id}/get/responses/403/content/application/json/schema": [
+      "$ref"
+    ],
+    "/paths//family/{id}/get/responses/429/content/application/json/schema": [
+      "$ref"
+    ],
+    "/paths//family/{id}/get/responses/503/content/application/json/schema": [
+      "$ref"
+    ],
+    "/paths//resolve/get/parameters/0/schema": [
+      "type"
+    ],
+    "/paths//resolve/get/parameters/1/schema": [
+      "type"
+    ],
+    "/paths//resolve/get/responses/200/content/application/json/schema": [
+      "allOf"
+    ],
+    "/paths//resolve/get/responses/200/content/application/json/schema/allOf/0": [
+      "$ref"
+    ],
+    "/paths//resolve/get/responses/200/content/application/json/schema/allOf/1": [
+      "properties",
+      "required",
+      "type"
+    ],
+    "/paths//resolve/get/responses/200/content/application/json/schema/allOf/1/properties/resolved": [
+      "$ref"
+    ],
+    "/paths//resolve/get/responses/400/content/application/json/schema": [
+      "$ref"
+    ],
+    "/paths//resolve/get/responses/401/content/application/json/schema": [
+      "$ref"
+    ],
+    "/paths//resolve/get/responses/403/content/application/json/schema": [
+      "$ref"
+    ],
+    "/paths//resolve/get/responses/429/content/application/json/schema": [
+      "$ref"
+    ],
+    "/paths//resolve/get/responses/503/content/application/json/schema": [
+      "$ref"
+    ],
+    "/paths//index/get/parameters/0/schema": [
+      "type"
+    ],
+    "/paths//index/get/parameters/1/schema": [
+      "type"
+    ],
+    "/paths//index/get/responses/200/content/application/json/schema": [
+      "allOf"
+    ],
+    "/paths//index/get/responses/200/content/application/json/schema/allOf/0": [
+      "$ref"
+    ],
+    "/paths//index/get/responses/200/content/application/json/schema/allOf/1": [
+      "properties",
+      "type"
+    ],
+    "/paths//index/get/responses/200/content/application/json/schema/allOf/1/properties/count": [
+      "type"
+    ],
+    "/paths//index/get/responses/200/content/application/json/schema/allOf/1/properties/index": [
+      "items",
+      "type"
+    ],
+    "/paths//index/get/responses/200/content/application/json/schema/allOf/1/properties/index/items": [
+      "type"
+    ],
+    "/paths//index/get/responses/200/headers/ETag/schema": [
+      "type"
+    ],
+    "/paths//index/get/responses/200/headers/X-Data-Snapshot/schema": [
+      "type"
+    ],
+    "/paths//index/get/responses/200/headers/X-RateLimit-Limit/schema": [
+      "minimum",
+      "type"
+    ],
+    "/paths//index/get/responses/200/headers/X-RateLimit-Remaining/schema": [
+      "minimum",
+      "type"
+    ],
+    "/paths//index/get/responses/200/headers/X-RateLimit-Scope/schema": [
+      "enum",
+      "type"
+    ],
+    "/paths//index/get/responses/200/headers/X-Index-Remaining-Today/schema": [
+      "minimum",
+      "type"
+    ],
+    "/paths//index/get/responses/304/headers/ETag/schema": [
+      "type"
+    ],
+    "/paths//index/get/responses/304/headers/X-Data-Snapshot/schema": [
+      "type"
+    ],
+    "/paths//index/get/responses/400/content/application/json/schema": [
+      "$ref"
+    ],
+    "/paths//index/get/responses/401/content/application/json/schema": [
+      "$ref"
+    ],
+    "/paths//index/get/responses/403/content/application/json/schema": [
+      "$ref"
+    ],
+    "/paths//index/get/responses/429/content/application/json/schema": [
+      "$ref"
+    ],
+    "/paths//index/get/responses/503/content/application/json/schema": [
+      "$ref"
+    ],
+    "/paths//snapshot/get/parameters/0/schema": [
+      "type"
+    ],
+    "/paths//snapshot/get/responses/200/content/application/json/schema": [
+      "allOf"
+    ],
+    "/paths//snapshot/get/responses/200/content/application/json/schema/allOf/0": [
+      "$ref"
+    ],
+    "/paths//snapshot/get/responses/200/content/application/json/schema/allOf/1": [
+      "properties",
+      "type"
+    ],
+    "/paths//snapshot/get/responses/200/content/application/json/schema/allOf/1/properties/snapshot_id": [
+      "type"
+    ],
+    "/paths//snapshot/get/responses/200/content/application/json/schema/allOf/1/properties/schema_version": [
+      "type"
+    ],
+    "/paths//snapshot/get/responses/200/content/application/json/schema/allOf/1/properties/loaded_at": [
+      "format",
+      "type"
+    ],
+    "/paths//snapshot/get/responses/400/content/application/json/schema": [
+      "$ref"
+    ],
+    "/paths//snapshot/get/responses/401/content/application/json/schema": [
+      "$ref"
+    ],
+    "/paths//snapshot/get/responses/403/content/application/json/schema": [
+      "$ref"
+    ],
+    "/paths//snapshot/get/responses/429/content/application/json/schema": [
+      "$ref"
+    ],
+    "/paths//snapshot/get/responses/503/content/application/json/schema": [
+      "$ref"
+    ],
+    "/paths//openapi/get/responses/200/content/application/json/schema": [
+      "type"
+    ]
+  },
+  "complex_enum_paths": [],
+  "contract": {
+    "openapi": "3.1.0",
+    "info": {
+      "title": "LuxDB API",
+      "version": "2.3.1",
+      "x-schema-versions": {
+        "lv": "2.3.1",
+        "dior": "2.3.0",
+        "givenchy": "2.3.0",
+        "hermes": "2.3.1",
+        "kenzo": "2.3.0",
+        "loewe": "2.3.0",
+        "tiffany": "2.3.0"
+      },
+      "description": "LuxDB: the luxury-house article archive. Search with the house's article code or a product name; `article` returns the full record.\n\nEvery answer carries the envelope below and says what it charged. One credit is one article, whole: all card fields, the price in every storefront, and the entire observed history. A code the archive does not hold costs nothing; a repeat of the same article within 24 hours costs nothing; a batch the balance cannot cover is refused whole and charges nothing.\n\nThe public sandbox key is `demo`: every endpoint answers in the same shape over a fixed set of demo articles, so this document can be read with live requests and no account. If the service is temporarily unavailable, no credits are charged. Follow Retry-After before trying again."
+    },
+    "servers": [
+      {
+        "url": "https://luxdb.net/api/v1"
+      }
+    ],
+    "security": [
+      {
+        "apiKey": []
+      },
+      {
+        "bearer": []
+      }
+    ],
+    "components": {
+      "securitySchemes": {
+        "apiKey": {
+          "type": "apiKey",
+          "in": "header",
+          "name": "X-API-Key"
+        },
+        "bearer": {
+          "type": "http",
+          "scheme": "bearer"
+        }
+      },
+      "schemas": {
+        "Envelope": {
+          "type": "object",
+          "description": "Response cost, remaining credits, reset times and data week. Present on successful JSON data responses; not on bodyless 304 responses.",
+          "required": [
+            "credits_charged",
+            "credits_subscription",
+            "credits_retail",
+            "resets_hour",
+            "resets_day",
+            "resets_month",
+            "snapshot",
+            "fields_refreshed_weekly",
+            "field_age_median_weeks"
+          ],
+          "properties": {
+            "credits_charged": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Credits this response spent. Zero on the free endpoints, on a free repeat, and on anything not delivered."
+            },
+            "credits_subscription": {
+              "type": "integer",
+              "description": "Subscription credits left after the charge."
+            },
+            "credits_retail": {
+              "type": "integer",
+              "description": "Retail credits left after the charge."
+            },
+            "credits_member_left": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Present only on a Business team member's key while the team owner has set a monthly limit per member: what this member may still spend this calendar month (UTC), after this response's charge."
+            },
+            "member_resets_at": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Present with credits_member_left: when the member's month turns, 00:00 UTC on the first of the next month."
+            },
+            "credits_bought": {
+              "type": "integer",
+              "description": "Present only when a pack was bought automatically on this request."
+            },
+            "resets_hour": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "resets_day": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "resets_month": {
+              "type": "string",
+              "format": "date-time",
+              "description": "When the subscription's next allowance is credited: every 30 days from the start of the period, not the first of the calendar month. On a Founding plan the allowance is a day's, so this is the next 00:00 UTC."
+            },
+            "snapshot": {
+              "type": "string",
+              "example": "2026-W37",
+              "description": "The week covered by this answer. Also sent as the X-Data-Snapshot header."
+            },
+            "fields_refreshed_weekly": {
+              "type": "boolean",
+              "description": "Whether the descriptive fields are re-read weekly the way prices are. Price and material in one answer are not necessarily the same age."
+            },
+            "field_age_median_weeks": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "description": "Median age of product details, in weeks; null if unavailable."
+            },
+            "account_status": {
+              "type": "string",
+              "enum": [
+                "registered",
+                "active"
+              ]
+            },
+            "sandbox": {
+              "type": "boolean",
+              "description": "Present when the answer came from the demo set rather than the catalogue."
+            }
+          }
+        },
+        "Error": {
+          "type": "object",
+          "required": [
+            "error",
+            "code"
+          ],
+          "properties": {
+            "error": {
+              "type": "string",
+              "description": "A sentence for a person."
+            },
+            "code": {
+              "type": "string",
+              "enum": [
+                "unauthorized",
+                "plan",
+                "payment_required",
+                "rate_limited",
+                "search_cap",
+                "account_paused",
+                "account_closed",
+                "member_limit_reached",
+                "not_found",
+                "method_not_allowed",
+                "bad_request",
+                "api_disabled",
+                "maintenance",
+                "internal_error"
+              ],
+              "description": "A stable value for a program. 429 is either `rate_limited` (pace: back off for Retry-After) or `search_cap` (the hour's searches are spent), and 403 is `plan`, so the status alone is not enough to act on. 402 is either `payment_required` (the account is out of credits) or `member_limit_reached` (a Business team member's monthly limit is spent; the team's credits are not, and buying more does not help)."
+            },
+            "mode": {
+              "type": "string",
+              "enum": [
+                "maintenance",
+                "stopped"
+              ],
+              "description": "When present on 503, the service is under maintenance or stopped."
+            },
+            "scope": {
+              "type": "string",
+              "enum": [
+                "member"
+              ],
+              "description": "Identifies the member whose monthly allowance was reached."
+            },
+            "member_limit": {
+              "type": "integer",
+              "description": "On `member_limit_reached`: the member's monthly limit."
+            },
+            "member_used": {
+              "type": "integer",
+              "description": "On `member_limit_reached`: credits this member spent this month."
+            },
+            "resets_at": {
+              "type": "string",
+              "format": "date-time",
+              "description": "On `member_limit_reached`: 00:00 UTC on the first of the next month."
+            },
+            "retry_after_seconds": {
+              "type": "integer",
+              "description": "On 429 and 503. Also sent as the Retry-After header."
+            }
+          }
+        },
+        "Family": {
+          "type": "object",
+          "required": [
+            "family_id",
+            "articles"
+          ],
+          "properties": {
+            "family_id": {
+              "type": "string"
+            },
+            "articles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "article",
+                  "name",
+                  "color",
+                  "status",
+                  "size_scale"
+                ],
+                "properties": {
+                  "article": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "color": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "status": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "size_scale": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Resolved": {
+          "oneOf": [
+            {
+              "type": "object",
+              "required": [
+                "status",
+                "article",
+                "region",
+                "lv_url_status"
+              ],
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "const": "product"
+                },
+                "article": {
+                  "type": "string"
+                },
+                "region": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "lv_url_status": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "status",
+                "family_id",
+                "articles",
+                "region"
+              ],
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "const": "family"
+                },
+                "family_id": {
+                  "type": "string"
+                },
+                "articles": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "region": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "status",
+                "key",
+                "variant_of",
+                "variant_kind",
+                "label",
+                "region"
+              ],
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "const": "variant"
+                },
+                "key": {
+                  "type": "string"
+                },
+                "variant_of": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "variant_kind": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "label": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "region": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "status",
+                "key",
+                "region"
+              ],
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "const": "not_in_catalog"
+                },
+                "key": {
+                  "type": "string"
+                },
+                "region": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "status"
+              ],
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "const": "unrecognized_url"
+                }
+              }
+            }
+          ]
+        },
+        "Article": {
+          "type": "object",
+          "properties": {
+            "article": {
+              "type": "string",
+              "description": "Article — the brand's reference code for the item; with brand, the key of every table. For Louis Vuitton: six characters, e.g. 1ACVHU. For Dior: model code, underscore, colour or variant code, e.g. 15JOU090I602_C545. For Loewe: model code, hyphen, four-digit colour code; fragrances use a five-digit model code. For Kenzo: model code, dot, colour code. For Tiffany & Co.: eight-digit item number. For Givenchy: model code, hyphen, three-digit colour code. For Hermès: model code, colour code and an optional size, e.g. H041054CK v01 M; tableware uses P-codes; belts sold as a set combine the buckle and strap codes.",
+              "example": "1ACVHU"
+            },
+            "requested": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "description": "Null when the code asked is this card's own. A duplicate code (the same item listed under a second code) answers with the card it duplicates, before a purchase as after one, and this names the code asked, the card it duplicates and that card's own size label. Once your account has bought this item, any other code of it — a size with a code of its own, a size code with no card, a colour code — answers with this card, and this says which code was asked: the code, the card that code has of its own (null when it has none), its size label and how it relates to this card (alias_kind). Before a purchase any other code answers only for itself, with requested null: a size code with no card of its own is not_found, like any unknown code.",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "The code as asked, upper-cased."
+                },
+                "article": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "description": "The card the asked code has of its own — for a duplicate code, the card it duplicates; null when it has none."
+                },
+                "size_label": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "description": "The size the asked code stands for, when it stands for one."
+                },
+                "alias_kind": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "description": "How the asked code relates to this card, when it is a size code."
+                }
+              },
+              "required": [
+                "code",
+                "article",
+                "size_label",
+                "alias_kind"
+              ]
+            },
+            "brand": {
+              "type": "string",
+              "description": "Brand code — the first key of every table (lv = Louis Vuitton, dior = Dior, hermes = Hermès, …); the catalogue holds several brands.",
+              "example": "lv",
+              "enum": [
+                "lv",
+                "dior",
+                "loewe",
+                "tiffany",
+                "kenzo",
+                "givenchy",
+                "hermes"
+              ]
+            },
+            "brand_name_en": {
+              "type": "string",
+              "description": "Brand name in English for the brand code (Louis Vuitton, Dior, Hermès, …).",
+              "example": "Louis Vuitton"
+            },
+            "slug": {
+              "type": "string",
+              "description": "The stable, opaque address of this article on the storefront, not the house's product identifier."
+            },
+            "name": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Item name in English, as the brand writes it. Empty = not captured. For Louis Vuitton: size tokens PM/MM/GM/BB stay in capitals. For Hermès: items sold only on French- or Japanese-language storefronts keep the local name.",
+              "example": "Rivoli Sneaker"
+            },
+            "name_source": {
+              "type": "string",
+              "description": "Source of the displayed English product name.",
+              "example": "brand_english_page",
+              "enum": [
+                "brand_english_page",
+                "dictionary",
+                "partial",
+                "model_name",
+                "original_language",
+                "brand_english"
+              ]
+            },
+            "name_lang": {
+              "type": "string",
+              "description": "Language of the name (en, pt, es, de, fr, it, zh, ko, ja…); may differ from text_lang.",
+              "example": "en"
+            },
+            "family_id": {
+              "type": "string",
+              "description": "Model: the brand's page or code that groups the colours and sizes of one model. For Louis Vuitton: the Louis Vuitton page id (nvprod…). For Dior, Loewe, Kenzo and Givenchy: the brand's model code, shared by all colours of one model. For Tiffany & Co.: the Tiffany design number (M…), shared by the metals, stones and sizes of one design. For Hermès: the model code without colour and size, e.g. H041054CK.",
+              "example": "nvprod5190267v"
+            },
+            "family_alias_of": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Main article of the same product, listed by the brand under another code on another model page. For display only: each card keeps its own prices, history and credit; both cards say «Same product under another code». Empty = none. For a second listing of the same item, see duplicate_of. For Dior, Loewe, Tiffany & Co., Kenzo, Givenchy and Hermès: not used; always empty.",
+              "example": null
+            },
+            "department": {
+              "type": "string",
+              "description": "Product department.",
+              "example": "Shoes",
+              "enum": [
+                "Accessories",
+                "Bags & Small Leather Goods",
+                "Beauty",
+                "Books",
+                "Equestrian",
+                "Eyewear",
+                "Fashion Jewelry",
+                "Fine Jewelry",
+                "Fragrance",
+                "Home",
+                "Other",
+                "Ready-to-Wear",
+                "Shoes",
+                "Tech & Objects",
+                "Travel",
+                "Watches"
+              ]
+            },
+            "category": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Category within the department, in English, one name per department; the storefront's own name is in category_raw. Empty = not captured.",
+              "example": "Sneakers"
+            },
+            "product_type": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Type of item in English (sneaker, ankle boot, tote, card holder, bracelet, belt, watch strap…), for filtering. The full list of values is in the schema file under product_type_canon.",
+              "example": "sneaker"
+            },
+            "collection": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "The brand's named line, as the brand shows it. Empty = the page names no line. For Louis Vuitton: e.g. Capucines, Speedy, Tambour, Objets Nomades. For Dior: e.g. Lady Dior. For Loewe: e.g. Puzzle. For Tiffany & Co.: e.g. Elsa Peretti®. For Hermès: the line named on the product page, e.g. Chaîne d'ancre, Petit h. For Givenchy: not published by Givenchy; always empty.",
+              "example": "Rivoli"
+            },
+            "season": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Show or collection season: \"Fall-Winter 2026\", \"Spring-Summer 2026\", \"Pre-Fall 2026\". Empty = not stated. For Dior, Loewe, Tiffany & Co., Kenzo and Givenchy: not published by the brand; always empty. For Hermès: from the season the page states; most items carry none.",
+              "example": "Fall-Winter 2026"
+            },
+            "audience": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Who the item is for: Women, Men, Unisex or Kids, as the brand labels it or as its menu, name or description states it. Empty = the brand gives none; not applicable for Home, Books, Fragrance, Beauty and Tech. For Louis Vuitton: never Kids. For Dior: Kids covers Baby Dior and Dior's children's lines. For Tiffany & Co.: Tiffany rarely labels the wearer; filled only where the name says men's or women's. For Hermès: from the storefront menu (Women, Men, Kids); empty for home, equestrian and gift items.",
+              "example": "Men",
+              "enum": [
+                "Women",
+                "Men",
+                "Unisex",
+                "Kids",
+                null
+              ]
+            },
+            "campaign": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "description": "Campaigns featuring the item, such as gift guides, seasonal capsules and collaborations (list). Empty = none. For Dior, Loewe, Tiffany & Co., Kenzo and Givenchy: not published by the brand; always empty. For Hermès: only «Runway» is published."
+            },
+            "material": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Material in English; several differing values are joined by \" · \". Empty = not captured; not applicable for Books, Fragrance and Beauty. For Tiffany & Co.: Plated or coloured finishes are named as such (e.g. Gold-plated Brass), not as solid gold.",
+              "example": "Damier calf leather"
+            },
+            "material_line": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "The brand's named material line (a signature canvas or leather), only when the item is made of it: a print of the line's motif on cotton is not the line. Empty = not made of a named line. For Louis Vuitton: lines such as Monogram Canvas, Monogram Empreinte Leather, Damier Ebene Canvas, Epi, Taurillon, Mahina, Taiga. For Dior, Loewe, Tiffany & Co., Kenzo, Givenchy and Hermès: not published by the brand; always empty.",
+              "example": "Damier Canvas"
+            },
+            "composition": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": "object"
+              },
+              "description": "Fibre composition as a list of {fiber, pct}, e.g. from \"57% Wool, 25% Cashmere…\". Percentages may be missing. Empty = not published."
+            },
+            "color": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Colour in English. Basic colour words are translated (Bleu Clair → Light Blue); the brand's own shade names stay as it writes them in English. Empty = not published. For Hermès: a broad colour family; the house's own colour name (e.g. Gold, Etoupe) is in specs_raw.color_hermes.",
+              "example": "White"
+            },
+            "color_group": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Colour group for the filter, one of 16 values (Black, White, Brown, Beige, Grey, Blue, Green, Red, Pink, Purple, Yellow, Orange, Gold, Silver, Multicolor, Natural). Jewellery and watches are grouped by metal.",
+              "example": "White",
+              "enum": [
+                "Black",
+                "Blue",
+                "Brown",
+                "Beige",
+                "White",
+                "Grey",
+                "Pink",
+                "Gold",
+                "Green",
+                "Silver",
+                "Red",
+                "Orange",
+                "Yellow",
+                "Multicolor",
+                "Natural",
+                "Purple",
+                null
+              ]
+            },
+            "made_in": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Country or countries of manufacture in English, e.g. \"Italy\" or \"France · Spain · Italy\". Empty = not stated.",
+              "example": "Italy"
+            },
+            "made_in_countries": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "description": "Countries of manufacture as ISO 3166 codes (list, same order as made_in) — a filter."
+            },
+            "customizable": {
+              "type": "boolean",
+              "description": "The item can be personalised; no colour applies.",
+              "example": false
+            },
+            "dimensions": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "raw": {
+                  "type": "string"
+                },
+                "unit_raw": {
+                  "type": "string"
+                },
+                "axes": {
+                  "type": "string"
+                },
+                "length_cm": {
+                  "type": "number"
+                },
+                "height_cm": {
+                  "type": "number"
+                },
+                "width_cm": {
+                  "type": "number"
+                },
+                "length_in": {
+                  "type": "number"
+                },
+                "height_in": {
+                  "type": "number"
+                },
+                "width_in": {
+                  "type": "number"
+                }
+              },
+              "description": "Raw and parsed measurements, in centimetres and inches where the house publishes them."
+            },
+            "measures": {
+              "type": "object",
+              "description": "Measurements that apply to this kind of thing only: heel height, case diameter, carat, karat. Absent rather than zero when the kind does not have one."
+            },
+            "specs_json": {
+              "type": "object",
+              "description": "The house's own specification rows for this article, as published."
+            },
+            "sizes": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              },
+              "description": "Every size row the house lists for this article, with the storefront each was read from."
+            },
+            "family_sizes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Sizes offered by the family that this article does not list in its own sizes."
+            },
+            "colors": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Colour names we hold in English."
+            },
+            "colors_untranslated": {
+              "type": "number",
+              "description": "Number of colour names not available in English."
+            },
+            "status": {
+              "type": "string",
+              "description": "Status (see Status names): in_catalog — In catalog (with weeks_unlisted = 1: Not listed this week) · gone — Delisted. For Louis Vuitton: e1_only — Listed without price.",
+              "example": "gone",
+              "enum": [
+                "in_catalog",
+                "e1_only",
+                "gone"
+              ]
+            },
+            "status_as_of": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Last week the item was seen; for delisted items, the week it was last seen (\"delisted as of\"). Empty = never seen or priced, so the date is unknown.",
+              "example": "2026-W30"
+            },
+            "weeks_unlisted": {
+              "type": "integer",
+              "description": "Consecutive weeks without a listing or price; 0 means seen this week.",
+              "example": 13
+            },
+            "variants": {
+              "type": "object",
+              "description": "How many size and colour codes resolve to this card, and in how many countries."
+            },
+            "size_variants": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              },
+              "description": "The full size rows, not a count: matching a marketplace listing needs the size, the storefront and the code."
+            },
+            "variant_codes": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              },
+              "description": "Related product codes published by the house."
+            },
+            "first_seen": {
+              "type": "string",
+              "description": "First week the item was seen: listed on a storefront, live at its address, priced, or on a product page. For Louis Vuitton: prices for every article on every storefront start 2026-W28; earlier weeks are sparse.",
+              "example": "2026-W28"
+            },
+            "last_seen": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Last week the item was seen (see Status names).",
+              "example": "2026-W30"
+            },
+            "record_completeness": {
+              "type": "string",
+              "description": "Product detail coverage.",
+              "example": "full",
+              "enum": [
+                "full",
+                "partial",
+                "catalog_only",
+                "thin"
+              ]
+            },
+            "text_lang": {
+              "type": "string",
+              "description": "Language of the item's description (ISO 639-1). \"unknown\" = not determined.",
+              "example": "en"
+            },
+            "text_source_region": {
+              "type": "string",
+              "description": "Storefront the text comes from; English storefronts are preferred.",
+              "example": "eng_AU"
+            },
+            "lv_url": {
+              "type": "string",
+              "description": "Link to the item on the brand's site: an English storefront where the page is live, otherwise a local one; see lv_url_status and page_checked_snapshot. For Hermès: the product page on hermes.com.",
+              "example": "/eng-au/products/rivoli-sneaker-nvprod5190267v/1ACVHU"
+            },
+            "lv_url_status": {
+              "type": "string",
+              "description": "Link status: alive — live this week · repointed — points to another storefront where the page is live · gone_all — not found on any storefront at the latest check · unverified — not confirmed live this week · none — no link known. For Dior, Loewe, Tiffany & Co., Kenzo and Givenchy: alive confirms a current listing, not a separate check of the link. For Hermès: unverified is not evidence that the page has gone.",
+              "example": "gone_all",
+              "enum": [
+                "alive",
+                "repointed",
+                "gone_all",
+                "unverified",
+                "none"
+              ]
+            },
+            "page_checked_snapshot": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Week the link was last checked. Empty = never checked.",
+              "example": "2026-W39"
+            },
+            "storefront_urls": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              },
+              "description": "The article's page on each regional storefront, with its status (alive, repointed, gone) and the weeks it was first seen, last seen and last checked."
+            },
+            "description": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Marketing description in the brand's words; sizes, dimensions, care and \"Made in\" are in their own fields. English text from the item's own page where available, otherwise from the English page of the same model where there is one (the colour may differ); see description_en_source. Empty = not captured; local-language text is in description_local.",
+              "example": "The brand's description and the local-language name are part of a paid card."
+            },
+            "description_short": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "The brand's short blurb — the opening text of the card; in lists it stands in for the description. Empty = not captured. For Kenzo: many Kenzo pages carry no separate short text; empty for most items.",
+              "example": "The brand's description and the local-language name are part of a paid card."
+            },
+            "description_local": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Description in the language of the local storefront.",
+              "example": null
+            },
+            "description_source": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Where the English description comes from: the item's own page, the English page of the same model (the colour may differ), or an earlier week. Empty = no English description (see text_lang).",
+              "example": null,
+              "enum": [
+                "own",
+                "same_model",
+                "carried",
+                null
+              ]
+            },
+            "description_short_redundant": {
+              "type": [
+                "boolean",
+                "null"
+              ],
+              "description": "True when the description contains the whole short blurb (then it is not shown separately).",
+              "example": null
+            },
+            "name_local": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Item name in the language of the local storefront, when a local version exists. Hidden on English cards.",
+              "example": null
+            },
+            "name_lv": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Original product name when the displayed name comes from another source."
+            },
+            "features": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "description": "Features in the brand's own words, one per line, as listed on the product page (materials, hardware, closures, pockets, fit); the marketing text is in description. Watch features keep their section name (\"Movement: Quartz movement\"). English from the item's own page where available, otherwise from the English page of the same model where there is one (the colour may differ); see features_source. Empty = no feature list published.",
+              "example": null
+            },
+            "care": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "description": "Care and storage notes from the product page. On Chinese, Japanese and Korean records the brand's standard care lines are given in its own English wording; other lines stay in the original language. Empty = not published; not applicable for Books, Fragrance and Beauty. For Dior: only where the page lists care instructions (about one item in twelve). For Loewe and Tiffany & Co.: not published by the brand; always empty.",
+              "example": null
+            },
+            "sustainability": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "description": "Responsible-sourcing notes from the brand's sustainability section (Leather Working Group tanneries, Responsible Jewellery Council, Kimberley Process, origin). Empty = not published. For Dior, Loewe, Tiffany & Co., Kenzo, Givenchy and Hermès: not published by the brand; always empty.",
+              "example": null
+            },
+            "unparsed": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "description": "Additional details in the brand's own wording, as \"label: value\" lines. Empty = no additional details.",
+              "example": null
+            },
+            "features_source": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Source of the product features.",
+              "example": null,
+              "enum": [
+                "page",
+                "house_api",
+                "same_model",
+                "carried",
+                null
+              ]
+            },
+            "description_from": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Article whose English page the description comes from.",
+              "example": "1ACVHU"
+            },
+            "names_by_lang": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "description": "The brand's own name for the item in each storefront language, as published (ISO 639-1 → list of names); the English name is in name_en. Use it to search in the shopper's language. Empty = no local-language name in these data.",
+              "example": null
+            },
+            "carried_fields": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "description": "Text fields taken from an earlier week: description · features · care. Empty = none.",
+              "example": null
+            },
+            "text_source_snapshot": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Week the English text is from, when it is older than this week: the latest page had no English, so description, features and care come from that week. Prices, availability and sizes are current. Empty = the text is from this week.",
+              "example": null
+            },
+            "color_group_lv": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "The brand's own colour group, mapped to the same 16 groups (Preto / 블랙 / ブラック → Black); shown next to color_group on the card, while the filter uses color_group. Empty when the brand gives none or it fits none of the 16 groups (Transparent, patterns). For Dior, Loewe, Tiffany & Co., Kenzo, Givenchy and Hermès: always empty.",
+              "example": "White",
+              "enum": [
+                "Black",
+                "Blue",
+                "Brown",
+                "Beige",
+                "White",
+                "Grey",
+                "Pink",
+                "Gold",
+                "Green",
+                "Silver",
+                "Red",
+                "Orange",
+                "Yellow",
+                "Multicolor",
+                "Natural",
+                "Purple",
+                null
+              ]
+            },
+            "color_group_differs": {
+              "type": "boolean",
+              "description": "True when color_group and the brand's own colour group (color_group_lv) are both present and differ (e.g. White against the brand's Beige); false otherwise, including when one of them is empty.",
+              "example": false
+            },
+            "composition_secondary": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Secondary materials: \"Lining: 100% Polyamide · Other: Lamb\" (lining, inserts, other). Empty = none published.",
+              "example": null
+            },
+            "made_in_multi_country": {
+              "type": "boolean",
+              "description": "True when more than one country of manufacture is stated.",
+              "example": false
+            },
+            "size_run": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "description": "Sizes listed on the item page, labels as sold, for items whose sizes are not in size_variant. Empty = no size list.",
+              "example": null
+            },
+            "size_run_region": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Storefront the size list comes from (its country's size scale applies).",
+              "example": "eng_AU"
+            },
+            "size_scale": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Size scale of the item: EU · US · UK · cm · inches · alpha · ring · ml · months · years · one_size · numeric · other. For Dior and Kenzo: baby and children's sizes use the months and years scales. For Tiffany & Co.: rings use ring sizes; necklace and bracelet lengths are in inches. For Hermès: EU shoe and clothing sizes, belt and bracelet lengths in cm, PM/GM, T1–T3, horse and dog sizes.",
+              "example": "US/UK",
+              "enum": [
+                "EU",
+                "US",
+                "UK",
+                "US/UK",
+                "inches",
+                "cm",
+                "alpha",
+                "ring",
+                "ml",
+                "months",
+                "years",
+                "one_size",
+                "numeric",
+                "other",
+                null
+              ]
+            },
+            "sold_per_unit": {
+              "type": "boolean",
+              "description": "True when the brand sells the item per unit (single earrings, studs, cufflinks).",
+              "example": false
+            },
+            "lv_url_region": {
+              "type": "string",
+              "description": "Storefront the link points to.",
+              "example": "eng_AU"
+            },
+            "last_price_countries": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "description": "Number of countries with a price in the last week with a price (goes with price_usd_last).",
+              "example": 5
+            },
+            "last_price_regions": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "description": "Number of storefronts with a price in that week.",
+              "example": 5
+            },
+            "sellable_anywhere": {
+              "type": "boolean",
+              "description": "True when at least one storefront showing the item this week offers it for online purchase.",
+              "example": false
+            },
+            "price": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "usd_ref": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "usd_min": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "usd_max": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "usd_fr": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "usd_us": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "countries": {
+                  "type": "number"
+                },
+                "single_market": {
+                  "type": "boolean"
+                },
+                "single_market_country": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "last_known_usd": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "last_known_snapshot": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "by_storefront": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "region": {
+                        "type": "string",
+                        "description": "Storefront code (language_country, e.g. eng_NL): the brand's site for one country and language; see the region table for the country.",
+                        "example": "eng_AU"
+                      },
+                      "country": {
+                        "type": "string",
+                        "description": "Country of the storefront.",
+                        "example": "Australia"
+                      },
+                      "language": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "description": "Language of the storefront (ISO 639).",
+                        "example": "en"
+                      },
+                      "tax_note": {
+                        "type": "string",
+                        "description": "Tax basis in words: \"incl. VAT 20%\", \"excl. sales tax\", \"no VAT or sales tax\". Percentages are standard statutory rates for reference, not checked per item.",
+                        "example": "incl. GST 10%"
+                      },
+                      "price_includes_tax": {
+                        "type": [
+                          "boolean",
+                          "null"
+                        ],
+                        "description": "True when storefront prices include tax (VAT/GST): EU, UK, Switzerland, Australia, Japan, China, Brazil, Mexico, Korea, UAE; false for the United States, Canada and Hong Kong. Empty for an international storefront (no prices). For Hermès: some storefronts publish no prices (e.g. Austria); their rows carry presence only.",
+                        "example": true
+                      },
+                      "currency": {
+                        "type": "string",
+                        "description": "Currency of the storefront (ISO 4217).",
+                        "example": "AUD"
+                      },
+                      "local": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "description": "Price as published on the storefront (decimal; JPY and KRW without fraction), only when price_state = current. Empty = no price on this storefront this week; the last known price is in last_price, last_price_currency, last_price_usd and last_price_snapshot."
+                      },
+                      "usd": {
+                        "type": [
+                          "number",
+                          "null"
+                        ],
+                        "description": "Price in USD at the week's rate (the last ECB rate before the week); empty when price_state is not current (see last_price_usd).",
+                        "example": 1199.72
+                      },
+                      "availability": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "description": "Availability on the storefront: sellable · no · backorder · InStoreOnly · not_sold_online · empty (not reported by the storefront). For Louis Vuitton: the China storefront reports no availability. For Dior: not_sold_online = shown on Dior's site but sold only in boutiques. For Tiffany & Co.: backorder = can be ordered now, ships later. For Hermès: not_sold_online = the page shows the item, but it is sold in boutiques only.",
+                        "example": "sellable",
+                        "enum": [
+                          "sellable",
+                          "no",
+                          "backorder",
+                          "InStoreOnly",
+                          "not_sold_online",
+                          "not_in_region",
+                          "",
+                          null
+                        ]
+                      },
+                      "observed_at": {
+                        "type": "string",
+                        "format": "date",
+                        "description": "When this row was seen (UTC).",
+                        "example": "2026-07-20"
+                      },
+                      "snapshot_id": {
+                        "type": "string",
+                        "description": "Week of the collection (ISO week), e.g. 2026-W36.",
+                        "example": "2026-W30"
+                      },
+                      "is_current": {
+                        "type": "boolean",
+                        "description": "true — the price is current (price_state = current); false — no current price: price is empty, price_state says why, and the last known price is in last_price*.",
+                        "example": false
+                      },
+                      "state": {
+                        "type": "string",
+                        "description": "Price observation status.",
+                        "example": "withdrawn",
+                        "enum": [
+                          "current",
+                          "withdrawn",
+                          "not_checked"
+                        ]
+                      },
+                      "last_checked_week": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "description": "Last week the storefront price was checked; null if never checked.",
+                        "example": "2026-W43"
+                      }
+                    }
+                  }
+                }
+              },
+              "description": "The reference price across storefronts, the range, and each storefront's own."
+            },
+            "counters": {
+              "type": "object",
+              "properties": {
+                "regions_with_price": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ],
+                  "description": "Number of storefronts with a current price (0 = no prices).",
+                  "example": 0
+                },
+                "regions_present": {
+                  "type": "integer",
+                  "description": "Number of storefronts with a recorded listing.",
+                  "example": 0
+                },
+                "regions_observed": {
+                  "type": "integer",
+                  "description": "Number of storefronts where the article was observed.",
+                  "example": 0
+                },
+                "regions_declared": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ],
+                  "description": "Storefronts known only from the brand's links from another storefront, not seen there; 0 for brands without such links. For Dior: storefronts known only from Dior's links to other language versions are listed but not counted, so this is 0.",
+                  "example": 0
+                },
+                "regions_present_ex_e1": {
+                  "type": "integer",
+                  "description": "Number of country storefronts that showed the item (see Status names), not counting the international storefront. On the main card of a size set: all its sizes together.",
+                  "example": 0
+                },
+                "countries_with_price": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ],
+                  "description": "Number of countries with a current price (same as price_ref_countries). For Loewe: the euro-area storefront (one price for all member states) counts as one country.",
+                  "example": 0
+                },
+                "countries_present": {
+                  "type": "integer",
+                  "description": "How many countries count the item as present (two storefronts of one country count once; an international storefront is not a country). For Loewe: the euro-area storefront (one price for all member states) counts as one country. On the main card of a size set (see size_member) the storefronts of all its sizes are counted together.",
+                  "example": 0
+                },
+                "countries_observed": {
+                  "type": "integer",
+                  "description": "Number of distinct countries among the storefronts counted in regions_observed (two storefronts of one country count once). On the main card of a size set: all its sizes together.",
+                  "example": 0
+                },
+                "countries_declared": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ],
+                  "description": "Further countries known only from the brand's links to the same code; links to another colour of the model never count. For Dior: 0, as for regions_declared.",
+                  "example": 0
+                },
+                "weeks_of_history": {
+                  "type": "integer",
+                  "description": "Number of weeks with a price on at least one storefront.",
+                  "example": 7
+                },
+                "price_events": {
+                  "type": "integer",
+                  "description": "Number of weeks in which the price changed on at least one storefront.",
+                  "example": 0
+                },
+                "photos": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ],
+                  "description": "Number of photos in the current gallery, as shown on the brand's page. Removed photos count in photos_ever; photos the brand has but does not show on its page are counted in photos_additional. 0 = no photos. For Tiffany & Co.: When a card has no photo under its own item number, the photos its page shows for another carat or size of the same design and metal count. Null means media information is unavailable; 0 means none.",
+                  "example": 0
+                },
+                "photos_ever": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ],
+                  "description": "How many photos the gallery has ever had, including photos the brand later removed (see image.last_seen). Only photos shown on the brand's page count. For Tiffany & Co.: When a card has no photo under its own item number, the photos its page shows for another carat or size of the same design and metal count. Null means media information is unavailable; 0 means none.",
+                  "example": 3
+                },
+                "photos_additional": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ],
+                  "description": "Number of additional product photos not shown on the product page. Null means media information is unavailable; 0 means none.",
+                  "example": 0
+                },
+                "videos": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ],
+                  "description": "Number of distinct videos. Null means media information is unavailable; 0 means none.",
+                  "example": 0
+                }
+              },
+              "description": "Product coverage and media counts. regions_observed and regions_declared distinguish observed availability from availability reported by the brand; countries_observed and countries_declared count the corresponding countries. photos and photos_ever count photos shown on the product page. `photos_additional` counts additional product images, not included in those totals."
+            },
+            "history": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              },
+              "description": "Every price observation the archive holds for this article, by storefront and week, in the local currency and in dollars at that week's rate. Most of what a credit buys."
+            },
+            "gallery": {
+              "type": "object",
+              "properties": {
+                "photos": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ],
+                  "description": "Number of photos in the current gallery, as shown on the brand's page. Removed photos count in photos_ever; photos the brand has but does not show on its page are counted in photos_additional. 0 = no photos. For Tiffany & Co.: When a card has no photo under its own item number, the photos its page shows for another carat or size of the same design and metal count. Null means media information is unavailable; 0 means none.",
+                  "example": 0
+                },
+                "videos": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ],
+                  "description": "Number of distinct videos. Null means media information is unavailable; 0 means none.",
+                  "example": 0
+                },
+                "links": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "note": {
+                  "type": "string"
+                }
+              },
+              "description": "Photo and video counts. Media links are currently unavailable."
+            }
+          }
+        },
+        "SearchRow": {
+          "type": "object",
+          "properties": {
+            "article": {
+              "type": "string",
+              "description": "Article — the brand's reference code for the item; with brand, the key of every table. For Louis Vuitton: six characters, e.g. 1ACVHU. For Dior: model code, underscore, colour or variant code, e.g. 15JOU090I602_C545. For Loewe: model code, hyphen, four-digit colour code; fragrances use a five-digit model code. For Kenzo: model code, dot, colour code. For Tiffany & Co.: eight-digit item number. For Givenchy: model code, hyphen, three-digit colour code. For Hermès: model code, colour code and an optional size, e.g. H041054CK v01 M; tableware uses P-codes; belts sold as a set combine the buckle and strap codes.",
+              "example": "1ACVHU"
+            },
+            "name": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Item name in English, as the brand writes it. Empty = not captured. For Louis Vuitton: size tokens PM/MM/GM/BB stay in capitals. For Hermès: items sold only on French- or Japanese-language storefronts keep the local name.",
+              "example": "Rivoli Sneaker"
+            },
+            "family_id": {
+              "type": "string",
+              "description": "Model: the brand's page or code that groups the colours and sizes of one model. For Louis Vuitton: the Louis Vuitton page id (nvprod…). For Dior, Loewe, Kenzo and Givenchy: the brand's model code, shared by all colours of one model. For Tiffany & Co.: the Tiffany design number (M…), shared by the metals, stones and sizes of one design. For Hermès: the model code without colour and size, e.g. H041054CK.",
+              "example": "nvprod5190267v"
+            },
+            "department": {
+              "type": "string",
+              "description": "Product department.",
+              "example": "Shoes",
+              "enum": [
+                "Accessories",
+                "Bags & Small Leather Goods",
+                "Beauty",
+                "Books",
+                "Equestrian",
+                "Eyewear",
+                "Fashion Jewelry",
+                "Fine Jewelry",
+                "Fragrance",
+                "Home",
+                "Other",
+                "Ready-to-Wear",
+                "Shoes",
+                "Tech & Objects",
+                "Travel",
+                "Watches"
+              ]
+            },
+            "category": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Category within the department, in English, one name per department; the storefront's own name is in category_raw. Empty = not captured.",
+              "example": "Sneakers"
+            },
+            "product_type": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Type of item in English (sneaker, ankle boot, tote, card holder, bracelet, belt, watch strap…), for filtering. The full list of values is in the schema file under product_type_canon.",
+              "example": "sneaker"
+            },
+            "color_group": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Colour group for the filter, one of 16 values (Black, White, Brown, Beige, Grey, Blue, Green, Red, Pink, Purple, Yellow, Orange, Gold, Silver, Multicolor, Natural). Jewellery and watches are grouped by metal.",
+              "example": "White",
+              "enum": [
+                "Black",
+                "Blue",
+                "Brown",
+                "Beige",
+                "White",
+                "Grey",
+                "Pink",
+                "Gold",
+                "Green",
+                "Silver",
+                "Red",
+                "Orange",
+                "Yellow",
+                "Multicolor",
+                "Natural",
+                "Purple",
+                null
+              ]
+            },
+            "status": {
+              "type": "string",
+              "description": "Status (see Status names): in_catalog — In catalog (with weeks_unlisted = 1: Not listed this week) · gone — Delisted. For Louis Vuitton: e1_only — Listed without price.",
+              "example": "gone",
+              "enum": [
+                "in_catalog",
+                "e1_only",
+                "gone"
+              ]
+            },
+            "price_usd_band": {
+              "type": "string"
+            },
+            "regions_with_price": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "description": "Number of storefronts with a current price (0 = no prices).",
+              "example": 0
+            },
+            "countries_with_price": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "description": "Number of countries with a current price (same as price_ref_countries). For Loewe: the euro-area storefront (one price for all member states) counts as one country.",
+              "example": 0
+            },
+            "weeks_of_history": {
+              "type": "integer",
+              "description": "Number of weeks with a price on at least one storefront.",
+              "example": 7
+            },
+            "photos": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "description": "Number of photos in the current gallery, as shown on the brand's page. Removed photos count in photos_ever; photos the brand has but does not show on its page are counted in photos_additional. 0 = no photos. For Tiffany & Co.: When a card has no photo under its own item number, the photos its page shows for another carat or size of the same design and metal count. Null means media information is unavailable; 0 means none.",
+              "example": 0
+            },
+            "videos": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "description": "Number of distinct videos. Null means media information is unavailable; 0 means none.",
+              "example": 0
+            }
+          }
+        }
+      }
+    },
+    "paths": {
+      "/article": {
+        "get": {
+          "summary": "One article, whole — or up to twenty at once",
+          "description": "One credit per article. A code the archive does not hold is `not_found` and costs nothing; the same code twice in one batch is one article; a repeat within 24 hours is free. Before any code is looked up, a batch is judged by how many codes it asks for, repeats excepted: more than the balance can cover (with an automatic purchase, if it is on) is refused whole with 402, and more than the hourly or daily ceiling has left is refused whole with 429 and Retry-After; either charges nothing. When the batch is served, codes the archive does not hold still cost nothing.",
+          "parameters": [
+            {
+              "name": "codes",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "One article code, or up to twenty separated by commas."
+            },
+            {
+              "name": "brand",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "string"
+              },
+              "description": "Which house to answer about: `lv` (the default), `dior`, … — one brand per request. The houses open for sale are listed; an unknown or not yet open brand is refused with 400 and that list."
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "The answer, in the common envelope.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/Envelope"
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "results": {
+                            "type": "object",
+                            "additionalProperties": {
+                              "type": "object",
+                              "properties": {
+                                "status": {
+                                  "type": "string",
+                                  "enum": [
+                                    "ok",
+                                    "not_found",
+                                    "error"
+                                  ]
+                                },
+                                "article": {
+                                  "$ref": "#/components/schemas/Article"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "The request is not valid.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "No key, or a key this archive does not know.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            },
+            "402": {
+              "description": "payment_required: the account is out of credits; member_limit_reached: the Business team member's monthly limit is spent. Nothing is charged.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            },
+            "403": {
+              "description": "The key is live but beyond what its plan allows.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            },
+            "429": {
+              "description": "Too fast, or out of a daily allowance. Always with a timer.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            },
+            "503": {
+              "description": "Service temporarily unavailable. No credits are charged. Follow Retry-After.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/search": {
+        "get": {
+          "summary": "Find articles by text and filters",
+          "description": "Free. Returns a light row with the price as a BAND; the exact shelf, the regions, the history and the gallery are what a credit buys. A code typed here is looked up rather than matched; a size or colour code finds the article it belongs to only once your account has bought that product, and before is no match, like a code the archive does not hold. A duplicate code (duplicate_of) is left out of a text or filter search and found by its exact code.",
+          "parameters": [
+            {
+              "name": "q",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "string"
+              },
+              "description": "Text, or an article code."
+            },
+            {
+              "name": "department",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "string"
+              },
+              "description": "Department name."
+            },
+            {
+              "name": "category",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "string"
+              },
+              "description": "Category name."
+            },
+            {
+              "name": "type",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "string"
+              },
+              "description": "Product type."
+            },
+            {
+              "name": "color",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "string"
+              },
+              "description": "Colour group."
+            },
+            {
+              "name": "status",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "string"
+              },
+              "description": "in_catalog, gone, or e1_only."
+            },
+            {
+              "name": "page",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "string"
+              },
+              "description": "Page number."
+            },
+            {
+              "name": "brand",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "string"
+              },
+              "description": "Which house to answer about: `lv` (the default), `dior`, … — one brand per request. The houses open for sale are listed; an unknown or not yet open brand is refused with 400 and that list."
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "The answer, in the common envelope.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/Envelope"
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "total": {
+                            "type": "integer"
+                          },
+                          "page": {
+                            "type": "integer"
+                          },
+                          "pages": {
+                            "type": "integer"
+                          },
+                          "results": {
+                            "type": "array",
+                            "items": {
+                              "$ref": "#/components/schemas/SearchRow"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "The request is not valid.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "No key, or a key this archive does not know.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            },
+            "403": {
+              "description": "The key is live but beyond what its plan allows.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            },
+            "429": {
+              "description": "Too fast, or out of a daily allowance. Always with a timer.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            },
+            "503": {
+              "description": "Service temporarily unavailable. No credits are charged. Follow Retry-After.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/changes": {
+        "get": {
+          "summary": "What changed since a given week",
+          "description": "Free, and the reason a weekly sync is cheap: ask what moved, then buy only those articles. Full details (region and what changed) are given for articles your account has bought; for any other article an event names the article, its kind and its week, with region and detail null. A key may read a limited number of pages a day; past it the answer is 429 with Retry-After. Available weeks are limited to those the archive holds.",
+          "parameters": [
+            {
+              "name": "since",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "An ISO week, for example 2026-W30."
+            },
+            {
+              "name": "page",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "string"
+              },
+              "description": "Page number."
+            },
+            {
+              "name": "brand",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "string"
+              },
+              "description": "Which house to answer about: `lv` (the default), `dior`, … — one brand per request. The houses open for sale are listed; an unknown or not yet open brand is refused with 400 and that list."
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "The answer, in the common envelope.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/Envelope"
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "since": {
+                            "type": "string"
+                          },
+                          "departures_from": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "total": {
+                            "type": "integer"
+                          },
+                          "page": {
+                            "type": "integer"
+                          },
+                          "pages": {
+                            "type": "integer"
+                          },
+                          "events": {
+                            "type": "array",
+                            "items": {
+                              "type": "object"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "The request is not valid.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "No key, or a key this archive does not know.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            },
+            "403": {
+              "description": "The key is live but beyond what its plan allows.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            },
+            "429": {
+              "description": "Too fast, or out of a daily allowance. Always with a timer.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            },
+            "503": {
+              "description": "Service temporarily unavailable. No credits are charged. Follow Retry-After.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/family/{id}": {
+        "get": {
+          "summary": "Every article of one family",
+          "description": "Free. The variants LV publishes under one family id. Only LV-format family IDs are supported: nvprod followed by digits and v. Every member's code, name and status are listed; its colour and size scale only once your account has bought that product, null before. Automated code enumeration is not permitted. A duplicate code (duplicate_of) is left out; its target is listed.",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "pattern": "^nvprod\\d+v$"
+              },
+              "description": "An LV-format family ID; other family identifier formats are not supported.",
+              "example": "nvprod5190267v"
+            },
+            {
+              "name": "brand",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "string"
+              },
+              "description": "Which house to answer about: `lv` (the default), `dior`, … — one brand per request. The houses open for sale are listed; an unknown or not yet open brand is refused with 400 and that list."
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "The answer, in the common envelope.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/Envelope"
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "family": {
+                            "$ref": "#/components/schemas/Family"
+                          }
+                        },
+                        "required": [
+                          "family"
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "The request is not valid.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "No key, or a key this archive does not know.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            },
+            "403": {
+              "description": "The key is live but beyond what its plan allows.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            },
+            "429": {
+              "description": "Too fast, or out of a daily allowance. Always with a timer.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            },
+            "503": {
+              "description": "Service temporarily unavailable. No credits are charged. Follow Retry-After.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/resolve": {
+        "get": {
+          "summary": "An LV link, back to an article",
+          "description": "Free. Any regional storefront's link is accepted; query strings are ignored and short links are not followed. A code that is a size or colour of another article resolves to the article that has the card; which article, and the kind and label of the variation, are given only once your account has bought that product, and are null before. Automated code enumeration is not permitted.",
+          "parameters": [
+            {
+              "name": "url",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "A louisvuitton.com link."
+            },
+            {
+              "name": "brand",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "string"
+              },
+              "description": "Which house to answer about: `lv` (the default), `dior`, … — one brand per request. The houses open for sale are listed; an unknown or not yet open brand is refused with 400 and that list."
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "The answer, in the common envelope.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/Envelope"
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "resolved": {
+                            "$ref": "#/components/schemas/Resolved"
+                          }
+                        },
+                        "required": [
+                          "resolved"
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "The request is not valid.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "No key, or a key this archive does not know.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            },
+            "403": {
+              "description": "The key is live but beyond what its plan allows.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            },
+            "429": {
+              "description": "Too fast, or out of a daily allowance. Always with a timer.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            },
+            "503": {
+              "description": "Service temporarily unavailable. No credits are charged. Follow Retry-After.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/index": {
+        "get": {
+          "summary": "The registry index — Business plan only",
+          "description": "One file per week: article, name, family, department, status. No prices. One download a day per account, shared across brands. A matching If-None-Match answers 304 without a body and does not use the daily download or credits. Authentication, plan eligibility and request controls still apply. A duplicate code (duplicate_of) is left out; its target is listed.",
+          "parameters": [
+            {
+              "name": "If-None-Match",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string"
+              },
+              "description": "The ETag of the previously downloaded index."
+            },
+            {
+              "name": "brand",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "string"
+              },
+              "description": "Which house to answer about: `lv` (the default), `dior`, … — one brand per request. The houses open for sale are listed; an unknown or not yet open brand is refused with 400 and that list."
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "The answer, in the common envelope.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/Envelope"
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "count": {
+                            "type": "integer"
+                          },
+                          "index": {
+                            "type": "array",
+                            "items": {
+                              "type": "object"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "headers": {
+                "ETag": {
+                  "description": "Opaque identifier for this index.",
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                "X-Data-Snapshot": {
+                  "description": "The data week of this index.",
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                "X-RateLimit-Limit": {
+                  "description": "The current key or account request allowance.",
+                  "schema": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                },
+                "X-RateLimit-Remaining": {
+                  "description": "Requests remaining in that allowance.",
+                  "schema": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                },
+                "X-RateLimit-Scope": {
+                  "description": "Whether that allowance applies to the key or account.",
+                  "schema": {
+                    "type": "string",
+                    "enum": [
+                      "key",
+                      "account"
+                    ]
+                  }
+                },
+                "X-Index-Remaining-Today": {
+                  "description": "Daily index downloads remaining for this account. Absent when the account has no daily limit.",
+                  "schema": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                }
+              }
+            },
+            "304": {
+              "description": "The index is unchanged. No body, credits charged or daily download used. Authentication, plan eligibility and request controls still apply.",
+              "headers": {
+                "ETag": {
+                  "description": "Opaque identifier for the unchanged index.",
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                "X-Data-Snapshot": {
+                  "description": "The data week of this index.",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "The request is not valid.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "No key, or a key this archive does not know.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            },
+            "403": {
+              "description": "The key is live but beyond what its plan allows.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            },
+            "429": {
+              "description": "Too fast, or out of a daily allowance. Always with a timer.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            },
+            "503": {
+              "description": "Service temporarily unavailable. No credits are charged. Follow Retry-After.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/snapshot": {
+        "get": {
+          "summary": "Which week the archive covers",
+          "description": "Free.",
+          "parameters": [
+            {
+              "name": "brand",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "string"
+              },
+              "description": "Which house to answer about: `lv` (the default), `dior`, … — one brand per request. The houses open for sale are listed; an unknown or not yet open brand is refused with 400 and that list."
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "The answer, in the common envelope.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/Envelope"
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "snapshot_id": {
+                            "type": "string"
+                          },
+                          "schema_version": {
+                            "type": "string"
+                          },
+                          "loaded_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "The request is not valid.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "No key, or a key this archive does not know.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            },
+            "403": {
+              "description": "The key is live but beyond what its plan allows.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            },
+            "429": {
+              "description": "Too fast, or out of a daily allowance. Always with a timer.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            },
+            "503": {
+              "description": "Service temporarily unavailable. No credits are charged. Follow Retry-After.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/openapi": {
+        "get": {
+          "summary": "This document",
+          "description": "Public API specification. No API key required.",
+          "security": [],
+          "responses": {
+            "200": {
+              "description": "This document.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "approved_prose_paths": [
+    "/components/schemas/Article/properties/article/description",
+    "/components/schemas/SearchRow/properties/article/description",
+    "/components/schemas/Article/properties/family_id/description",
+    "/components/schemas/SearchRow/properties/family_id/description",
+    "/paths/~1resolve/get/parameters/0/description"
+  ]
+}

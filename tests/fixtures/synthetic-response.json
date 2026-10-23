@@ -1,0 +1,19 @@
+{
+  "synthetic": true,
+  "response": {
+    "credits_charged": 0,
+    "credits_subscription": 0,
+    "credits_retail": 0,
+    "resets_hour": "2000-01-01T00:00:00Z",
+    "resets_day": "2000-01-01T00:00:00Z",
+    "resets_month": "2000-01-01T00:00:00Z",
+    "snapshot": "synthetic-week",
+    "fields_refreshed_weekly": false,
+    "field_age_median_weeks": null,
+    "sandbox": true,
+    "total": 0,
+    "page": 1,
+    "pages": 0,
+    "results": []
+  }
+}

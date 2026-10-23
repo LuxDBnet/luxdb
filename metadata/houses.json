@@ -1,0 +1,13 @@
+{
+  "status": "draft_snapshot",
+  "updates": "auto-generated later",
+  "houses": [
+    {"code": "lv", "name": "Louis Vuitton"},
+    {"code": "dior", "name": "Dior"},
+    {"code": "loewe", "name": "Loewe"},
+    {"code": "tiffany", "name": "Tiffany & Co."},
+    {"code": "givenchy", "name": "Givenchy"},
+    {"code": "kenzo", "name": "Kenzo"},
+    {"code": "hermes", "name": "Hermès"}
+  ]
+}

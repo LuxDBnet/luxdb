@@ -1,0 +1,3850 @@
+{
+  "status": "definitions_only",
+  "updates": "auto-generated later",
+  "tables": [
+    {
+      "name": "product_client",
+      "title": "Item details",
+      "fields": [
+        {
+          "name": "brand",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "House identifier.",
+          "enum": [
+            "lv",
+            "dior",
+            "loewe",
+            "tiffany",
+            "kenzo",
+            "givenchy",
+            "hermes"
+          ],
+          "empty": "never"
+        },
+        {
+          "name": "brand_name_en",
+          "type": "text",
+          "unit": "",
+          "meaning": "Brand name in English for the brand code (Louis Vuitton, Dior, Hermès, …).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "article",
+          "type": "text",
+          "unit": "",
+          "meaning": "Item reference code, used together with the house identifier.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "family_id",
+          "type": "text",
+          "unit": "",
+          "meaning": "Model: the brand's page or code that groups the colours and sizes of one model.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "name",
+          "type": "text",
+          "unit": "",
+          "meaning": "Item name in English, as the brand writes it.",
+          "enum": [],
+          "empty": "b"
+        },
+        {
+          "name": "name_en",
+          "type": "text",
+          "unit": "",
+          "meaning": "Display name used on English-language cards.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "name_en_source",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "Origin of the display name used on English-language cards.",
+          "enum": [
+            "brand_english_page",
+            "dictionary",
+            "partial",
+            "model_name",
+            "original_language",
+            "brand_english"
+          ],
+          "empty": "never"
+        },
+        {
+          "name": "name_lang",
+          "type": "text (ISO 639-1)",
+          "unit": "",
+          "meaning": "Language of the name (en, pt, es, de, fr, it, zh, ko, ja…); may differ from text_lang.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "sold_per_unit",
+          "type": "bool",
+          "unit": "",
+          "meaning": "True when the brand sells the item per unit (single earrings, studs, cufflinks).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "name_local",
+          "type": "text",
+          "unit": "",
+          "meaning": "Item name in the language of the local storefront, when a local version exists.",
+          "enum": [],
+          "empty": "c"
+        },
+        {
+          "name": "text_lang",
+          "type": "text (ISO 639-1)",
+          "unit": "",
+          "meaning": "Language of the item's description (ISO 639-1).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "text_source_region",
+          "type": "text (storefront code)",
+          "unit": "",
+          "meaning": "Storefront the text comes from; English storefronts are preferred.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "department",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "Department code; see the department table for its name and order.",
+          "enum": [
+            "Bags_SLG",
+            "RTW",
+            "Shoes",
+            "SoftAccessories",
+            "FineJewelry",
+            "FashionJewelry",
+            "Watches",
+            "Travel",
+            "Home",
+            "Eyewear",
+            "Fragrance",
+            "Beauty",
+            "Books",
+            "TechMisc",
+            "Equestrian",
+            "UNMAPPED"
+          ],
+          "empty": "never"
+        },
+        {
+          "name": "department_raw",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "Department as the brand's storefront groups the item.",
+          "enum": [
+            "Bags_SLG",
+            "RTW",
+            "Shoes",
+            "SoftAccessories",
+            "FineJewelry",
+            "FashionJewelry",
+            "Watches",
+            "Travel",
+            "Home",
+            "Eyewear",
+            "Fragrance",
+            "Beauty",
+            "Books",
+            "TechMisc",
+            "Equestrian",
+            "UNMAPPED"
+          ],
+          "empty": "never"
+        },
+        {
+          "name": "category",
+          "type": "text",
+          "unit": "",
+          "meaning": "Category within the department, in English, one name per department; the storefront's own name is in category_raw.",
+          "enum": [],
+          "empty": "b"
+        },
+        {
+          "name": "category_raw",
+          "type": "text",
+          "unit": "",
+          "meaning": "Category exactly as the brand's storefront names it (e.g. \"Shoulder bags\", \"Boots\", \"Calças\").",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "category_source",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "Category origin as reported in the data.",
+          "enum": [
+            "main_category",
+            "category_path",
+            "standard_category",
+            "sitemap",
+            "collection",
+            "type",
+            "broad"
+          ],
+          "empty": "b"
+        },
+        {
+          "name": "collection",
+          "type": "text",
+          "unit": "",
+          "meaning": "The brand's named line, as the brand shows it.",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "campaign",
+          "type": "text[] — JSON array of strings",
+          "unit": "",
+          "meaning": "Campaigns featuring the item, such as gift guides, seasonal capsules and collaborations (list).",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "season",
+          "type": "text",
+          "unit": "",
+          "meaning": "Show or collection season: \"Fall-Winter 2026\", \"Spring-Summer 2026\", \"Pre-Fall 2026\".",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "product_type",
+          "type": "text",
+          "unit": "",
+          "meaning": "Type of item in English (sneaker, ankle boot, tote, card holder, bracelet, belt, watch strap…), for filtering.",
+          "enum": [],
+          "empty": "b"
+        },
+        {
+          "name": "product_type_raw",
+          "type": "text",
+          "unit": "",
+          "meaning": "Type of item exactly as the brand's storefront names it, only when it differs from product_type (e.g. \"knitwear\" → sweater).",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "audience",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "Who the item is for: Women, Men, Unisex or Kids, as the brand labels it or as its menu, name or description states it.",
+          "enum": [
+            "Women",
+            "Men",
+            "Unisex",
+            "Kids"
+          ],
+          "empty": "a"
+        },
+        {
+          "name": "audience_source",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "Where the audience comes from: the brand's product data, the storefront menu or category, the item name, or the description.",
+          "enum": [
+            "house_api",
+            "category",
+            "name",
+            "description"
+          ],
+          "empty": "a"
+        },
+        {
+          "name": "material",
+          "type": "text",
+          "unit": "",
+          "meaning": "Material in English; several differing values are joined by \" · \".",
+          "enum": [],
+          "empty": "b"
+        },
+        {
+          "name": "material_source",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "Where the material comes from: the product page, the brand's material code, the line under the name, or the item name.",
+          "enum": [
+            "page",
+            "page_field",
+            "house_api",
+            "several_sources",
+            "subtitle",
+            "name"
+          ],
+          "empty": "b"
+        },
+        {
+          "name": "material_all",
+          "type": "text[] — JSON array of strings",
+          "unit": "",
+          "meaning": "All material values as published, by source (for reference; API only).",
+          "enum": [],
+          "empty": "b"
+        },
+        {
+          "name": "composition",
+          "type": "text[] — JSON array of strings",
+          "unit": "",
+          "meaning": "Fibre composition as a list of {fiber, pct}, e.g. from \"57% Wool, 25% Cashmere…\".",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "composition_secondary",
+          "type": "text",
+          "unit": "",
+          "meaning": "Secondary materials: \"Lining: 100% Polyamide · Other: Lamb\" (lining, inserts, other).",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "material_local",
+          "type": "text",
+          "unit": "",
+          "meaning": "Material in the language of the local storefront (only when the text is not English).",
+          "enum": [],
+          "empty": "c"
+        },
+        {
+          "name": "material_line",
+          "type": "text",
+          "unit": "",
+          "meaning": "The brand's named material line (a signature canvas or leather), only when the item is made of it: a print of the line's motif on cotton is not the line.",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "color",
+          "type": "text",
+          "unit": "",
+          "meaning": "Colour in English.",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "color_all",
+          "type": "text[] — JSON array of strings",
+          "unit": "",
+          "meaning": "All differing colour values as published (for reference).",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "color_group",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "Colour group for the filter, one of 16 values (Black, White, Brown, Beige, Grey, Blue, Green, Red, Pink, Purple, Yellow, Orange, Gold, Silver, Multicolor, Natural).",
+          "enum": [
+            "Black",
+            "Blue",
+            "Brown",
+            "Beige",
+            "White",
+            "Grey",
+            "Pink",
+            "Gold",
+            "Green",
+            "Silver",
+            "Red",
+            "Orange",
+            "Yellow",
+            "Multicolor",
+            "Natural",
+            "Purple"
+          ],
+          "empty": "a"
+        },
+        {
+          "name": "color_groups",
+          "type": "text[] — JSON array of strings",
+          "unit": "",
+          "meaning": "All colour groups of a two-tone item (\"Black / White\" → [Black, White]); the item is found under each.",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "color_group_lv",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "The brand's own colour group, mapped to the same 16 groups (Preto / 블랙 / ブラック → Black); shown next to color_group on the card, while the filter uses color_group.",
+          "enum": [
+            "Black",
+            "Blue",
+            "Brown",
+            "Beige",
+            "White",
+            "Grey",
+            "Pink",
+            "Gold",
+            "Green",
+            "Silver",
+            "Red",
+            "Orange",
+            "Yellow",
+            "Multicolor",
+            "Natural",
+            "Purple"
+          ],
+          "empty": "a"
+        },
+        {
+          "name": "color_group_differs",
+          "type": "bool",
+          "unit": "",
+          "meaning": "True when color_group and the brand's own colour group (color_group_lv) are both present and differ (e.g. White against the brand's Beige); false otherwise, including when one of them is empty.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "customizable",
+          "type": "bool",
+          "unit": "",
+          "meaning": "The item can be personalised; no colour applies.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "color_local",
+          "type": "text",
+          "unit": "",
+          "meaning": "Shade in the language of the local storefront (only when the text is not English).",
+          "enum": [],
+          "empty": "c"
+        },
+        {
+          "name": "made_in",
+          "type": "text",
+          "unit": "",
+          "meaning": "Country or countries of manufacture in English, e.g. \"Italy\" or \"France · Spain · Italy\".",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "made_in_countries",
+          "type": "text[] — JSON array of strings",
+          "unit": "",
+          "meaning": "Countries of manufacture as ISO 3166 codes (list, same order as made_in) — a filter.",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "made_in_all",
+          "type": "text[] — JSON array of strings",
+          "unit": "",
+          "meaning": "For reference: [countries from the storefront's made-in field, countries from the description], in English.",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "made_in_multi_country",
+          "type": "bool",
+          "unit": "",
+          "meaning": "True when more than one country of manufacture is stated.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "made_in_raw",
+          "type": "text",
+          "unit": "",
+          "meaning": "The country-of-manufacture phrase exactly as published on the storefront.",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "unit": "",
+          "meaning": "Marketing description in the brand's words; sizes, dimensions, care and \"Made in\" are in their own fields.",
+          "enum": [],
+          "empty": "b"
+        },
+        {
+          "name": "description_short",
+          "type": "text",
+          "unit": "",
+          "meaning": "The brand's short blurb — the opening text of the card; in lists it stands in for the description.",
+          "enum": [],
+          "empty": "b"
+        },
+        {
+          "name": "description_short_redundant",
+          "type": "bool",
+          "unit": "",
+          "meaning": "True when the description contains the whole short blurb (then it is not shown separately).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "description_local",
+          "type": "text",
+          "unit": "",
+          "meaning": "Description in the language of the local storefront.",
+          "enum": [],
+          "empty": "c"
+        },
+        {
+          "name": "description_en_source",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "Where the English description comes from: the item's own page, the English page of the same model (the colour may differ), or an earlier week.",
+          "enum": [
+            "own",
+            "same_model",
+            "carried"
+          ],
+          "empty": "a"
+        },
+        {
+          "name": "text_source_snapshot",
+          "type": "ISO week",
+          "unit": "",
+          "meaning": "Week the English text is from, when it is older than this week: the latest page had no English, so description, features and care come from that week.",
+          "enum": [],
+          "empty": "c"
+        },
+        {
+          "name": "carried_fields",
+          "type": "text[] — JSON array of strings",
+          "unit": "",
+          "meaning": "Text fields taken from an earlier week: description · features · care.",
+          "enum": [],
+          "empty": "c"
+        },
+        {
+          "name": "description_en_from",
+          "type": "text",
+          "unit": "",
+          "meaning": "Article whose English page the description comes from.",
+          "enum": [],
+          "empty": "c"
+        },
+        {
+          "name": "dimensions_raw",
+          "type": "text",
+          "unit": "",
+          "meaning": "Dimensions as published on the storefront (\"29 x 17.5 x 10 cm\", \"33.5 x 45.3 x 23.6 inches\").",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "dimensions_unit_raw",
+          "type": "text",
+          "unit": "",
+          "meaning": "Unit of the published dimensions (cm, inches, mm).",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "dim_axes",
+          "type": "text",
+          "unit": "",
+          "meaning": "Labels of the dimensions, e.g. L×W or D×H.",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "dim_length_cm",
+          "type": "numeric",
+          "unit": "cm",
+          "meaning": "Length in centimetres (converted when published in inches or millimetres).",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "dim_height_cm",
+          "type": "numeric",
+          "unit": "cm",
+          "meaning": "Height in centimetres.",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "dim_width_cm",
+          "type": "numeric",
+          "unit": "cm",
+          "meaning": "Width or depth in centimetres; for round items the diameter.",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "dim_length_in",
+          "type": "numeric",
+          "unit": "in",
+          "meaning": "Length in inches (centimetres / 2.54).",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "dim_height_in",
+          "type": "numeric",
+          "unit": "in",
+          "meaning": "Height in inches.",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "dim_width_in",
+          "type": "numeric",
+          "unit": "in",
+          "meaning": "Width in inches.",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "names_by_lang",
+          "type": "json (JSON object)",
+          "unit": "",
+          "meaning": "The brand's own name for the item in each storefront language, as published (ISO 639-1 → list of names); the English name is in name_en.",
+          "enum": [],
+          "empty": "c"
+        },
+        {
+          "name": "dimensions_by_size",
+          "type": "json (JSON object)",
+          "unit": "",
+          "meaning": "Dimensions per size as the brand lists them in the description (trunks and luggage, books, sets), e.g. {\"50\": \"50 x 18 x 37 cm\"}.",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "heel_height_cm",
+          "type": "numeric",
+          "unit": "cm",
+          "meaning": "Heel height in centimetres (\"Heel, 4.5cm/1.8 inch\").",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "platform_height_cm",
+          "type": "numeric",
+          "unit": "cm",
+          "meaning": "Platform or sole height in centimetres.",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "belt_width_mm",
+          "type": "numeric",
+          "unit": "mm",
+          "meaning": "Belt width in millimetres, from the name (\"40mm Reversible Belt\").",
+          "enum": [],
+          "empty": "c"
+        },
+        {
+          "name": "case_diameter_mm",
+          "type": "numeric",
+          "unit": "mm",
+          "meaning": "Watch case diameter in millimetres, from the name (e.g. \"…, 44mm, steel\").",
+          "enum": [],
+          "empty": "c"
+        },
+        {
+          "name": "weight_kg",
+          "type": "numeric",
+          "unit": "kg",
+          "meaning": "Weight in kilograms.",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "diamond_count",
+          "type": "int",
+          "unit": "",
+          "meaning": "Number of diamonds (other stones are not counted).",
+          "enum": [],
+          "empty": "c"
+        },
+        {
+          "name": "diamond_carat_total",
+          "type": "numeric",
+          "unit": "ct",
+          "meaning": "Total diamond weight in carats, the centre stone included when it is a diamond; other stones are not included.",
+          "enum": [],
+          "empty": "c"
+        },
+        {
+          "name": "diamond_color_grade",
+          "type": "text",
+          "unit": "",
+          "meaning": "Diamond colour grade (GIA), e.g. \"D to G\".",
+          "enum": [],
+          "empty": "c"
+        },
+        {
+          "name": "metal_fineness",
+          "type": "int",
+          "unit": "",
+          "meaning": "Metal fineness: 750 (18 kt), 925 (silver), 950 (platinum).",
+          "enum": [],
+          "empty": "c"
+        },
+        {
+          "name": "gold_karat",
+          "type": "int",
+          "unit": "kt",
+          "meaning": "Gold purity in carats (e.g. 18), only when gold is the main material (not a buckle or hands).",
+          "enum": [],
+          "empty": "c"
+        },
+        {
+          "name": "gold_fineness",
+          "type": "int",
+          "unit": "",
+          "meaning": "Gold fineness (750).",
+          "enum": [],
+          "empty": "c"
+        },
+        {
+          "name": "is_platinum",
+          "type": "bool",
+          "unit": "",
+          "meaning": "True when platinum is the material.",
+          "enum": [],
+          "empty": "c"
+        },
+        {
+          "name": "specs_raw",
+          "type": "json (JSON object)",
+          "unit": "",
+          "meaning": "The page's specifications as published (JSON), API only.",
+          "enum": [],
+          "empty": "b"
+        },
+        {
+          "name": "unparsed",
+          "type": "text[] — JSON array of strings",
+          "unit": "",
+          "meaning": "Additional details in the brand's own wording, as \"label: value\" lines.",
+          "enum": [],
+          "empty": "c"
+        },
+        {
+          "name": "features",
+          "type": "text[] — JSON array of strings",
+          "unit": "",
+          "meaning": "Features in the brand's own words, one per line, as listed on the product page (materials, hardware, closures, pockets, fit); the marketing text is in description.",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "care",
+          "type": "text[] — JSON array of strings",
+          "unit": "",
+          "meaning": "Care instructions supplied by the house, when available.",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "features_local",
+          "type": "text[] — JSON array of strings",
+          "unit": "",
+          "meaning": "Features in the language of the local storefront, when they are not in English; features is then empty and features_lang names the language.",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "care_local",
+          "type": "text[] — JSON array of strings",
+          "unit": "",
+          "meaning": "Care lines in the language of the local storefront that have no English version; care holds the English lines.",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "features_lang",
+          "type": "text (ISO 639-1)",
+          "unit": "",
+          "meaning": "Language of the features and care text.",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "sustainability",
+          "type": "text[] — JSON array of strings",
+          "unit": "",
+          "meaning": "Responsible-sourcing notes from the brand's sustainability section (Leather Working Group tanneries, Responsible Jewellery Council, Kimberley Process, origin).",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "features_source",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "Origin of the feature list.",
+          "enum": [
+            "page",
+            "house_api",
+            "same_model",
+            "carried"
+          ],
+          "empty": "a"
+        },
+        {
+          "name": "size_run",
+          "type": "text[] — JSON array of strings",
+          "unit": "",
+          "meaning": "Sizes listed on the item page, labels as sold, for items whose sizes are not in size_variant.",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "size_run_region",
+          "type": "text (storefront code)",
+          "unit": "",
+          "meaning": "Storefront the size list comes from (its country's size scale applies).",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "size_scale",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "Size scale of the item: EU · US · UK · cm · inches · alpha · ring · ml · months · years · one_size · numeric · other.",
+          "enum": [
+            "EU",
+            "US",
+            "UK",
+            "US/UK",
+            "inches",
+            "cm",
+            "alpha",
+            "ring",
+            "ml",
+            "months",
+            "years",
+            "one_size",
+            "numeric",
+            "other"
+          ],
+          "empty": "a"
+        },
+        {
+          "name": "lv_url",
+          "type": "text (URL)",
+          "unit": "",
+          "meaning": "Link to the item on the brand's site: an English storefront where the page is live, otherwise a local one; see lv_url_status and page_checked_snapshot.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "page_checked_snapshot",
+          "type": "ISO week",
+          "unit": "",
+          "meaning": "Week the link was last checked.",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "lv_url_status",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "Link status: alive — live this week · repointed — points to another storefront where the page is live · gone_all — not found on any storefront at the latest check · unverified — not confirmed live this week · none — no link known.",
+          "enum": [
+            "alive",
+            "repointed",
+            "gone_all",
+            "unverified",
+            "none"
+          ],
+          "empty": "never"
+        },
+        {
+          "name": "lv_url_region",
+          "type": "text (storefront code)",
+          "unit": "",
+          "meaning": "Storefront the link points to.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "record_completeness",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "How much item detail is available.",
+          "enum": [
+            "full",
+            "partial",
+            "catalog_only",
+            "thin"
+          ],
+          "empty": "never"
+        },
+        {
+          "name": "family_alias_of",
+          "type": "text",
+          "unit": "",
+          "meaning": "Main article of the same product, listed by the brand under another code on another model page.",
+          "enum": [],
+          "empty": "b"
+        },
+        {
+          "name": "duplicate_of",
+          "type": "text",
+          "unit": "",
+          "meaning": "Main article, when this record is a second listing of the same product under another code.",
+          "enum": [],
+          "empty": "b"
+        }
+      ]
+    },
+    {
+      "name": "product_stats",
+      "title": "Coverage and status",
+      "fields": [
+        {
+          "name": "brand",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "House identifier.",
+          "enum": [
+            "lv",
+            "dior",
+            "loewe",
+            "tiffany",
+            "kenzo",
+            "givenchy",
+            "hermes"
+          ],
+          "empty": "never"
+        },
+        {
+          "name": "brand_name_en",
+          "type": "text",
+          "unit": "",
+          "meaning": "Brand name in English for the brand code (Louis Vuitton, Dior, Hermès, …).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "article",
+          "type": "text",
+          "unit": "",
+          "meaning": "Item reference code, used together with the house identifier.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "status",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "Listing status: in_catalog, e1_only or gone. Delisted does not mean discontinued.",
+          "enum": [
+            "in_catalog",
+            "e1_only",
+            "gone"
+          ],
+          "empty": "never"
+        },
+        {
+          "name": "status_as_of",
+          "type": "ISO week",
+          "unit": "",
+          "meaning": "Last week the item was seen; for delisted items, the week it was last seen (\"delisted as of\").",
+          "enum": [],
+          "empty": "b"
+        },
+        {
+          "name": "regions_present",
+          "type": "int",
+          "unit": "",
+          "meaning": "Number of storefronts with a recorded listing.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "regions_observed",
+          "type": "int",
+          "unit": "",
+          "meaning": "Number of storefronts where listing was observed.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "regions_declared",
+          "type": "int",
+          "unit": "",
+          "meaning": "Number of storefronts reported by the house.",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "weeks_unlisted",
+          "type": "int",
+          "unit": "",
+          "meaning": "Consecutive weeks without a listing or price.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "regions_with_price",
+          "type": "int",
+          "unit": "",
+          "meaning": "Number of storefronts with a current price (0 = no prices).",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "price_usd_ref",
+          "type": "numeric",
+          "unit": "USD",
+          "meaning": "USD price for lists: the median of current prices across countries (two storefronts of one country count once).",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "price_ref_countries",
+          "type": "int",
+          "unit": "",
+          "meaning": "Number of countries with a current price (the USD price is the median across them).",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "price_ref_single_market",
+          "type": "bool",
+          "unit": "",
+          "meaning": "True when the price is known in one country only: the USD price is that storefront's price, not a median across markets.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "price_ref_country",
+          "type": "text (ISO 3166-1 alpha-2)",
+          "unit": "",
+          "meaning": "ISO code of that single country when price_ref_single_market is true; otherwise empty.",
+          "enum": [],
+          "empty": "c"
+        },
+        {
+          "name": "countries_present",
+          "type": "int",
+          "unit": "",
+          "meaning": "Number of countries with a recorded listing.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "countries_observed",
+          "type": "int",
+          "unit": "",
+          "meaning": "Number of countries where listing was observed.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "countries_declared",
+          "type": "int",
+          "unit": "",
+          "meaning": "Number of countries reported by the house.",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "countries_with_price",
+          "type": "int",
+          "unit": "",
+          "meaning": "Number of countries with a current price (same as price_ref_countries).",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "last_price_countries",
+          "type": "int",
+          "unit": "",
+          "meaning": "Number of countries with a price in the last week with a price (goes with price_usd_last).",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "price_usd_fr",
+          "type": "numeric",
+          "unit": "USD",
+          "meaning": "Price on the French storefront in USD (EU price incl. VAT 20%).",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "price_usd_us",
+          "type": "numeric",
+          "unit": "USD",
+          "meaning": "Price on the US storefront in USD (excl. sales tax).",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "price_usd_min",
+          "type": "numeric",
+          "unit": "USD",
+          "meaning": "Lowest price across storefronts in USD (on the card).",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "price_usd_max",
+          "type": "numeric",
+          "unit": "USD",
+          "meaning": "Highest price across storefronts in USD (on the card).",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "weeks_of_history",
+          "type": "int",
+          "unit": "week",
+          "meaning": "Number of weeks with a price on at least one storefront.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "price_events",
+          "type": "int",
+          "unit": "",
+          "meaning": "Number of weeks in which the price changed on at least one storefront.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "first_seen",
+          "type": "ISO week",
+          "unit": "",
+          "meaning": "First week the item was seen: listed on a storefront, live at its address, priced, or on a product page.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "last_seen",
+          "type": "ISO week",
+          "unit": "",
+          "meaning": "Last week the item was seen (see Status names).",
+          "enum": [],
+          "empty": "b"
+        },
+        {
+          "name": "price_usd_last",
+          "type": "numeric",
+          "unit": "USD",
+          "meaning": "Last known USD price: the median across countries in the last week with a price; equals price_usd_ref for items with a price this week.",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "last_price_snapshot",
+          "type": "ISO week",
+          "unit": "",
+          "meaning": "Week of the last known price.",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "last_price_regions",
+          "type": "int",
+          "unit": "",
+          "meaning": "Number of storefronts with a price in that week.",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "sellable_anywhere",
+          "type": "bool",
+          "unit": "",
+          "meaning": "True when at least one storefront showing the item this week offers it for online purchase.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "regions_present_ex_e1",
+          "type": "int",
+          "unit": "",
+          "meaning": "Number of country storefronts that showed the item (see Status names), not counting the international storefront.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "photos_ever",
+          "type": "int",
+          "unit": "",
+          "meaning": "How many photos the gallery has ever had, including photos the brand later removed (see image.last_seen).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "photos",
+          "type": "int",
+          "unit": "",
+          "meaning": "Number of photos in the current gallery, as shown on the brand's page.",
+          "enum": [],
+          "empty": "b"
+        },
+        {
+          "name": "photos_additional",
+          "type": "int",
+          "unit": "",
+          "meaning": "Number of further photos of the item that the brand has but does not show on its page; not included in photos.",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "videos",
+          "type": "int",
+          "unit": "",
+          "meaning": "Number of distinct videos.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "audience",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "Who the item is for: Women, Men, Unisex or Kids, as the brand labels it or as its menu, name or description states it.",
+          "enum": [
+            "Women",
+            "Men",
+            "Unisex",
+            "Kids"
+          ],
+          "empty": "a"
+        },
+        {
+          "name": "variants_n",
+          "type": "int",
+          "unit": "",
+          "meaning": "Number of variation codes (sizes, colours or materials without a card of their own) that belong to this card (see article_variant).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "variants_countries_n",
+          "type": "int",
+          "unit": "",
+          "meaning": "Number of countries whose storefronts listed the variations; they count for the main card.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "variants_last_seen",
+          "type": "ISO week",
+          "unit": "",
+          "meaning": "Last week any variation was seen.",
+          "enum": [],
+          "empty": "a"
+        }
+      ]
+    },
+    {
+      "name": "department",
+      "title": "Departments",
+      "fields": [
+        {
+          "name": "department",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "Department code (as in product_client).",
+          "enum": [
+            "Bags_SLG",
+            "RTW",
+            "Shoes",
+            "SoftAccessories",
+            "FineJewelry",
+            "FashionJewelry",
+            "Watches",
+            "Travel",
+            "Home",
+            "Eyewear",
+            "Fragrance",
+            "Beauty",
+            "Books",
+            "TechMisc",
+            "Equestrian",
+            "UNMAPPED"
+          ],
+          "empty": "never"
+        },
+        {
+          "name": "department_en",
+          "type": "text",
+          "unit": "",
+          "meaning": "Department name.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "sort_order",
+          "type": "int",
+          "unit": "",
+          "meaning": "Display order in navigation.",
+          "enum": [],
+          "empty": "never"
+        }
+      ]
+    },
+    {
+      "name": "region",
+      "title": "Storefronts",
+      "fields": [
+        {
+          "name": "brand",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "House identifier.",
+          "enum": [
+            "lv",
+            "dior",
+            "loewe",
+            "tiffany",
+            "kenzo",
+            "givenchy",
+            "hermes"
+          ],
+          "empty": "never"
+        },
+        {
+          "name": "brand_name_en",
+          "type": "text",
+          "unit": "",
+          "meaning": "Brand name in English for the brand code (Louis Vuitton, Dior, Hermès, …).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "region",
+          "type": "text (storefront code)",
+          "unit": "",
+          "meaning": "Storefront code (language_country, e.g. eng_NL): the brand's site for one country and language; see the region table for the country.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "country",
+          "type": "text",
+          "unit": "",
+          "meaning": "Country of the storefront.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "language",
+          "type": "text (ISO 639-1)",
+          "unit": "",
+          "meaning": "Language of the storefront (ISO 639).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "currency",
+          "type": "text",
+          "unit": "",
+          "meaning": "Currency of the storefront (ISO 4217).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "is_international",
+          "type": "bool",
+          "unit": "",
+          "meaning": "True for an international storefront without a country (no prices).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "price_includes_tax",
+          "type": "bool",
+          "unit": "",
+          "meaning": "True when storefront prices include tax (VAT/GST): EU, UK, Switzerland, Australia, Japan, China, Brazil, Mexico, Korea, UAE; false for the United States, Canada and Hong Kong.",
+          "enum": [],
+          "empty": "c"
+        },
+        {
+          "name": "tax_note",
+          "type": "text",
+          "unit": "",
+          "meaning": "Tax basis in words: \"incl. VAT 20%\", \"excl. sales tax\", \"no VAT or sales tax\".",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "coverage",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "Coverage of the storefront's data for the week: full or partial.",
+          "enum": [
+            "full",
+            "partial"
+          ],
+          "empty": "never"
+        }
+      ]
+    },
+    {
+      "name": "product_spec",
+      "title": "Specifications",
+      "fields": [
+        {
+          "name": "brand",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "House identifier.",
+          "enum": [
+            "lv",
+            "dior",
+            "loewe",
+            "tiffany",
+            "kenzo",
+            "givenchy",
+            "hermes"
+          ],
+          "empty": "never"
+        },
+        {
+          "name": "brand_name_en",
+          "type": "text",
+          "unit": "",
+          "meaning": "Brand name in English for the brand code (Louis Vuitton, Dior, Hermès, …).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "article",
+          "type": "text",
+          "unit": "",
+          "meaning": "Item reference code, used together with the house identifier.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "spec_key",
+          "type": "text",
+          "unit": "",
+          "meaning": "Specification key (English, e.g. strap_drop_cm, lining, w_power_reserve_h); see Specification keys.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "spec_value",
+          "type": "text",
+          "unit": "",
+          "meaning": "Value in the unit of the key (see Specification keys); local-language text is given in English where possible.",
+          "enum": [],
+          "empty": "never"
+        }
+      ]
+    },
+    {
+      "name": "size_variant",
+      "title": "Sizes and colours",
+      "fields": [
+        {
+          "name": "brand",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "House identifier.",
+          "enum": [
+            "lv",
+            "dior",
+            "loewe",
+            "tiffany",
+            "kenzo",
+            "givenchy",
+            "hermes"
+          ],
+          "empty": "never"
+        },
+        {
+          "name": "brand_name_en",
+          "type": "text",
+          "unit": "",
+          "meaning": "Brand name in English for the brand code (Louis Vuitton, Dior, Hermès, …).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "sku",
+          "type": "text",
+          "unit": "",
+          "meaning": "SKU of the size or colour variant.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "article",
+          "type": "text",
+          "unit": "",
+          "meaning": "Article the variant belongs to.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "family_id",
+          "type": "text",
+          "unit": "",
+          "meaning": "Model: the brand's page or code that groups the colours and sizes of one model.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "size_label",
+          "type": "text",
+          "unit": "",
+          "meaning": "Size label as sold: \"7.5\", \"38\", \"90 cm\", \"One size\".",
+          "enum": [],
+          "empty": "c"
+        },
+        {
+          "name": "size_label_raw",
+          "type": "text",
+          "unit": "",
+          "meaning": "Label exactly as in the brand's data (\"07.5\", \"S0\", \"NSA\").",
+          "enum": [],
+          "empty": "c"
+        },
+        {
+          "name": "variant_kind",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "What varies: size · color (colour only) · one_size · volume (ml) · age (months).",
+          "enum": [
+            "size",
+            "color",
+            "one_size",
+            "volume",
+            "age"
+          ],
+          "empty": "never"
+        },
+        {
+          "name": "size_order",
+          "type": "numeric",
+          "unit": "",
+          "meaning": "Display order within the size run.",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "size_scale",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "Size scale of the run: EU · US · UK · cm · inches · alpha · ring · ml · months · years · one_size · numeric · other.",
+          "enum": [
+            "EU",
+            "US",
+            "UK",
+            "US/UK",
+            "inches",
+            "cm",
+            "alpha",
+            "ring",
+            "ml",
+            "months",
+            "years",
+            "one_size",
+            "numeric",
+            "other"
+          ],
+          "empty": "c"
+        },
+        {
+          "name": "scope",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "article — a variant of this article · family — another colour of the same model; the exact article is not known.",
+          "enum": [
+            "article",
+            "family"
+          ],
+          "empty": "never"
+        },
+        {
+          "name": "source_article",
+          "type": "text",
+          "unit": "",
+          "meaning": "Article whose page the variant comes from (for reference).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "region",
+          "type": "text (storefront code)",
+          "unit": "",
+          "meaning": "Storefront of the size; its country's size scale applies (see the region table).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "color",
+          "type": "text",
+          "unit": "",
+          "meaning": "Variant colour in English where available (Noir / Preto → Black); shade names without a translation keep the brand's wording.",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "color_raw",
+          "type": "text",
+          "unit": "",
+          "meaning": "Variant colour exactly as on the storefront (for reference).",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "price",
+          "type": "numeric",
+          "unit": "",
+          "meaning": "Variant price in the storefront currency when it was seen.",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "currency",
+          "type": "text",
+          "unit": "",
+          "meaning": "Currency of the storefront (ISO 4217).",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "sellable",
+          "type": "bool",
+          "unit": "",
+          "meaning": "In stock on that storefront this week; never true on the international storefront.",
+          "enum": [],
+          "empty": "b"
+        },
+        {
+          "name": "observed_at",
+          "type": "timestamp (UTC)",
+          "unit": "",
+          "meaning": "When this row was seen (UTC).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "lv_url",
+          "type": "text (URL)",
+          "unit": "",
+          "meaning": "Link to the variant on the brand's site.",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "image_url",
+          "type": "text (URL)",
+          "unit": "",
+          "meaning": "Link to the variant photo on the brand's server, for reference only; the brand may change or remove it.",
+          "enum": [],
+          "empty": "a"
+        }
+      ]
+    },
+    {
+      "name": "article_variant",
+      "title": "Item variations",
+      "fields": [
+        {
+          "name": "brand",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "House identifier.",
+          "enum": [
+            "lv",
+            "dior",
+            "loewe",
+            "tiffany",
+            "kenzo",
+            "givenchy",
+            "hermes"
+          ],
+          "empty": "never"
+        },
+        {
+          "name": "brand_name_en",
+          "type": "text",
+          "unit": "",
+          "meaning": "Brand name in English for the brand code (Louis Vuitton, Dior, Hermès, …).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "variant_article",
+          "type": "text",
+          "unit": "",
+          "meaning": "Variation code: an article of the brand that has no card of its own (a size, colour or material of the main article).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "article",
+          "type": "text",
+          "unit": "",
+          "meaning": "Main article (the card this variation belongs to): \"code X is the size-46 variation of Y\".",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "family_id",
+          "type": "text",
+          "unit": "",
+          "meaning": "Model page of the variation (see family_id in product_client).",
+          "enum": [],
+          "empty": "b"
+        },
+        {
+          "name": "kind",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "What varies: a size, a colour or finish, a metal or stone, or a part of a belt set.",
+          "enum": [
+            "size",
+            "colour",
+            "material",
+            "leather",
+            "buckle",
+            "finish",
+            "unknown"
+          ],
+          "empty": "never"
+        },
+        {
+          "name": "size_label",
+          "type": "text",
+          "unit": "",
+          "meaning": "Size label of the variation as sold (as in size_variant).",
+          "enum": [],
+          "empty": "c"
+        },
+        {
+          "name": "color",
+          "type": "text",
+          "unit": "",
+          "meaning": "Colour of the variation in English: for a size, the colour of the main card; for a colour, its own shade.",
+          "enum": [],
+          "empty": "b"
+        },
+        {
+          "name": "color_raw",
+          "type": "text",
+          "unit": "",
+          "meaning": "Colour of the variation exactly as on the storefront (for reference).",
+          "enum": [],
+          "empty": "b"
+        },
+        {
+          "name": "link_source",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "How the variation is linked to the card: a size or colour row of a card of the same model, the same model page, or the colour choice on a product page.",
+          "enum": [
+            "sku",
+            "family",
+            "variant_page"
+          ],
+          "empty": "never"
+        },
+        {
+          "name": "regions",
+          "type": "text[] — JSON array of strings",
+          "unit": "",
+          "meaning": "Storefronts (region codes) that listed the variation.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "regions_n",
+          "type": "int",
+          "unit": "",
+          "meaning": "Number of such storefronts.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "first_seen",
+          "type": "ISO week",
+          "unit": "",
+          "meaning": "First week a storefront listed the variation.",
+          "enum": [],
+          "empty": "b"
+        },
+        {
+          "name": "last_seen",
+          "type": "ISO week",
+          "unit": "",
+          "meaning": "Last week the variation was listed or its page was live.",
+          "enum": [],
+          "empty": "b"
+        },
+        {
+          "name": "registry_status",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "Status of the variation's pages at the latest check: alive — at least one was live · gone — none was live · unverified — not checked yet.",
+          "enum": [
+            "alive",
+            "gone",
+            "unverified"
+          ],
+          "empty": "never"
+        },
+        {
+          "name": "lv_url",
+          "type": "text (URL)",
+          "unit": "",
+          "meaning": "Link to the variation page on the brand's site (an English storefront is preferred).",
+          "enum": [],
+          "empty": "b"
+        },
+        {
+          "name": "sellable_anywhere",
+          "type": "bool",
+          "unit": "",
+          "meaning": "True if a storefront showed the variation in stock this week (see size_variant).",
+          "enum": [],
+          "empty": "b"
+        }
+      ]
+    },
+    {
+      "name": "price_current",
+      "title": "Current prices",
+      "fields": [
+        {
+          "name": "brand",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "House identifier.",
+          "enum": [
+            "lv",
+            "dior",
+            "loewe",
+            "tiffany",
+            "kenzo",
+            "givenchy",
+            "hermes"
+          ],
+          "empty": "never"
+        },
+        {
+          "name": "brand_name_en",
+          "type": "text",
+          "unit": "",
+          "meaning": "Brand name in English for the brand code (Louis Vuitton, Dior, Hermès, …).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "article",
+          "type": "text",
+          "unit": "",
+          "meaning": "Item reference code, used together with the house identifier.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "region",
+          "type": "text (storefront code)",
+          "unit": "",
+          "meaning": "Storefront code (language_country, e.g. eng_NL): the brand's site for one country and language; see the region table for the country.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "currency",
+          "type": "text",
+          "unit": "",
+          "meaning": "Currency of the storefront (ISO 4217).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "price",
+          "type": "numeric",
+          "unit": "",
+          "meaning": "Price as published on the storefront (decimal; JPY and KRW without fraction), only when price_state = current.",
+          "enum": [],
+          "empty": "c"
+        },
+        {
+          "name": "price_usd",
+          "type": "numeric",
+          "unit": "USD",
+          "meaning": "Price in USD at the week's rate (the last ECB rate before the week); empty when price_state is not current (see last_price_usd).",
+          "enum": [],
+          "empty": "c"
+        },
+        {
+          "name": "price_eur",
+          "type": "numeric",
+          "unit": "EUR",
+          "meaning": "Price in EUR at the week's rate; empty when price_state is not current.",
+          "enum": [],
+          "empty": "c"
+        },
+        {
+          "name": "availability",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "Availability on the storefront: sellable · no · backorder · InStoreOnly · not_sold_online · empty (not reported by the storefront).",
+          "enum": [
+            "sellable",
+            "no",
+            "backorder",
+            "InStoreOnly",
+            "not_sold_online",
+            "not_in_region",
+            ""
+          ],
+          "empty": "a"
+        },
+        {
+          "name": "observed_at",
+          "type": "timestamp (UTC)",
+          "unit": "",
+          "meaning": "When the observation was made (UTC).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "snapshot_id",
+          "type": "ISO week",
+          "unit": "",
+          "meaning": "Week of the observations (ISO week), e.g. 2026-W36.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "is_latest_run",
+          "type": "bool",
+          "unit": "",
+          "meaning": "true — the price is current (price_state = current); false — no current price: price is empty, price_state says why, and the last known price is in last_price*.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "price_state",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "Whether the price is current, no longer shown, or awaiting an update.",
+          "enum": [
+            "current",
+            "withdrawn",
+            "not_checked"
+          ],
+          "empty": "never"
+        },
+        {
+          "name": "last_checked_week",
+          "type": "ISO week",
+          "unit": "",
+          "meaning": "Last week this storefront was checked for the item (with or without a price).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "last_price",
+          "type": "numeric",
+          "unit": "",
+          "meaning": "Last known price on this storefront, given when price_state is not current (the price fields are then empty).",
+          "enum": [],
+          "empty": "c"
+        },
+        {
+          "name": "last_price_currency",
+          "type": "text",
+          "unit": "",
+          "meaning": "Currency of the last known price (the storefront currency).",
+          "enum": [],
+          "empty": "c"
+        },
+        {
+          "name": "last_price_usd",
+          "type": "numeric",
+          "unit": "USD",
+          "meaning": "Last known price in USD at the rate of its own week.",
+          "enum": [],
+          "empty": "c"
+        },
+        {
+          "name": "last_price_snapshot",
+          "type": "ISO week",
+          "unit": "",
+          "meaning": "Week of the last known price (equals snapshot_id of this row).",
+          "enum": [],
+          "empty": "c"
+        }
+      ]
+    },
+    {
+      "name": "price_observation",
+      "title": "Price history",
+      "fields": [
+        {
+          "name": "brand",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "House identifier.",
+          "enum": [
+            "lv",
+            "dior",
+            "loewe",
+            "tiffany",
+            "kenzo",
+            "givenchy",
+            "hermes"
+          ],
+          "empty": "never"
+        },
+        {
+          "name": "brand_name_en",
+          "type": "text",
+          "unit": "",
+          "meaning": "Brand name in English for the brand code (Louis Vuitton, Dior, Hermès, …).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "article",
+          "type": "text",
+          "unit": "",
+          "meaning": "Item reference code, used together with the house identifier.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "region",
+          "type": "text (storefront code)",
+          "unit": "",
+          "meaning": "Storefront code (language_country, e.g. eng_NL): the brand's site for one country and language; see the region table for the country.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "snapshot_id",
+          "type": "ISO week",
+          "unit": "",
+          "meaning": "Week of the observation.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "currency",
+          "type": "text",
+          "unit": "",
+          "meaning": "Currency of the storefront (ISO 4217).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "price",
+          "type": "numeric",
+          "unit": "",
+          "meaning": "Price as published on the storefront.",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "price_usd",
+          "type": "numeric",
+          "unit": "USD",
+          "meaning": "Price in USD at the week's rate.",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "availability",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "Availability on the storefront (see price_current).",
+          "enum": [
+            "sellable",
+            "no",
+            "backorder",
+            "InStoreOnly",
+            "not_sold_online",
+            "not_in_region",
+            ""
+          ],
+          "empty": "a"
+        },
+        {
+          "name": "source",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "Where the price was read: the product page, a listing page, the brand's price list, or the China storefront page.",
+          "enum": [
+            "product_page",
+            "listing_page",
+            "house_price_list",
+            ""
+          ],
+          "empty": "c"
+        },
+        {
+          "name": "observed_at",
+          "type": "timestamp (UTC)",
+          "unit": "",
+          "meaning": "When the observation was made (UTC).",
+          "enum": [],
+          "empty": "never"
+        }
+      ]
+    },
+    {
+      "name": "presence_observation",
+      "title": "Listing history",
+      "fields": [
+        {
+          "name": "brand",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "House identifier.",
+          "enum": [
+            "lv",
+            "dior",
+            "loewe",
+            "tiffany",
+            "kenzo",
+            "givenchy",
+            "hermes"
+          ],
+          "empty": "never"
+        },
+        {
+          "name": "brand_name_en",
+          "type": "text",
+          "unit": "",
+          "meaning": "Brand name in English for the brand code (Louis Vuitton, Dior, Hermès, …).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "article",
+          "type": "text",
+          "unit": "",
+          "meaning": "Item reference code, used together with the house identifier.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "region",
+          "type": "text (storefront code)",
+          "unit": "",
+          "meaning": "Storefront code (language_country, e.g. eng_NL): the brand's site for one country and language; see the region table for the country.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "source",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "Where the listing was seen: the storefront's site map, the item page, a listing page, or the brand's own data and links.",
+          "enum": [
+            "rechecked",
+            "checked_gone",
+            "house_api",
+            "sitemap",
+            "carried",
+            "model_link",
+            "product_page",
+            "listing_page"
+          ],
+          "empty": "never"
+        },
+        {
+          "name": "snapshot_id",
+          "type": "ISO week",
+          "unit": "",
+          "meaning": "Week of the observations (ISO week), e.g. 2026-W36.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "present",
+          "type": "bool",
+          "unit": "",
+          "meaning": "True = listed on the storefront, false = not listed.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "observed_at",
+          "type": "timestamp (UTC)",
+          "unit": "",
+          "meaning": "When the observation was made (UTC).",
+          "enum": [],
+          "empty": "never"
+        }
+      ]
+    },
+    {
+      "name": "presence_current",
+      "title": "Current listings",
+      "fields": [
+        {
+          "name": "brand",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "House identifier.",
+          "enum": [
+            "lv",
+            "dior",
+            "loewe",
+            "tiffany",
+            "kenzo",
+            "givenchy",
+            "hermes"
+          ],
+          "empty": "never"
+        },
+        {
+          "name": "brand_name_en",
+          "type": "text",
+          "unit": "",
+          "meaning": "Brand name in English for the brand code (Louis Vuitton, Dior, Hermès, …).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "article",
+          "type": "text",
+          "unit": "",
+          "meaning": "Item reference code, used together with the house identifier.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "region",
+          "type": "text (storefront code)",
+          "unit": "",
+          "meaning": "Storefront code (language_country, e.g. eng_NL): the brand's site for one country and language; see the region table for the country.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "present",
+          "type": "bool",
+          "unit": "",
+          "meaning": "Latest known state; a live page counts over a listing.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "basis",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "What the listing rests on: observed — we saw the item on this storefront (item page, site map, listing or price) · declared — only linked by the brand from another storefront; not seen there.",
+          "enum": [
+            "observed",
+            "declared"
+          ],
+          "empty": "never"
+        },
+        {
+          "name": "counted",
+          "type": "bool",
+          "unit": "",
+          "meaning": "True when this storefront counts in the item's storefront numbers: present, and seen recently enough (this week, unless stated below).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "first_seen",
+          "type": "ISO week",
+          "unit": "",
+          "meaning": "First week the item was listed on this storefront.",
+          "enum": [],
+          "empty": "c"
+        },
+        {
+          "name": "last_seen",
+          "type": "ISO week",
+          "unit": "",
+          "meaning": "Last week the item was listed on this storefront.",
+          "enum": [],
+          "empty": "c"
+        },
+        {
+          "name": "snapshot_id",
+          "type": "ISO week",
+          "unit": "",
+          "meaning": "Week of the latest observation.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "is_latest_run",
+          "type": "bool",
+          "unit": "",
+          "meaning": "True if the observation is from this week.",
+          "enum": [],
+          "empty": "never"
+        }
+      ]
+    },
+    {
+      "name": "region_url",
+      "title": "Item links",
+      "fields": [
+        {
+          "name": "brand",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "House identifier.",
+          "enum": [
+            "lv",
+            "dior",
+            "loewe",
+            "tiffany",
+            "kenzo",
+            "givenchy",
+            "hermes"
+          ],
+          "empty": "never"
+        },
+        {
+          "name": "brand_name_en",
+          "type": "text",
+          "unit": "",
+          "meaning": "Brand name in English for the brand code (Louis Vuitton, Dior, Hermès, …).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "article",
+          "type": "text",
+          "unit": "",
+          "meaning": "Article (the brand's reference code).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "region",
+          "type": "text (storefront code)",
+          "unit": "",
+          "meaning": "Storefront code (as in price_current and region).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "source_url",
+          "type": "text (URL)",
+          "unit": "",
+          "meaning": "Link to the item page on this storefront; the brand may change or remove it.",
+          "enum": [],
+          "empty": "b"
+        },
+        {
+          "name": "url_status",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "alive — the page was at this address this week · gone — no page at the latest check · unknown — not checked this week; show the link only for alive.",
+          "enum": [
+            "alive",
+            "gone",
+            "unknown"
+          ],
+          "empty": "never"
+        },
+        {
+          "name": "checked_week",
+          "type": "ISO week",
+          "unit": "",
+          "meaning": "Week the address was last checked (show as \"checked in week …\").",
+          "enum": [],
+          "empty": "b"
+        },
+        {
+          "name": "first_seen",
+          "type": "ISO week",
+          "unit": "",
+          "meaning": "First week the address was seen.",
+          "enum": [],
+          "empty": "b"
+        },
+        {
+          "name": "last_seen",
+          "type": "ISO week",
+          "unit": "",
+          "meaning": "Last week the address was seen or live.",
+          "enum": [],
+          "empty": "b"
+        }
+      ]
+    },
+    {
+      "name": "image",
+      "title": "Photos",
+      "fields": [
+        {
+          "name": "brand",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "House identifier.",
+          "enum": [
+            "lv",
+            "dior",
+            "loewe",
+            "tiffany",
+            "kenzo",
+            "givenchy",
+            "hermes"
+          ],
+          "empty": "never"
+        },
+        {
+          "name": "brand_name_en",
+          "type": "text",
+          "unit": "",
+          "meaning": "Brand name in English for the brand code (Louis Vuitton, Dior, Hermès, …).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "article",
+          "type": "text",
+          "unit": "",
+          "meaning": "Item reference code, used together with the house identifier.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "seq",
+          "type": "int",
+          "unit": "",
+          "meaning": "Order of the view; 1 = the main photo.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "view",
+          "type": "text",
+          "unit": "",
+          "meaning": "View as the brand names it, e.g. Front view · Side view · Interior view · Worn view · Back view · Detail view.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "media_ref",
+          "type": "text",
+          "unit": "",
+          "meaning": "A stable identifier of the image; the same image keeps it across exports.",
+          "enum": [],
+          "empty": "b"
+        },
+        {
+          "name": "width",
+          "type": "int",
+          "unit": "px",
+          "meaning": "Width of the original photo in pixels.",
+          "enum": [],
+          "empty": "c"
+        },
+        {
+          "name": "height",
+          "type": "int",
+          "unit": "px",
+          "meaning": "Height of the original photo in pixels.",
+          "enum": [],
+          "empty": "c"
+        },
+        {
+          "name": "has_alpha",
+          "type": "bool",
+          "unit": "",
+          "meaning": "Whether the original has a transparent background (true for PNG with transparency).",
+          "enum": [],
+          "empty": "c"
+        },
+        {
+          "name": "bytes",
+          "type": "int",
+          "unit": "",
+          "meaning": "Size of the original file in bytes.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "is_capped",
+          "type": "bool",
+          "unit": "",
+          "meaning": "True when the stored original is the largest image the brand provides and it is below full resolution.",
+          "enum": [],
+          "empty": "c"
+        },
+        {
+          "name": "frame_source",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "Where the photo comes from: shown on the storefront page, the brand's own photo not shown on its page (not counted in photos), or kept from an earlier week.",
+          "enum": [
+            "page",
+            "additional_photo",
+            "carried",
+            ""
+          ],
+          "empty": "a"
+        },
+        {
+          "name": "first_seen",
+          "type": "ISO week",
+          "unit": "",
+          "meaning": "First week the photo was in the gallery (photos from before 2026-W24 are dated 2026-W24).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "last_seen",
+          "type": "ISO week",
+          "unit": "",
+          "meaning": "Last week the photo was in the gallery.",
+          "enum": [],
+          "empty": "never"
+        }
+      ]
+    },
+    {
+      "name": "video",
+      "title": "Videos",
+      "fields": [
+        {
+          "name": "brand",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "House identifier.",
+          "enum": [
+            "lv",
+            "dior",
+            "loewe",
+            "tiffany",
+            "kenzo",
+            "givenchy",
+            "hermes"
+          ],
+          "empty": "never"
+        },
+        {
+          "name": "brand_name_en",
+          "type": "text",
+          "unit": "",
+          "meaning": "Brand name in English for the brand code (Louis Vuitton, Dior, Hermès, …).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "article",
+          "type": "text",
+          "unit": "",
+          "meaning": "Item reference code, used together with the house identifier.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "seq",
+          "type": "int",
+          "unit": "",
+          "meaning": "Order of the clip on the item page (1 = first).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "media_ref",
+          "type": "text",
+          "unit": "",
+          "meaning": "A stable identifier of the clip; the same clip keeps it across exports.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "bytes",
+          "type": "int",
+          "unit": "",
+          "meaning": "File size in bytes.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "mime",
+          "type": "text",
+          "unit": "",
+          "meaning": "File type (video/mp4).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "duration_s",
+          "type": "numeric",
+          "unit": "s",
+          "meaning": "Duration in seconds.",
+          "enum": [],
+          "empty": "c"
+        },
+        {
+          "name": "width",
+          "type": "int",
+          "unit": "px",
+          "meaning": "Frame width in pixels.",
+          "enum": [],
+          "empty": "c"
+        },
+        {
+          "name": "height",
+          "type": "int",
+          "unit": "px",
+          "meaning": "Frame height in pixels.",
+          "enum": [],
+          "empty": "c"
+        },
+        {
+          "name": "source_url",
+          "type": "text",
+          "unit": "",
+          "meaning": "The clip's address on the brand's server, for reference only.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "first_seen",
+          "type": "ISO week",
+          "unit": "",
+          "meaning": "First week the clip was attached to the item.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "last_seen",
+          "type": "ISO week",
+          "unit": "",
+          "meaning": "Last week the clip was listed for the item.",
+          "enum": [],
+          "empty": "never"
+        }
+      ]
+    },
+    {
+      "name": "fx_rate",
+      "title": "Currency conversion",
+      "fields": [
+        {
+          "name": "snapshot_id",
+          "type": "ISO week",
+          "unit": "",
+          "meaning": "Week of the observations (ISO week), e.g. 2026-W36.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "currency",
+          "type": "text",
+          "unit": "",
+          "meaning": "Currency of the storefront (ISO 4217).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "units_per_usd",
+          "type": "numeric",
+          "unit": "",
+          "meaning": "Units of the currency per 1 USD in the week (JPY 156.25): price_usd = price / units_per_usd.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "units_per_eur",
+          "type": "numeric",
+          "unit": "",
+          "meaning": "Units of the currency per 1 EUR (from the same rates): price_eur = price / units_per_eur.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "source",
+          "type": "text",
+          "unit": "",
+          "meaning": "Reference used for the currency conversion rate.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "as_of",
+          "type": "timestamp (UTC)",
+          "unit": "",
+          "meaning": "When the rate was recorded (UTC).",
+          "enum": [],
+          "empty": "never"
+        }
+      ]
+    },
+    {
+      "name": "snapshot",
+      "title": "Weekly releases",
+      "fields": [
+        {
+          "name": "brand",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "House identifier.",
+          "enum": [
+            "lv",
+            "dior",
+            "loewe",
+            "tiffany",
+            "kenzo",
+            "givenchy",
+            "hermes"
+          ],
+          "empty": "never"
+        },
+        {
+          "name": "brand_name_en",
+          "type": "text",
+          "unit": "",
+          "meaning": "Brand name in English for the brand code (Louis Vuitton, Dior, Hermès, …).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "snapshot_id",
+          "type": "ISO week",
+          "unit": "",
+          "meaning": "ISO week of the observations.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "started_at",
+          "type": "timestamp (UTC)",
+          "unit": "",
+          "meaning": "When observations for the week started.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "finished_at",
+          "type": "timestamp (UTC)",
+          "unit": "",
+          "meaning": "When observations for the week finished.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "health_status",
+          "type": "text",
+          "unit": "",
+          "meaning": "Completeness of the week's data: ok — complete · suspect — looks incomplete (for example far fewer items than usual).",
+          "enum": [],
+          "empty": "never"
+        }
+      ]
+    },
+    {
+      "name": "demo_set",
+      "title": "Public demo selection",
+      "fields": [
+        {
+          "name": "brand",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "House identifier.",
+          "enum": [
+            "lv",
+            "dior",
+            "loewe",
+            "tiffany",
+            "kenzo",
+            "givenchy",
+            "hermes"
+          ],
+          "empty": "never"
+        },
+        {
+          "name": "brand_name_en",
+          "type": "text",
+          "unit": "",
+          "meaning": "Brand name in English for the brand code (Louis Vuitton, Dior, Hermès, …).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "article",
+          "type": "text",
+          "unit": "",
+          "meaning": "Article of the brand's demo set.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "roles",
+          "type": "text[] — JSON array of strings",
+          "unit": "",
+          "meaning": "Properties the item demonstrates: price_event · gone · maturing (Not listed this week, with a last known price) · price_spread · e1_only · video · family_size · alnum_code (letters and digits in the code) · price_ladder_top (top of the price range).",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "status",
+          "type": "text (enum)",
+          "unit": "",
+          "meaning": "Status this week (see Status names).",
+          "enum": [
+            "in_catalog",
+            "e1_only",
+            "gone"
+          ],
+          "empty": "never"
+        },
+        {
+          "name": "price_events",
+          "type": "int",
+          "unit": "",
+          "meaning": "Price changes in the history.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "price_spread_ratio",
+          "type": "numeric",
+          "unit": "",
+          "meaning": "Highest to lowest USD price across storefronts.",
+          "enum": [],
+          "empty": "a"
+        },
+        {
+          "name": "videos",
+          "type": "int",
+          "unit": "",
+          "meaning": "Videos.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "family_size",
+          "type": "int",
+          "unit": "",
+          "meaning": "Articles on the same model page.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "checks_ok",
+          "type": "bool",
+          "unit": "",
+          "meaning": "True when the item still shows every property it was chosen for this week.",
+          "enum": [],
+          "empty": "never"
+        },
+        {
+          "name": "checks_failed",
+          "type": "text[] — JSON array of strings",
+          "unit": "",
+          "meaning": "Properties this item no longer demonstrates.",
+          "enum": [],
+          "empty": "c"
+        }
+      ]
+    }
+  ],
+  "specifications": [
+    {
+      "name": "a_depth_cm",
+      "type": "numeric",
+      "unit": "cm",
+      "meaning": "Depth (accessory)"
+    },
+    {
+      "name": "a_diameter_cm",
+      "type": "numeric",
+      "unit": "cm",
+      "meaning": "Diameter (accessory)"
+    },
+    {
+      "name": "a_height_cm",
+      "type": "numeric",
+      "unit": "cm",
+      "meaning": "Height (accessory)"
+    },
+    {
+      "name": "a_width_cm",
+      "type": "numeric",
+      "unit": "cm",
+      "meaning": "Width (accessory)"
+    },
+    {
+      "name": "adjustable",
+      "type": "bool",
+      "unit": "",
+      "meaning": "Adjustable"
+    },
+    {
+      "name": "ageing",
+      "type": "text",
+      "unit": "",
+      "meaning": "Ageing"
+    },
+    {
+      "name": "b_ingredients",
+      "type": "text",
+      "unit": "",
+      "meaning": "Ingredients (beauty)"
+    },
+    {
+      "name": "battery_life",
+      "type": "text",
+      "unit": "",
+      "meaning": "Battery life"
+    },
+    {
+      "name": "binding",
+      "type": "enum",
+      "unit": "",
+      "meaning": "Binding"
+    },
+    {
+      "name": "book_author",
+      "type": "text",
+      "unit": "",
+      "meaning": "Author"
+    },
+    {
+      "name": "book_illustrator",
+      "type": "text",
+      "unit": "",
+      "meaning": "Illustrator"
+    },
+    {
+      "name": "book_pages",
+      "type": "numeric",
+      "unit": "",
+      "meaning": "Pages"
+    },
+    {
+      "name": "book_photographer",
+      "type": "text",
+      "unit": "",
+      "meaning": "Photographer"
+    },
+    {
+      "name": "bracelet_length_cm",
+      "type": "numeric",
+      "unit": "cm",
+      "meaning": "Bracelet length"
+    },
+    {
+      "name": "bracelet_length_max_cm",
+      "type": "numeric",
+      "unit": "cm",
+      "meaning": "Bracelet length (max)"
+    },
+    {
+      "name": "buckle",
+      "type": "text",
+      "unit": "",
+      "meaning": "Buckle"
+    },
+    {
+      "name": "buckle_height_cm",
+      "type": "numeric",
+      "unit": "cm",
+      "meaning": "Buckle height"
+    },
+    {
+      "name": "buckle_raw",
+      "type": "text",
+      "unit": "",
+      "meaning": "Buckle (as written)"
+    },
+    {
+      "name": "buckle_type",
+      "type": "enum",
+      "unit": "",
+      "meaning": "Buckle type"
+    },
+    {
+      "name": "buckle_width_cm",
+      "type": "numeric",
+      "unit": "cm",
+      "meaning": "Buckle width"
+    },
+    {
+      "name": "burn_time_h",
+      "type": "numeric",
+      "unit": "h",
+      "meaning": "Burn time"
+    },
+    {
+      "name": "capacity",
+      "type": "text",
+      "unit": "",
+      "meaning": "Max. capacity"
+    },
+    {
+      "name": "capacity_max_kg",
+      "type": "numeric",
+      "unit": "kg",
+      "meaning": "Max. load"
+    },
+    {
+      "name": "card_slots",
+      "type": "numeric",
+      "unit": "",
+      "meaning": "Card slots"
+    },
+    {
+      "name": "carry_style",
+      "type": "text",
+      "unit": "",
+      "meaning": "Carry style"
+    },
+    {
+      "name": "case_width_mm",
+      "type": "numeric",
+      "unit": "mm",
+      "meaning": "Case width"
+    },
+    {
+      "name": "chain",
+      "type": "text",
+      "unit": "",
+      "meaning": "Chain"
+    },
+    {
+      "name": "chain_drop_cm",
+      "type": "numeric",
+      "unit": "cm",
+      "meaning": "Chain drop"
+    },
+    {
+      "name": "chain_drop_max_cm",
+      "type": "numeric",
+      "unit": "cm",
+      "meaning": "Chain drop (max)"
+    },
+    {
+      "name": "chain_length_cm",
+      "type": "numeric",
+      "unit": "cm",
+      "meaning": "Chain length"
+    },
+    {
+      "name": "charging_time",
+      "type": "text",
+      "unit": "",
+      "meaning": "Charging time"
+    },
+    {
+      "name": "cites_restricted",
+      "type": "bool",
+      "unit": "",
+      "meaning": "CITES-restricted material"
+    },
+    {
+      "name": "closure",
+      "type": "text",
+      "unit": "",
+      "meaning": "Closure"
+    },
+    {
+      "name": "closure_type",
+      "type": "enum",
+      "unit": "",
+      "meaning": "Closure type"
+    },
+    {
+      "name": "collar_neckline",
+      "type": "text",
+      "unit": "",
+      "meaning": "Collar / neckline"
+    },
+    {
+      "name": "composition_pct",
+      "type": "text",
+      "unit": "%",
+      "meaning": "Composition"
+    },
+    {
+      "name": "construction",
+      "type": "text",
+      "unit": "",
+      "meaning": "Construction"
+    },
+    {
+      "name": "crystal",
+      "type": "enum",
+      "unit": "",
+      "meaning": "Crystal"
+    },
+    {
+      "name": "designer",
+      "type": "text",
+      "unit": "",
+      "meaning": "Designer"
+    },
+    {
+      "name": "diamond_center_carat",
+      "type": "numeric",
+      "unit": "ct",
+      "meaning": "Center stone"
+    },
+    {
+      "name": "dishwasher_safe",
+      "type": "bool",
+      "unit": "",
+      "meaning": "Dishwasher safe"
+    },
+    {
+      "name": "domestic_table_size",
+      "type": "text",
+      "unit": "",
+      "meaning": "Table size"
+    },
+    {
+      "name": "e_bridge_mm",
+      "type": "numeric",
+      "unit": "mm",
+      "meaning": "Bridge"
+    },
+    {
+      "name": "e_filter",
+      "type": "numeric",
+      "unit": "",
+      "meaning": "Lens filter category"
+    },
+    {
+      "name": "e_lens_width_mm",
+      "type": "numeric",
+      "unit": "mm",
+      "meaning": "Lens width"
+    },
+    {
+      "name": "e_temple_mm",
+      "type": "numeric",
+      "unit": "mm",
+      "meaning": "Temple length"
+    },
+    {
+      "name": "e_uv_pct",
+      "type": "numeric",
+      "unit": "%",
+      "meaning": "UV protection"
+    },
+    {
+      "name": "e_vlt_pct",
+      "type": "numeric",
+      "unit": "%",
+      "meaning": "Visible light transmission"
+    },
+    {
+      "name": "each_module",
+      "type": "text",
+      "unit": "",
+      "meaning": "Each module"
+    },
+    {
+      "name": "edge_finish",
+      "type": "enum",
+      "unit": "",
+      "meaning": "Edge finish"
+    },
+    {
+      "name": "engravable",
+      "type": "bool",
+      "unit": "",
+      "meaning": "Can be engraved"
+    },
+    {
+      "name": "engraving_available",
+      "type": "bool",
+      "unit": "",
+      "meaning": "Engraving available"
+    },
+    {
+      "name": "f_ingredients",
+      "type": "text",
+      "unit": "",
+      "meaning": "Ingredients"
+    },
+    {
+      "name": "f_key_notes",
+      "type": "text",
+      "unit": "",
+      "meaning": "Key notes (listing)"
+    },
+    {
+      "name": "finish",
+      "type": "text",
+      "unit": "",
+      "meaning": "Finish"
+    },
+    {
+      "name": "fit",
+      "type": "enum",
+      "unit": "",
+      "meaning": "Fit"
+    },
+    {
+      "name": "fits",
+      "type": "text",
+      "unit": "",
+      "meaning": "Fits"
+    },
+    {
+      "name": "fj_height_mm",
+      "type": "numeric",
+      "unit": "mm",
+      "meaning": "Height"
+    },
+    {
+      "name": "fj_length_mm",
+      "type": "numeric",
+      "unit": "mm",
+      "meaning": "Length (fashion jewellery)"
+    },
+    {
+      "name": "fj_weight_g",
+      "type": "numeric",
+      "unit": "g",
+      "meaning": "Weight (fashion jewellery)"
+    },
+    {
+      "name": "fj_width_mm",
+      "type": "numeric",
+      "unit": "mm",
+      "meaning": "Width (fashion jewellery)"
+    },
+    {
+      "name": "fragrance_formats",
+      "type": "text",
+      "unit": "",
+      "meaning": "Formats"
+    },
+    {
+      "name": "fragrance_key_notes",
+      "type": "text",
+      "unit": "",
+      "meaning": "Key notes"
+    },
+    {
+      "name": "gold_karat_spec",
+      "type": "numeric",
+      "unit": "kt",
+      "meaning": "Gold"
+    },
+    {
+      "name": "hand_stitched_vamp",
+      "type": "bool",
+      "unit": "",
+      "meaning": "Hand-stitched vamp"
+    },
+    {
+      "name": "handle",
+      "type": "text",
+      "unit": "",
+      "meaning": "Handle"
+    },
+    {
+      "name": "handle_drop_cm",
+      "type": "numeric",
+      "unit": "cm",
+      "meaning": "Handle drop"
+    },
+    {
+      "name": "handle_drop_max_cm",
+      "type": "numeric",
+      "unit": "cm",
+      "meaning": "Handle drop (max)"
+    },
+    {
+      "name": "hardware_color",
+      "type": "text",
+      "unit": "",
+      "meaning": "Hardware colour"
+    },
+    {
+      "name": "hardware_finish",
+      "type": "enum",
+      "unit": "",
+      "meaning": "Hardware finish"
+    },
+    {
+      "name": "heel_cm",
+      "type": "numeric",
+      "unit": "cm",
+      "meaning": "Heel height"
+    },
+    {
+      "name": "home_depth_cm",
+      "type": "numeric",
+      "unit": "cm",
+      "meaning": "Depth"
+    },
+    {
+      "name": "home_diameter_cm",
+      "type": "numeric",
+      "unit": "cm",
+      "meaning": "Diameter"
+    },
+    {
+      "name": "home_height_cm",
+      "type": "numeric",
+      "unit": "cm",
+      "meaning": "Height"
+    },
+    {
+      "name": "home_width_cm",
+      "type": "numeric",
+      "unit": "cm",
+      "meaning": "Width"
+    },
+    {
+      "name": "illustrations",
+      "type": "text",
+      "unit": "",
+      "meaning": "Illustrations"
+    },
+    {
+      "name": "insole",
+      "type": "text",
+      "unit": "",
+      "meaning": "Insole"
+    },
+    {
+      "name": "is_refill",
+      "type": "bool",
+      "unit": "",
+      "meaning": "Refill"
+    },
+    {
+      "name": "j_band_width_mm",
+      "type": "numeric",
+      "unit": "mm",
+      "meaning": "Band width"
+    },
+    {
+      "name": "j_center_stone_color",
+      "type": "text",
+      "unit": "",
+      "meaning": "Centre stone colour"
+    },
+    {
+      "name": "j_chain_length_cm",
+      "type": "numeric",
+      "unit": "cm",
+      "meaning": "Chain length (jewellery)"
+    },
+    {
+      "name": "j_clarity",
+      "type": "text",
+      "unit": "",
+      "meaning": "Clarity"
+    },
+    {
+      "name": "j_clarity_range",
+      "type": "text",
+      "unit": "",
+      "meaning": "Centre stone clarity range"
+    },
+    {
+      "name": "j_color_range",
+      "type": "text",
+      "unit": "",
+      "meaning": "Centre stone colour range"
+    },
+    {
+      "name": "j_diameter_mm",
+      "type": "numeric",
+      "unit": "mm",
+      "meaning": "Diameter"
+    },
+    {
+      "name": "j_height_mm",
+      "type": "numeric",
+      "unit": "mm",
+      "meaning": "Height (jewellery)"
+    },
+    {
+      "name": "j_length_mm",
+      "type": "numeric",
+      "unit": "mm",
+      "meaning": "Length (jewellery)"
+    },
+    {
+      "name": "j_setting_size_mm",
+      "type": "numeric",
+      "unit": "mm",
+      "meaning": "Setting size"
+    },
+    {
+      "name": "j_width_mm",
+      "type": "numeric",
+      "unit": "mm",
+      "meaning": "Width (jewellery)"
+    },
+    {
+      "name": "key_ingredients",
+      "type": "text",
+      "unit": "",
+      "meaning": "Key ingredients"
+    },
+    {
+      "name": "language_edition",
+      "type": "text",
+      "unit": "",
+      "meaning": "Language edition"
+    },
+    {
+      "name": "length_cm",
+      "type": "numeric",
+      "unit": "cm",
+      "meaning": "Length"
+    },
+    {
+      "name": "limited_edition",
+      "type": "text",
+      "unit": "",
+      "meaning": "Limited edition"
+    },
+    {
+      "name": "lining",
+      "type": "text",
+      "unit": "",
+      "meaning": "Lining"
+    },
+    {
+      "name": "lining_material",
+      "type": "text",
+      "unit": "",
+      "meaning": "Lining material"
+    },
+    {
+      "name": "lug_to_lug_mm",
+      "type": "numeric",
+      "unit": "mm",
+      "meaning": "Lug to lug"
+    },
+    {
+      "name": "max_load",
+      "type": "text",
+      "unit": "",
+      "meaning": "Maximum load"
+    },
+    {
+      "name": "metal_fineness_spec",
+      "type": "numeric",
+      "unit": "‰",
+      "meaning": "Metal fineness"
+    },
+    {
+      "name": "metal_type",
+      "type": "enum",
+      "unit": "",
+      "meaning": "Metal"
+    },
+    {
+      "name": "microwave_safe",
+      "type": "bool",
+      "unit": "",
+      "meaning": "Microwave safe"
+    },
+    {
+      "name": "min_order_qty",
+      "type": "numeric",
+      "unit": "",
+      "meaning": "Minimum order quantity"
+    },
+    {
+      "name": "model_size",
+      "type": "text",
+      "unit": "",
+      "meaning": "Model wears size"
+    },
+    {
+      "name": "model_wrist_cm",
+      "type": "numeric",
+      "unit": "cm",
+      "meaning": "Model's wrist size"
+    },
+    {
+      "name": "model_wrist_female_cm",
+      "type": "numeric",
+      "unit": "cm",
+      "meaning": "Female model's wrist size"
+    },
+    {
+      "name": "motif_size_mm",
+      "type": "numeric",
+      "unit": "mm",
+      "meaning": "Motif size"
+    },
+    {
+      "name": "numbered_edition",
+      "type": "text",
+      "unit": "",
+      "meaning": "Numbered edition"
+    },
+    {
+      "name": "origin_assembly",
+      "type": "text",
+      "unit": "",
+      "meaning": "Origin: assembly"
+    },
+    {
+      "name": "origin_confection",
+      "type": "text",
+      "unit": "",
+      "meaning": "Origin: confection"
+    },
+    {
+      "name": "origin_dye",
+      "type": "text",
+      "unit": "",
+      "meaning": "Origin: dyeing"
+    },
+    {
+      "name": "origin_finishing",
+      "type": "text",
+      "unit": "",
+      "meaning": "Origin: finishing"
+    },
+    {
+      "name": "origin_print",
+      "type": "text",
+      "unit": "",
+      "meaning": "Origin: printing"
+    },
+    {
+      "name": "origin_stitching",
+      "type": "text",
+      "unit": "",
+      "meaning": "Origin: stitching"
+    },
+    {
+      "name": "origin_weaving",
+      "type": "text",
+      "unit": "",
+      "meaning": "Origin: weaving"
+    },
+    {
+      "name": "pockets",
+      "type": "text",
+      "unit": "",
+      "meaning": "Pockets"
+    },
+    {
+      "name": "print_technique",
+      "type": "enum",
+      "unit": "",
+      "meaning": "Print technique"
+    },
+    {
+      "name": "printed_in",
+      "type": "text",
+      "unit": "",
+      "meaning": "Printed in"
+    },
+    {
+      "name": "purchase_limit",
+      "type": "numeric",
+      "unit": "",
+      "meaning": "Purchase limit per customer"
+    },
+    {
+      "name": "r_lining",
+      "type": "text",
+      "unit": "",
+      "meaning": "Lining (garment)"
+    },
+    {
+      "name": "r_main_material",
+      "type": "text",
+      "unit": "",
+      "meaning": "Main material"
+    },
+    {
+      "name": "r_model_measurements",
+      "type": "text",
+      "unit": "",
+      "meaning": "Model measurements"
+    },
+    {
+      "name": "r_other_materials",
+      "type": "text",
+      "unit": "",
+      "meaning": "Other materials"
+    },
+    {
+      "name": "r_ref",
+      "type": "text",
+      "unit": "",
+      "meaning": "Reference"
+    },
+    {
+      "name": "refillable",
+      "type": "bool",
+      "unit": "",
+      "meaning": "Refillable"
+    },
+    {
+      "name": "reversible",
+      "type": "bool",
+      "unit": "",
+      "meaning": "Reversible"
+    },
+    {
+      "name": "seat_height_cm",
+      "type": "numeric",
+      "unit": "cm",
+      "meaning": "Seat height"
+    },
+    {
+      "name": "shade_code",
+      "type": "text",
+      "unit": "",
+      "meaning": "Shade code"
+    },
+    {
+      "name": "shoe_closure",
+      "type": "enum",
+      "unit": "",
+      "meaning": "Closure (shoes)"
+    },
+    {
+      "name": "sole",
+      "type": "text",
+      "unit": "",
+      "meaning": "Sole"
+    },
+    {
+      "name": "sole_material",
+      "type": "enum",
+      "unit": "",
+      "meaning": "Sole material"
+    },
+    {
+      "name": "sole_material_raw",
+      "type": "text",
+      "unit": "",
+      "meaning": "Sole (as written)"
+    },
+    {
+      "name": "spec_reference_size",
+      "type": "numeric",
+      "unit": "",
+      "meaning": "Specifications given for size"
+    },
+    {
+      "name": "stone_carat_total",
+      "type": "numeric",
+      "unit": "ct",
+      "meaning": "Stone weight (non-diamond, total)"
+    },
+    {
+      "name": "stones",
+      "type": "text",
+      "unit": "",
+      "meaning": "Stones"
+    },
+    {
+      "name": "strap",
+      "type": "text",
+      "unit": "",
+      "meaning": "Strap"
+    },
+    {
+      "name": "strap_adjustable",
+      "type": "bool",
+      "unit": "",
+      "meaning": "Strap adjustable"
+    },
+    {
+      "name": "strap_drop_cm",
+      "type": "numeric",
+      "unit": "cm",
+      "meaning": "Strap drop"
+    },
+    {
+      "name": "strap_drop_max_cm",
+      "type": "numeric",
+      "unit": "cm",
+      "meaning": "Strap drop (max)"
+    },
+    {
+      "name": "strap_interchangeable",
+      "type": "bool",
+      "unit": "",
+      "meaning": "Interchangeable strap"
+    },
+    {
+      "name": "strap_length_cm",
+      "type": "numeric",
+      "unit": "cm",
+      "meaning": "Strap length"
+    },
+    {
+      "name": "strap_length_max_cm",
+      "type": "numeric",
+      "unit": "cm",
+      "meaning": "Strap length (max)"
+    },
+    {
+      "name": "strap_removable",
+      "type": "bool",
+      "unit": "",
+      "meaning": "Strap removable"
+    },
+    {
+      "name": "strap_width_mm",
+      "type": "numeric",
+      "unit": "mm",
+      "meaning": "Strap width"
+    },
+    {
+      "name": "structure",
+      "type": "text",
+      "unit": "",
+      "meaning": "Structure"
+    },
+    {
+      "name": "top_handle_length_cm",
+      "type": "numeric",
+      "unit": "cm",
+      "meaning": "Top handle length"
+    },
+    {
+      "name": "trim",
+      "type": "text",
+      "unit": "",
+      "meaning": "Trim"
+    },
+    {
+      "name": "trim_material",
+      "type": "text",
+      "unit": "",
+      "meaning": "Trim material"
+    },
+    {
+      "name": "upholstery",
+      "type": "text",
+      "unit": "",
+      "meaning": "Upholstery"
+    },
+    {
+      "name": "volume_l",
+      "type": "numeric",
+      "unit": "l",
+      "meaning": "Volume"
+    },
+    {
+      "name": "volume_ml",
+      "type": "numeric",
+      "unit": "ml",
+      "meaning": "Volume"
+    },
+    {
+      "name": "w_caliber",
+      "type": "text",
+      "unit": "",
+      "meaning": "Caliber"
+    },
+    {
+      "name": "w_case_diameter_mm",
+      "type": "numeric",
+      "unit": "mm",
+      "meaning": "Case diameter"
+    },
+    {
+      "name": "w_frequency_vph",
+      "type": "numeric",
+      "unit": "vph",
+      "meaning": "Frequency"
+    },
+    {
+      "name": "w_functions",
+      "type": "text",
+      "unit": "",
+      "meaning": "Functions"
+    },
+    {
+      "name": "w_jewels",
+      "type": "numeric",
+      "unit": "",
+      "meaning": "Jewels"
+    },
+    {
+      "name": "w_material",
+      "type": "text",
+      "unit": "",
+      "meaning": "Case material"
+    },
+    {
+      "name": "w_movement",
+      "type": "text",
+      "unit": "",
+      "meaning": "Movement"
+    },
+    {
+      "name": "w_movement_diameter_mm",
+      "type": "numeric",
+      "unit": "mm",
+      "meaning": "Movement diameter"
+    },
+    {
+      "name": "w_oscillating_weight",
+      "type": "text",
+      "unit": "",
+      "meaning": "Oscillating weight"
+    },
+    {
+      "name": "w_power_reserve_h",
+      "type": "numeric",
+      "unit": "h",
+      "meaning": "Power reserve"
+    },
+    {
+      "name": "w_thickness_mm",
+      "type": "numeric",
+      "unit": "mm",
+      "meaning": "Case thickness"
+    },
+    {
+      "name": "w_water_resistance_m",
+      "type": "numeric",
+      "unit": "m",
+      "meaning": "Water resistance (watch)"
+    },
+    {
+      "name": "water_resistance_m",
+      "type": "numeric",
+      "unit": "m",
+      "meaning": "Water resistance"
+    },
+    {
+      "name": "wear_claims",
+      "type": "text",
+      "unit": "",
+      "meaning": "Wear claims (Louis Vuitton instrumental tests)"
+    },
+    {
+      "name": "weight_g",
+      "type": "numeric",
+      "unit": "g",
+      "meaning": "Weight"
+    },
+    {
+      "name": "wrap_count",
+      "type": "numeric",
+      "unit": "",
+      "meaning": "Wraps around the wrist"
+    }
+  ]
+}

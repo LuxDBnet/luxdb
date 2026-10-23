@@ -1,0 +1,30 @@
+name: Offline public-tree checks
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+      - name: First stage the plain publication tree
+        run: python3 -B tools/stage_public.py "$RUNNER_TEMP/public-tree"
+      - name: Check deterministic rendering and SDK sync
+        working-directory: ${{ runner.temp }}/public-tree
+        run: |
+          python3 -B tools/render_public.py --check
+          python3 -B tools/generate_clients.py --check
+      - name: Run synthetic tests in the plain tree
+        working-directory: ${{ runner.temp }}/public-tree
+        run: python3 -B -m unittest discover -s tests -v
+      - name: Run offline JavaScript tests
+        working-directory: ${{ runner.temp }}/public-tree
+        run: node --test clients/js/test/*.test.mjs
+      - name: Scan the plain publication tree again
+        working-directory: ${{ runner.temp }}/public-tree
+        run: python3 -B tools/check_public.py
