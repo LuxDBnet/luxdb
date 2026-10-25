@@ -5,14 +5,14 @@
     "version": "2.3.1",
     "x-schema-versions": {
       "lv": "2.3.1",
-      "dior": "2.3.0",
-      "givenchy": "2.3.0",
+      "dior": "2.3.1",
+      "givenchy": "2.3.1",
       "hermes": "2.3.1",
-      "kenzo": "2.3.0",
-      "loewe": "2.3.0",
-      "tiffany": "2.3.0"
+      "kenzo": "2.3.1",
+      "loewe": "2.3.1",
+      "tiffany": "2.3.1"
     },
-    "description": "LuxDB: the luxury-house article archive. Search with the house's article code or a product name; `article` returns the full record.\n\nEvery answer carries the envelope below and says what it charged. One credit is one article, whole: all card fields, the price in every storefront, and the entire observed history. A code the archive does not hold costs nothing; a repeat of the same article within 24 hours costs nothing; a batch the balance cannot cover is refused whole and charges nothing.\n\nThe public sandbox key is `demo`: every endpoint answers in the same shape over a fixed set of demo articles, so this document can be read with live requests and no account. If the service is temporarily unavailable, no credits are charged. Follow Retry-After before trying again."
+    "description": "LuxDB: the luxury-house article archive. Search with the house's article code or a product name; `article` returns the full record.\n\nEvery answer carries the envelope below and says what it charged. One credit is one article, whole: all card fields, the price in every storefront, and the entire observed history. A code the archive does not hold costs nothing; a repeat of the same article within 24 hours costs nothing; a batch the balance cannot cover is refused whole and charges nothing.\n\nThe public sandbox key is `demo`: every endpoint answers in the same shape over a fixed set of demo articles, so this document can be read with live requests and no account. The sandbox allows one request a minute and 300 a day per address; beyond that the answer is 429 with Retry-After, so a script trying several endpoints should wait between calls. If the service is temporarily unavailable, no credits are charged. Follow Retry-After before trying again.\n\nField names that carry `lv` (lv_url, lv_url_status, lv_url_region, name_lv, color_group_lv) date from the first house in the archive. They mean the same thing for every house: the house's own site, its own name for the item and its own colour group.\n\nEvery answer carries X-Request-Id; quote it when reporting a problem."
   },
   "servers": [
     {
@@ -62,11 +62,11 @@
           },
           "credits_subscription": {
             "type": "integer",
-            "description": "Subscription credits left after the charge."
+            "description": "Subscription credits left after the charge. Negative when the wallet is in debt."
           },
           "credits_retail": {
             "type": "integer",
-            "description": "Retail credits left after the charge."
+            "description": "Retail credits left after the charge. Negative when the wallet is in debt."
           },
           "credits_member_left": {
             "type": "integer",
@@ -84,11 +84,13 @@
           },
           "resets_hour": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "description": "When the hourly credit ceiling turns over for this account."
           },
           "resets_day": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "description": "When the daily credit ceiling turns over for this account."
           },
           "resets_month": {
             "type": "string",
@@ -116,7 +118,8 @@
             "enum": [
               "registered",
               "active"
-            ]
+            ],
+            "description": "On a sandbox answer to a registered account: `registered` until the account has credits, then `active`."
           },
           "sandbox": {
             "type": "boolean",
@@ -186,6 +189,34 @@
           "retry_after_seconds": {
             "type": "integer",
             "description": "On 429 and 503. Also sent as the Retry-After header."
+          },
+          "hint": {
+            "type": "string",
+            "description": "A further sentence for a person: what to do next, or which limit applied."
+          },
+          "batch_max": {
+            "type": "integer",
+            "description": "On a batch with too many codes: the most one request may ask for."
+          },
+          "brands": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "On an unknown or not yet open brand: the houses that are open."
+          },
+          "plan": {
+            "type": "string",
+            "description": "On `plan` (403): the plan the key belongs to."
+          },
+          "sandbox": {
+            "type": "boolean",
+            "description": "On a sandbox refusal: true, the limit was the sandbox's."
+          },
+          "remaining_today": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "On a sandbox refusal: requests left today for this address or account."
           }
         }
       },
@@ -197,10 +228,12 @@
         ],
         "properties": {
           "family_id": {
-            "type": "string"
+            "type": "string",
+            "description": "The family id asked."
           },
           "articles": {
             "type": "array",
+            "description": "Every member of the family, in code order.",
             "items": {
               "type": "object",
               "required": [
@@ -212,31 +245,36 @@
               ],
               "properties": {
                 "article": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "The member's article code."
                 },
                 "name": {
                   "type": [
                     "string",
                     "null"
-                  ]
+                  ],
+                  "description": "Its English name, or the house's own when there is none."
                 },
                 "color": {
                   "type": [
                     "string",
                     "null"
-                  ]
+                  ],
+                  "description": "Its colour, once your account has bought it; null before."
                 },
                 "status": {
                   "type": [
                     "string",
                     "null"
-                  ]
+                  ],
+                  "description": "Its status, as on the card."
                 },
                 "size_scale": {
                   "type": [
                     "string",
                     "null"
-                  ]
+                  ],
+                  "description": "Its size scale, once your account has bought it; null before."
                 }
               }
             }
@@ -244,6 +282,7 @@
         }
       },
       "Resolved": {
+        "description": "What the link points to, by `status`.",
         "oneOf": [
           {
             "type": "object",
@@ -256,22 +295,26 @@
             "properties": {
               "status": {
                 "type": "string",
-                "const": "product"
+                "const": "product",
+                "description": "What kind of page the link is."
               },
               "article": {
-                "type": "string"
+                "type": "string",
+                "description": "The article the link is the page of."
               },
               "region": {
                 "type": [
                   "string",
                   "null"
-                ]
+                ],
+                "description": "The storefront the link belongs to."
               },
               "lv_url_status": {
                 "type": [
                   "string",
                   "null"
-                ]
+                ],
+                "description": "The link's status, as lv_url_status on the card."
               }
             }
           },
@@ -286,22 +329,26 @@
             "properties": {
               "status": {
                 "type": "string",
-                "const": "family"
+                "const": "family",
+                "description": "What kind of page the link is."
               },
               "family_id": {
-                "type": "string"
+                "type": "string",
+                "description": "The family the link is the page of."
               },
               "articles": {
                 "type": "array",
                 "items": {
                   "type": "string"
-                }
+                },
+                "description": "The family's article codes."
               },
               "region": {
                 "type": [
                   "string",
                   "null"
-                ]
+                ],
+                "description": "The storefront the link belongs to."
               }
             }
           },
@@ -318,34 +365,40 @@
             "properties": {
               "status": {
                 "type": "string",
-                "const": "variant"
+                "const": "variant",
+                "description": "What kind of page the link is."
               },
               "key": {
-                "type": "string"
+                "type": "string",
+                "description": "The code in the link."
               },
               "variant_of": {
                 "type": [
                   "string",
                   "null"
-                ]
+                ],
+                "description": "The article that has the card, once your account has bought it; null before."
               },
               "variant_kind": {
                 "type": [
                   "string",
                   "null"
-                ]
+                ],
+                "description": "Size or colour, once your account has bought it; null before."
               },
               "label": {
                 "type": [
                   "string",
                   "null"
-                ]
+                ],
+                "description": "The variation's label, once your account has bought it; null before."
               },
               "region": {
                 "type": [
                   "string",
                   "null"
-                ]
+                ],
+                "description": "The storefront the link belongs to."
               }
             }
           },
@@ -359,16 +412,19 @@
             "properties": {
               "status": {
                 "type": "string",
-                "const": "not_in_catalog"
+                "const": "not_in_catalog",
+                "description": "What kind of page the link is."
               },
               "key": {
-                "type": "string"
+                "type": "string",
+                "description": "The code in the link."
               },
               "region": {
                 "type": [
                   "string",
                   "null"
-                ]
+                ],
+                "description": "The storefront the link belongs to."
               }
             }
           },
@@ -380,7 +436,8 @@
             "properties": {
               "status": {
                 "type": "string",
-                "const": "unrecognized_url"
+                "const": "unrecognized_url",
+                "description": "What kind of page the link is."
               }
             }
           }
@@ -391,7 +448,7 @@
         "properties": {
           "article": {
             "type": "string",
-            "description": "Article — the brand's reference code for the item; with brand, the key of every table. For Louis Vuitton: six characters, e.g. 1ACVHU. For Dior: model code, underscore, colour or variant code, e.g. 15JOU090I602_C545. For Loewe: model code, hyphen, four-digit colour code; fragrances use a five-digit model code. For Kenzo: model code, dot, colour code. For Tiffany & Co.: eight-digit item number. For Givenchy: model code, hyphen, three-digit colour code. For Hermès: model code, colour code and an optional size, e.g. H041054CK v01 M; tableware uses P-codes; belts sold as a set combine the buckle and strap codes.",
+            "description": "Article — the brand's reference code for the item; with brand, the key of every table. For Louis Vuitton: six characters, e.g. 1ACVHU. For Dior: model code, underscore, colour or variant code, e.g. 15JOU090I602_C545. For Loewe: model code, hyphen, four-digit colour code; fragrances use a five-digit model code. For Kenzo: model code, dot, colour code. For Tiffany & Co.: eight-digit item number. For Givenchy: model code, hyphen, three-digit colour code. For Hermès: model code, colour code and an optional size, e.g. H041054CK18; tableware uses P-codes; belts sold as a set combine the buckle and strap codes.",
             "example": "1ACVHU"
           },
           "requested": {
@@ -532,7 +589,7 @@
               "string",
               "null"
             ],
-            "description": "Type of item in English (sneaker, ankle boot, tote, card holder, bracelet, belt, watch strap…), for filtering. The full list of values is in the schema file under product_type_canon.",
+            "description": "Type of item in English (sneaker, ankle boot, tote, card holder, bracelet, belt, watch strap…), for filtering.",
             "example": "sneaker"
           },
           "collection": {
@@ -667,31 +724,76 @@
             ],
             "properties": {
               "raw": {
-                "type": "string"
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Dimensions as published on the storefront (\"29 x 17.5 x 10 cm\", \"33.5 x 45.3 x 23.6 inches\"). Empty = the brand publishes no dimensions.",
+                "example": "7.5 x 11.1 x 1 cm"
               },
               "unit_raw": {
-                "type": "string"
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Unit of the published dimensions (cm, inches, mm).",
+                "example": "cm"
               },
               "axes": {
-                "type": "string"
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Labels of the dimensions, e.g. L×W or D×H. A default: prefix means the labels are assumed, not stated by the brand; read the labels after the prefix. A name: prefix means the dimension comes from the item name (belts).",
+                "example": "L×H×W"
               },
               "length_cm": {
-                "type": "number"
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "description": "Length in centimetres (converted when published in inches or millimetres). Empty = not published.",
+                "example": 7.5
               },
               "height_cm": {
-                "type": "number"
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "description": "Height in centimetres.",
+                "example": 11.1
               },
               "width_cm": {
-                "type": "number"
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "description": "Width or depth in centimetres; for round items the diameter.",
+                "example": 1
               },
               "length_in": {
-                "type": "number"
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "description": "Length in inches (centimetres / 2.54).",
+                "example": 3
               },
               "height_in": {
-                "type": "number"
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "description": "Height in inches.",
+                "example": 4.4
               },
               "width_in": {
-                "type": "number"
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "description": "Width in inches.",
+                "example": 0.4
               }
             },
             "description": "Raw and parsed measurements, in centimetres and inches where the house publishes them."
@@ -731,7 +833,7 @@
           },
           "status": {
             "type": "string",
-            "description": "Status (see Status names): in_catalog — In catalog (with weeks_unlisted = 1: Not listed this week) · gone — Delisted. For Louis Vuitton: e1_only — Listed without price.",
+            "description": "Status (see Status names): in_catalog — In catalog (with weeks_unlisted = 1: Not listed this week) · gone — Delisted. For Louis Vuitton: e1_only — Listed without price: shown only on the house's international storefront, which publishes no prices.",
             "example": "gone",
             "enum": [
               "in_catalog",
@@ -762,6 +864,100 @@
               "type": "object"
             },
             "description": "The full size rows, not a count: matching a marketplace listing needs the size, the storefront and the code."
+          },
+          "size_set": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "description": "Every size of the set this card is the main of, in size order: the house sells each size under its own code, and one card stands for all of them. Each element names the size's code, its label and scale, the words the card prints for it and the storefronts that list it. Null when the article is the main of no set, or its set has one size. A size's own code answers with this card and says which size was asked (requested). In the sandbox a size's code outside the sample is null; the sizes and storefronts stay.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "description": "The size's own catalogue code. The main's is this card's article."
+                },
+                "size_label": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "description": "The size as the house labels it."
+                },
+                "size_scale": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "description": "The scale the label belongs to (alpha, UK, ring…)."
+                },
+                "size_order": {
+                  "type": [
+                    "number",
+                    "null"
+                  ],
+                  "description": "Sort position of the size within its scale; the elements come in this order, nulls last."
+                },
+                "display_label": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "description": "The size in words, as the card prints it (the same words as requested)."
+                },
+                "self": {
+                  "type": "boolean",
+                  "description": "True on the element that is this card's own size."
+                },
+                "regions": {
+                  "type": "array",
+                  "description": "The storefronts that list this size, by storefront code.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "region": {
+                        "type": "string",
+                        "description": "Storefront code."
+                      },
+                      "availability": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "description": "Availability the storefront showed for this size; null when it showed none."
+                      },
+                      "priced": {
+                        "type": [
+                          "boolean",
+                          "null"
+                        ],
+                        "description": "Whether the storefront showed a price for this size."
+                      }
+                    },
+                    "required": [
+                      "region",
+                      "availability",
+                      "priced"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "code",
+                "size_label",
+                "size_scale",
+                "size_order",
+                "display_label",
+                "self",
+                "regions"
+              ],
+              "additionalProperties": false
+            }
           },
           "variant_codes": {
             "type": "array",
@@ -1044,7 +1240,7 @@
             "items": {
               "type": "string"
             },
-            "description": "Sizes listed on the item page, labels as sold, for items whose sizes are not in size_variant. Empty = no size list.",
+            "description": "Sizes listed on the item page, labels as sold, for items whose sizes are not listed in size_variants. Empty = no size list.",
             "example": null
           },
           "size_run_region": {
@@ -1121,55 +1317,78 @@
                 "type": [
                   "number",
                   "null"
-                ]
+                ],
+                "description": "USD price for lists: the median of current prices across countries (two storefronts of one country count once). Empty = no price anywhere (\"price not published\").",
+                "example": 3209.69
               },
               "usd_min": {
                 "type": [
                   "number",
                   "null"
-                ]
+                ],
+                "description": "Lowest price across storefronts in USD (on the card).",
+                "example": 2869.52
               },
               "usd_max": {
                 "type": [
                   "number",
                   "null"
-                ]
+                ],
+                "description": "Highest price across storefronts in USD (on the card).",
+                "example": 4092.23
               },
               "usd_fr": {
                 "type": [
                   "number",
                   "null"
-                ]
+                ],
+                "description": "Price on the French storefront in USD (EU price incl. VAT 20%). Empty = no price in France.",
+                "example": 2869.52
               },
               "usd_us": {
                 "type": [
                   "number",
                   "null"
-                ]
+                ],
+                "description": "Price on the US storefront in USD (excl. sales tax). Empty = no price in the United States.",
+                "example": 3100
               },
               "countries": {
-                "type": "number"
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "description": "Number of countries with a current price (the USD price is the median across them). 0 = no prices. For Loewe: the euro-area storefront (one price for all member states) counts as one country.",
+                "example": 0
               },
               "single_market": {
-                "type": "boolean"
+                "type": "boolean",
+                "description": "True when the price is known in one country only: the USD price is that storefront's price, not a median across markets.",
+                "example": false
               },
               "single_market_country": {
                 "type": [
                   "string",
                   "null"
-                ]
+                ],
+                "description": "ISO code of that single country when price.single_market is true; otherwise empty.",
+                "example": null
               },
               "last_known_usd": {
                 "type": [
                   "number",
                   "null"
-                ]
+                ],
+                "description": "Last known USD price: the median across countries in the last week with a price; equals price.usd_ref for items with a price this week. Empty = never priced.",
+                "example": 1099.02
               },
               "last_known_snapshot": {
                 "type": [
                   "string",
                   "null"
-                ]
+                ],
+                "description": "Week of the last known price.",
+                "example": "2026-W30"
               },
               "by_storefront": {
                 "type": "array",
@@ -1278,9 +1497,24 @@
                       ],
                       "description": "Last week the storefront price was checked; null if never checked.",
                       "example": "2026-W43"
+                    },
+                    "article": {
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "description": "The code whose price this row is: the article itself, or on a size set's main the size that stands for this storefront. Null in the sandbox when that size is outside the sample."
+                    },
+                    "size_display": {
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "description": "On a size set's main, the size this row's price is for, in words (\"Size UK 5.5\"), when another size of the set stands for the storefront; null on the article's own rows."
                     }
                   }
-                }
+                },
+                "description": "One row per storefront that has published a price for this article: the local price and currency, the dollar figure, tax, availability and the week it is from. A storefront that stopped publishing keeps its last known row, marked by its state. On a size set's main the rows cover the whole set: a current price wins wherever it is, then the main's own row, then the earliest size in order; article and size_display say whose price a row is."
               }
             },
             "description": "The reference price across storefronts, the range, and each storefront's own."
@@ -1324,12 +1558,12 @@
                   "integer",
                   "null"
                 ],
-                "description": "Number of countries with a current price (same as price_ref_countries). For Loewe: the euro-area storefront (one price for all member states) counts as one country.",
+                "description": "Number of countries with a current price (same as price.countries). For Loewe: the euro-area storefront (one price for all member states) counts as one country.",
                 "example": 0
               },
               "countries_present": {
                 "type": "integer",
-                "description": "How many countries count the item as present (two storefronts of one country count once; an international storefront is not a country). For Loewe: the euro-area storefront (one price for all member states) counts as one country. On the main card of a size set (see size_member) the storefronts of all its sizes are counted together.",
+                "description": "How many countries count the item as present (two storefronts of one country count once; an international storefront is not a country). For Loewe: the euro-area storefront (one price for all member states) counts as one country. On the main card of a size set the storefronts of all its sizes are counted together.",
                 "example": 0
               },
               "countries_observed": {
@@ -1360,7 +1594,7 @@
                   "integer",
                   "null"
                 ],
-                "description": "Number of photos in the current gallery, as shown on the brand's page. Removed photos count in photos_ever; photos the brand has but does not show on its page are counted in photos_additional. 0 = no photos. For Tiffany & Co.: When a card has no photo under its own item number, the photos its page shows for another carat or size of the same design and metal count. Null means media information is unavailable; 0 means none.",
+                "description": "Number of photos in the current gallery, as shown on the brand's page. Removed photos count in counters.photos_ever; photos the brand has but does not show on its page are counted in counters.photos_additional. 0 = no photos. For Tiffany & Co.: When a card has no photo under its own item number, the photos its page shows for another carat or size of the same design and metal count. Null means media information is unavailable; 0 means none.",
                 "example": 0
               },
               "photos_ever": {
@@ -1420,10 +1654,12 @@
                 "type": [
                   "string",
                   "null"
-                ]
+                ],
+                "description": "Media links. Null for now: they are not available yet, and null here does not mean the article has no pictures (see photos and videos)."
               },
               "note": {
-                "type": "string"
+                "type": "string",
+                "description": "Why links is null, in words."
               }
             },
             "description": "Photo and video counts. Media links are currently unavailable."
@@ -1435,7 +1671,7 @@
         "properties": {
           "article": {
             "type": "string",
-            "description": "Article — the brand's reference code for the item; with brand, the key of every table. For Louis Vuitton: six characters, e.g. 1ACVHU. For Dior: model code, underscore, colour or variant code, e.g. 15JOU090I602_C545. For Loewe: model code, hyphen, four-digit colour code; fragrances use a five-digit model code. For Kenzo: model code, dot, colour code. For Tiffany & Co.: eight-digit item number. For Givenchy: model code, hyphen, three-digit colour code. For Hermès: model code, colour code and an optional size, e.g. H041054CK v01 M; tableware uses P-codes; belts sold as a set combine the buckle and strap codes.",
+            "description": "Article — the brand's reference code for the item; with brand, the key of every table. For Louis Vuitton: six characters, e.g. 1ACVHU. For Dior: model code, underscore, colour or variant code, e.g. 15JOU090I602_C545. For Loewe: model code, hyphen, four-digit colour code; fragrances use a five-digit model code. For Kenzo: model code, dot, colour code. For Tiffany & Co.: eight-digit item number. For Givenchy: model code, hyphen, three-digit colour code. For Hermès: model code, colour code and an optional size, e.g. H041054CK18; tableware uses P-codes; belts sold as a set combine the buckle and strap codes.",
             "example": "1ACVHU"
           },
           "name": {
@@ -1487,7 +1723,7 @@
               "string",
               "null"
             ],
-            "description": "Type of item in English (sneaker, ankle boot, tote, card holder, bracelet, belt, watch strap…), for filtering. The full list of values is in the schema file under product_type_canon.",
+            "description": "Type of item in English (sneaker, ankle boot, tote, card holder, bracelet, belt, watch strap…), for filtering.",
             "example": "sneaker"
           },
           "color_group": {
@@ -1519,7 +1755,7 @@
           },
           "status": {
             "type": "string",
-            "description": "Status (see Status names): in_catalog — In catalog (with weeks_unlisted = 1: Not listed this week) · gone — Delisted. For Louis Vuitton: e1_only — Listed without price.",
+            "description": "Status (see Status names): in_catalog — In catalog (with weeks_unlisted = 1: Not listed this week) · gone — Delisted. For Louis Vuitton: e1_only — Listed without price: shown only on the house's international storefront, which publishes no prices.",
             "example": "gone",
             "enum": [
               "in_catalog",
@@ -1528,7 +1764,11 @@
             ]
           },
           "price_usd_band": {
-            "type": "string"
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The price band the article's dollar reference price falls in. Null when the article has no current price anywhere. The exact price is what a credit buys."
           },
           "regions_with_price": {
             "type": [
@@ -1599,6 +1839,45 @@
         "responses": {
           "200": {
             "description": "The answer, in the common envelope.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Data-Snapshot": {
+                "description": "The data week the answer was drawn from, as `snapshot` in the body.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-RateLimit-Limit": {
+                "description": "Requests allowed in the pace window that will stop this caller first (a key's and an account's windows are seconds or minutes; the sandbox's is a minute). X-RateLimit-Scope says whose window it is.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Requests left in that allowance after this one.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "X-RateLimit-Scope": {
+                "description": "Which allowance the two figures describe: the key's, the account's, or a Business team member's.",
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "key",
+                    "account",
+                    "member"
+                  ]
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1611,6 +1890,7 @@
                       "properties": {
                         "results": {
                           "type": "object",
+                          "description": "One entry per code asked, keyed by the code.",
                           "additionalProperties": {
                             "type": "object",
                             "properties": {
@@ -1620,7 +1900,12 @@
                                   "ok",
                                   "not_found",
                                   "error"
-                                ]
+                                ],
+                                "description": "ok: the card is in `article`; not_found: no card is available for this code in this request's scope (nothing charged); error: this code was not served, `reason` says why (nothing charged for it)."
+                              },
+                              "reason": {
+                                "type": "string",
+                                "description": "On `error`: why this code was not served."
                               },
                               "article": {
                                 "$ref": "#/components/schemas/Article"
@@ -1637,6 +1922,14 @@
           },
           "400": {
             "description": "The request is not valid.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1647,6 +1940,14 @@
           },
           "401": {
             "description": "No key, or a key this archive does not know.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1657,6 +1958,14 @@
           },
           "402": {
             "description": "payment_required: the account is out of credits; member_limit_reached: the Business team member's monthly limit is spent. Nothing is charged.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1667,6 +1976,56 @@
           },
           "403": {
             "description": "The key is live but beyond what its plan allows.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No such path.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "This path answers GET only; Allow says so.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Allow": {
+                "description": "The methods this path accepts.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1677,6 +2036,53 @@
           },
           "429": {
             "description": "Too fast, or out of a daily allowance. Always with a timer.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Retry-After": {
+                "description": "Seconds to wait before trying again.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "X-RateLimit-Limit": {
+                "description": "Requests allowed in the pace window that will stop this caller first (a key's and an account's windows are seconds or minutes; the sandbox's is a minute). X-RateLimit-Scope says whose window it is.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Requests left in that allowance after this one.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "X-RateLimit-Scope": {
+                "description": "Which allowance the two figures describe: the key's, the account's, or a Business team member's.",
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "key",
+                    "account",
+                    "member"
+                  ]
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "When that allowance has room again.",
+                "schema": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1687,6 +2093,21 @@
           },
           "503": {
             "description": "Service temporarily unavailable. No credits are charged. Follow Retry-After.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Retry-After": {
+                "description": "Seconds to wait before trying again.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1779,6 +2200,45 @@
         "responses": {
           "200": {
             "description": "The answer, in the common envelope.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Data-Snapshot": {
+                "description": "The data week the answer was drawn from, as `snapshot` in the body.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-RateLimit-Limit": {
+                "description": "Requests allowed in the pace window that will stop this caller first (a key's and an account's windows are seconds or minutes; the sandbox's is a minute). X-RateLimit-Scope says whose window it is.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Requests left in that allowance after this one.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "X-RateLimit-Scope": {
+                "description": "Which allowance the two figures describe: the key's, the account's, or a Business team member's.",
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "key",
+                    "account",
+                    "member"
+                  ]
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1790,19 +2250,23 @@
                       "type": "object",
                       "properties": {
                         "total": {
-                          "type": "integer"
+                          "type": "integer",
+                          "description": "How many matches there are in all."
                         },
                         "page": {
-                          "type": "integer"
+                          "type": "integer",
+                          "description": "This page's number, from 1."
                         },
                         "pages": {
-                          "type": "integer"
+                          "type": "integer",
+                          "description": "How many pages there are."
                         },
                         "results": {
                           "type": "array",
                           "items": {
                             "$ref": "#/components/schemas/SearchRow"
-                          }
+                          },
+                          "description": "This page's rows."
                         }
                       }
                     }
@@ -1813,6 +2277,14 @@
           },
           "400": {
             "description": "The request is not valid.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1823,6 +2295,14 @@
           },
           "401": {
             "description": "No key, or a key this archive does not know.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1833,6 +2313,56 @@
           },
           "403": {
             "description": "The key is live but beyond what its plan allows.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No such path.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "This path answers GET only; Allow says so.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Allow": {
+                "description": "The methods this path accepts.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1843,6 +2373,53 @@
           },
           "429": {
             "description": "Too fast, or out of a daily allowance. Always with a timer.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Retry-After": {
+                "description": "Seconds to wait before trying again.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "X-RateLimit-Limit": {
+                "description": "Requests allowed in the pace window that will stop this caller first (a key's and an account's windows are seconds or minutes; the sandbox's is a minute). X-RateLimit-Scope says whose window it is.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Requests left in that allowance after this one.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "X-RateLimit-Scope": {
+                "description": "Which allowance the two figures describe: the key's, the account's, or a Business team member's.",
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "key",
+                    "account",
+                    "member"
+                  ]
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "When that allowance has room again.",
+                "schema": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1853,6 +2430,21 @@
           },
           "503": {
             "description": "Service temporarily unavailable. No credits are charged. Follow Retry-After.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Retry-After": {
+                "description": "Seconds to wait before trying again.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1900,6 +2492,45 @@
         "responses": {
           "200": {
             "description": "The answer, in the common envelope.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Data-Snapshot": {
+                "description": "The data week the answer was drawn from, as `snapshot` in the body.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-RateLimit-Limit": {
+                "description": "Requests allowed in the pace window that will stop this caller first (a key's and an account's windows are seconds or minutes; the sandbox's is a minute). X-RateLimit-Scope says whose window it is.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Requests left in that allowance after this one.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "X-RateLimit-Scope": {
+                "description": "Which allowance the two figures describe: the key's, the account's, or a Business team member's.",
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "key",
+                    "account",
+                    "member"
+                  ]
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1911,28 +2542,34 @@
                       "type": "object",
                       "properties": {
                         "since": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "The week asked."
                         },
                         "departures_from": {
                           "type": [
                             "string",
                             "null"
-                          ]
+                          ],
+                          "description": "The first week from which an article leaving a storefront is reported. Before it the archive did not observe absence, so no departure is reported for earlier weeks."
                         },
                         "total": {
-                          "type": "integer"
+                          "type": "integer",
+                          "description": "How many matches there are in all."
                         },
                         "page": {
-                          "type": "integer"
+                          "type": "integer",
+                          "description": "This page's number, from 1."
                         },
                         "pages": {
-                          "type": "integer"
+                          "type": "integer",
+                          "description": "How many pages there are."
                         },
                         "events": {
                           "type": "array",
                           "items": {
                             "type": "object"
-                          }
+                          },
+                          "description": "What moved: the article, the kind of change and its week; region and detail only for articles your account has bought."
                         }
                       }
                     }
@@ -1943,6 +2580,14 @@
           },
           "400": {
             "description": "The request is not valid.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1953,6 +2598,14 @@
           },
           "401": {
             "description": "No key, or a key this archive does not know.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1963,6 +2616,56 @@
           },
           "403": {
             "description": "The key is live but beyond what its plan allows.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No such path.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "This path answers GET only; Allow says so.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Allow": {
+                "description": "The methods this path accepts.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1973,6 +2676,53 @@
           },
           "429": {
             "description": "Too fast, or out of a daily allowance. Always with a timer.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Retry-After": {
+                "description": "Seconds to wait before trying again.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "X-RateLimit-Limit": {
+                "description": "Requests allowed in the pace window that will stop this caller first (a key's and an account's windows are seconds or minutes; the sandbox's is a minute). X-RateLimit-Scope says whose window it is.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Requests left in that allowance after this one.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "X-RateLimit-Scope": {
+                "description": "Which allowance the two figures describe: the key's, the account's, or a Business team member's.",
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "key",
+                    "account",
+                    "member"
+                  ]
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "When that allowance has room again.",
+                "schema": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1983,6 +2733,21 @@
           },
           "503": {
             "description": "Service temporarily unavailable. No credits are charged. Follow Retry-After.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Retry-After": {
+                "description": "Seconds to wait before trying again.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2023,6 +2788,45 @@
         "responses": {
           "200": {
             "description": "The answer, in the common envelope.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Data-Snapshot": {
+                "description": "The data week the answer was drawn from, as `snapshot` in the body.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-RateLimit-Limit": {
+                "description": "Requests allowed in the pace window that will stop this caller first (a key's and an account's windows are seconds or minutes; the sandbox's is a minute). X-RateLimit-Scope says whose window it is.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Requests left in that allowance after this one.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "X-RateLimit-Scope": {
+                "description": "Which allowance the two figures describe: the key's, the account's, or a Business team member's.",
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "key",
+                    "account",
+                    "member"
+                  ]
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2048,6 +2852,14 @@
           },
           "400": {
             "description": "The request is not valid.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2058,6 +2870,14 @@
           },
           "401": {
             "description": "No key, or a key this archive does not know.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2068,6 +2888,56 @@
           },
           "403": {
             "description": "The key is live but beyond what its plan allows.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No such path.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "This path answers GET only; Allow says so.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Allow": {
+                "description": "The methods this path accepts.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2078,6 +2948,53 @@
           },
           "429": {
             "description": "Too fast, or out of a daily allowance. Always with a timer.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Retry-After": {
+                "description": "Seconds to wait before trying again.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "X-RateLimit-Limit": {
+                "description": "Requests allowed in the pace window that will stop this caller first (a key's and an account's windows are seconds or minutes; the sandbox's is a minute). X-RateLimit-Scope says whose window it is.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Requests left in that allowance after this one.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "X-RateLimit-Scope": {
+                "description": "Which allowance the two figures describe: the key's, the account's, or a Business team member's.",
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "key",
+                    "account",
+                    "member"
+                  ]
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "When that allowance has room again.",
+                "schema": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2088,6 +3005,21 @@
           },
           "503": {
             "description": "Service temporarily unavailable. No credits are charged. Follow Retry-After.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Retry-After": {
+                "description": "Seconds to wait before trying again.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2126,6 +3058,45 @@
         "responses": {
           "200": {
             "description": "The answer, in the common envelope.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Data-Snapshot": {
+                "description": "The data week the answer was drawn from, as `snapshot` in the body.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-RateLimit-Limit": {
+                "description": "Requests allowed in the pace window that will stop this caller first (a key's and an account's windows are seconds or minutes; the sandbox's is a minute). X-RateLimit-Scope says whose window it is.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Requests left in that allowance after this one.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "X-RateLimit-Scope": {
+                "description": "Which allowance the two figures describe: the key's, the account's, or a Business team member's.",
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "key",
+                    "account",
+                    "member"
+                  ]
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2151,6 +3122,14 @@
           },
           "400": {
             "description": "The request is not valid.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2161,6 +3140,14 @@
           },
           "401": {
             "description": "No key, or a key this archive does not know.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2171,6 +3158,56 @@
           },
           "403": {
             "description": "The key is live but beyond what its plan allows.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No such path.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "This path answers GET only; Allow says so.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Allow": {
+                "description": "The methods this path accepts.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2181,6 +3218,53 @@
           },
           "429": {
             "description": "Too fast, or out of a daily allowance. Always with a timer.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Retry-After": {
+                "description": "Seconds to wait before trying again.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "X-RateLimit-Limit": {
+                "description": "Requests allowed in the pace window that will stop this caller first (a key's and an account's windows are seconds or minutes; the sandbox's is a minute). X-RateLimit-Scope says whose window it is.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Requests left in that allowance after this one.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "X-RateLimit-Scope": {
+                "description": "Which allowance the two figures describe: the key's, the account's, or a Business team member's.",
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "key",
+                    "account",
+                    "member"
+                  ]
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "When that allowance has room again.",
+                "schema": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2191,6 +3275,21 @@
           },
           "503": {
             "description": "Service temporarily unavailable. No credits are charged. Follow Retry-After.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Retry-After": {
+                "description": "Seconds to wait before trying again.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2229,32 +3328,13 @@
         "responses": {
           "200": {
             "description": "The answer, in the common envelope.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "allOf": [
-                    {
-                      "$ref": "#/components/schemas/Envelope"
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "count": {
-                          "type": "integer"
-                        },
-                        "index": {
-                          "type": "array",
-                          "items": {
-                            "type": "object"
-                          }
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
-            },
             "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "ETag": {
                 "description": "Opaque identifier for this index.",
                 "schema": {
@@ -2282,12 +3362,13 @@
                 }
               },
               "X-RateLimit-Scope": {
-                "description": "Whether that allowance applies to the key or account.",
+                "description": "Which allowance the two figures describe: the key's, the account's, or a Business team member's.",
                 "schema": {
                   "type": "string",
                   "enum": [
                     "key",
-                    "account"
+                    "account",
+                    "member"
                   ]
                 }
               },
@@ -2298,11 +3379,44 @@
                   "minimum": 0
                 }
               }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/Envelope"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "count": {
+                          "type": "integer",
+                          "description": "How many articles the index lists."
+                        },
+                        "index": {
+                          "type": "array",
+                          "items": {
+                            "type": "object"
+                          },
+                          "description": "One row per article: code, name, family, department, status."
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
             }
           },
           "304": {
             "description": "The index is unchanged. No body, credits charged or daily download used. Authentication, plan eligibility and request controls still apply.",
             "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "ETag": {
                 "description": "Opaque identifier for the unchanged index.",
                 "schema": {
@@ -2319,6 +3433,14 @@
           },
           "400": {
             "description": "The request is not valid.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2329,6 +3451,14 @@
           },
           "401": {
             "description": "No key, or a key this archive does not know.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2339,6 +3469,56 @@
           },
           "403": {
             "description": "The key is live but beyond what its plan allows.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No such path.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "This path answers GET only; Allow says so.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Allow": {
+                "description": "The methods this path accepts.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2349,6 +3529,53 @@
           },
           "429": {
             "description": "Too fast, or out of a daily allowance. Always with a timer.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Retry-After": {
+                "description": "Seconds to wait before trying again.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "X-RateLimit-Limit": {
+                "description": "Requests allowed in the pace window that will stop this caller first (a key's and an account's windows are seconds or minutes; the sandbox's is a minute). X-RateLimit-Scope says whose window it is.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Requests left in that allowance after this one.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "X-RateLimit-Scope": {
+                "description": "Which allowance the two figures describe: the key's, the account's, or a Business team member's.",
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "key",
+                    "account",
+                    "member"
+                  ]
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "When that allowance has room again.",
+                "schema": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2359,6 +3586,21 @@
           },
           "503": {
             "description": "Service temporarily unavailable. No credits are charged. Follow Retry-After.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Retry-After": {
+                "description": "Seconds to wait before trying again.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2388,6 +3630,45 @@
         "responses": {
           "200": {
             "description": "The answer, in the common envelope.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Data-Snapshot": {
+                "description": "The data week the answer was drawn from, as `snapshot` in the body.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-RateLimit-Limit": {
+                "description": "Requests allowed in the pace window that will stop this caller first (a key's and an account's windows are seconds or minutes; the sandbox's is a minute). X-RateLimit-Scope says whose window it is.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Requests left in that allowance after this one.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "X-RateLimit-Scope": {
+                "description": "Which allowance the two figures describe: the key's, the account's, or a Business team member's.",
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "key",
+                    "account",
+                    "member"
+                  ]
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2399,14 +3680,17 @@
                       "type": "object",
                       "properties": {
                         "snapshot_id": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "The data week being served, e.g. 2026-W43."
                         },
                         "schema_version": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "The version of the data's field set for that week."
                         },
                         "loaded_at": {
                           "type": "string",
-                          "format": "date-time"
+                          "format": "date-time",
+                          "description": "When that week was put in service."
                         }
                       }
                     }
@@ -2417,6 +3701,14 @@
           },
           "400": {
             "description": "The request is not valid.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2427,6 +3719,14 @@
           },
           "401": {
             "description": "No key, or a key this archive does not know.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2437,6 +3737,56 @@
           },
           "403": {
             "description": "The key is live but beyond what its plan allows.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No such path.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "This path answers GET only; Allow says so.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Allow": {
+                "description": "The methods this path accepts.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2447,6 +3797,53 @@
           },
           "429": {
             "description": "Too fast, or out of a daily allowance. Always with a timer.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Retry-After": {
+                "description": "Seconds to wait before trying again.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "X-RateLimit-Limit": {
+                "description": "Requests allowed in the pace window that will stop this caller first (a key's and an account's windows are seconds or minutes; the sandbox's is a minute). X-RateLimit-Scope says whose window it is.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Requests left in that allowance after this one.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "X-RateLimit-Scope": {
+                "description": "Which allowance the two figures describe: the key's, the account's, or a Business team member's.",
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "key",
+                    "account",
+                    "member"
+                  ]
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "When that allowance has room again.",
+                "schema": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2457,6 +3854,21 @@
           },
           "503": {
             "description": "Service temporarily unavailable. No credits are charged. Follow Retry-After.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Retry-After": {
+                "description": "Seconds to wait before trying again.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2476,6 +3888,29 @@
         "responses": {
           "200": {
             "description": "This document.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "This answer's id; quote it when reporting a problem.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Schema-Version": {
+                "description": "The document's version, as info.version.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Schema-Stale": {
+                "description": "Present, `true`, when the data being served is newer than this document.",
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "true"
+                  ]
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {

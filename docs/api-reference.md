@@ -16,7 +16,7 @@ Read item details and history. One credit per item; see the response for charges
 | `codes` | query | yes | string |  |
 | `brand` | query | no | string |  |
 
-Responses: 200, 400, 401, 402, 403, 429, 503.
+Responses: 200, 400, 401, 402, 403, 404, 405, 429, 503.
 
 The successful body includes `results` (object).
 
@@ -35,7 +35,7 @@ Search the catalogue and read a short result list.
 | `page` | query | no | string |  |
 | `brand` | query | no | string |  |
 
-Responses: 200, 400, 401, 403, 429, 503.
+Responses: 200, 400, 401, 403, 404, 405, 429, 503.
 
 The successful body includes `total` (integer).
 The successful body includes `page` (integer).
@@ -52,7 +52,7 @@ Read changes since a chosen week.
 | `page` | query | no | string |  |
 | `brand` | query | no | string |  |
 
-Responses: 200, 400, 401, 403, 429, 503.
+Responses: 200, 400, 401, 403, 404, 405, 429, 503.
 
 The successful body includes `since` (string).
 The successful body includes `departures_from` (string or null).
@@ -70,7 +70,7 @@ Read items in a family. IDs must match the documented format.
 | `id` | path | yes | string | ^nvprod\d+v$ |
 | `brand` | query | no | string |  |
 
-Responses: 200, 400, 401, 403, 429, 503.
+Responses: 200, 400, 401, 403, 404, 405, 429, 503.
 
 The successful body includes `family` (Family).
 
@@ -83,7 +83,7 @@ Find an item or family from a storefront link.
 | `url` | query | yes | string |  |
 | `brand` | query | no | string |  |
 
-Responses: 200, 400, 401, 403, 429, 503.
+Responses: 200, 400, 401, 403, 404, 405, 429, 503.
 
 The successful body includes `resolved` (Resolved).
 
@@ -96,7 +96,7 @@ Read the item index. Business access and the daily download limit apply.
 | `If-None-Match` | header | no | string |  |
 | `brand` | query | no | string |  |
 
-Responses: 200, 304, 400, 401, 403, 429, 503.
+Responses: 200, 304, 400, 401, 403, 404, 405, 429, 503.
 
 The successful body includes `count` (integer).
 The successful body includes `index` (array).
@@ -114,7 +114,7 @@ Read the latest weekly release details.
 |---|---|---|---|---|
 | `brand` | query | no | string |  |
 
-Responses: 200, 400, 401, 403, 429, 503.
+Responses: 200, 400, 401, 403, 404, 405, 429, 503.
 
 The successful body includes `snapshot_id` (string).
 The successful body includes `schema_version` (string).
@@ -138,13 +138,13 @@ Responses: 200.
 | `credits_member_left` | integer | no | Present only on a Business team member's key while the team owner has set a monthly limit per member: what this member may still spend this calendar month (UTC), after this response's charge. |  |
 | `member_resets_at` | string | no | Present with credits_member_left: when the member's month turns, 00:00 UTC on the first of the next month. |  |
 | `credits_bought` | integer | no | Present only when a pack was bought automatically on this request. |  |
-| `resets_hour` | string | yes |  |  |
-| `resets_day` | string | yes |  |  |
+| `resets_hour` | string | yes | When the hourly credit ceiling turns over for this account. |  |
+| `resets_day` | string | yes | When the daily credit ceiling turns over for this account. |  |
 | `resets_month` | string | yes | When the subscription's next allowance is credited: every 30 days from the start of the period, not the first of the calendar month. |  |
 | `snapshot` | string | yes | Weekly data release identifier. |  |
 | `fields_refreshed_weekly` | boolean | yes | Whether the descriptive fields are re-read weekly the way prices are. |  |
 | `field_age_median_weeks` | number or null | yes | Median age of product details, in weeks; null if unavailable. |  |
-| `account_status` | string | no |  | `registered`, `active` |
+| `account_status` | string | no | On a sandbox answer to a registered account: `registered` until the account has credits, then `active`. | `registered`, `active` |
 | `sandbox` | boolean | no | Present when the answer came from the demo set rather than the catalogue. |  |
 
 ### `Error`
@@ -159,41 +159,47 @@ Responses: 200.
 | `member_used` | integer | no | On `member_limit_reached`: credits this member spent this month. |  |
 | `resets_at` | string | no | On `member_limit_reached`: 00:00 UTC on the first of the next month. |  |
 | `retry_after_seconds` | integer | no | On 429 and 503. |  |
+| `hint` | string | no | A further sentence for a person: what to do next, or which limit applied. |  |
+| `batch_max` | integer | no | On a batch with too many codes: the most one request may ask for. |  |
+| `brands` | array | no | On an unknown or not yet open brand: the houses that are open. |  |
+| `plan` | string | no | On `plan` (403): the plan the key belongs to. |  |
+| `sandbox` | boolean | no | On a sandbox refusal: true, the limit was the sandbox's. |  |
+| `remaining_today` | integer | no | On a sandbox refusal: requests left today for this address or account. |  |
 
 ### `Family`
 
 | Field | Type | Required | Meaning | Allowed values |
 |---|---|---|---|---|
-| `family_id` | string | yes |  |  |
-| `articles` | array | yes |  |  |
-| `articles[].article` | string | yes |  |  |
-| `articles[].name` | string or null | yes |  |  |
-| `articles[].color` | string or null | yes |  |  |
-| `articles[].status` | string or null | yes |  |  |
-| `articles[].size_scale` | string or null | yes |  |  |
+| `family_id` | string | yes | The family id asked. |  |
+| `articles` | array | yes | Every member of the family, in code order. |  |
+| `articles[].article` | string | yes | The member's article code. |  |
+| `articles[].name` | string or null | yes | Its English name, or the house's own when there is none. |  |
+| `articles[].color` | string or null | yes | Its colour, once your account has bought it; null before. |  |
+| `articles[].status` | string or null | yes | Its status, as on the card. |  |
+| `articles[].size_scale` | string or null | yes | Its size scale, once your account has bought it; null before. |  |
 
 ### `Resolved`
 
 | Field | Type | Required | Meaning | Allowed values |
 |---|---|---|---|---|
-| ` (case 1).status` | string | yes |  | `product` |
-| ` (case 1).article` | string | yes |  |  |
-| ` (case 1).region` | string or null | yes |  |  |
-| ` (case 1).lv_url_status` | string or null | yes |  |  |
-| ` (case 2).status` | string | yes |  | `family` |
-| ` (case 2).family_id` | string | yes |  |  |
-| ` (case 2).articles` | array | yes |  |  |
-| ` (case 2).region` | string or null | yes |  |  |
-| ` (case 3).status` | string | yes |  | `variant` |
-| ` (case 3).key` | string | yes |  |  |
-| ` (case 3).variant_of` | string or null | yes |  |  |
-| ` (case 3).variant_kind` | string or null | yes |  |  |
-| ` (case 3).label` | string or null | yes |  |  |
-| ` (case 3).region` | string or null | yes |  |  |
-| ` (case 4).status` | string | yes |  | `not_in_catalog` |
-| ` (case 4).key` | string | yes |  |  |
-| ` (case 4).region` | string or null | yes |  |  |
-| ` (case 5).status` | string | yes |  | `unrecognized_url` |
+| ` (case 1).status` | string | yes | What kind of page the link is. | `product` |
+| ` (case 1).article` | string | yes | The article the link is the page of. |  |
+| ` (case 1).region` | string or null | yes | The storefront the link belongs to. |  |
+| ` (case 1).lv_url_status` | string or null | yes | The link's status, as lv_url_status on the card. |  |
+| ` (case 2).status` | string | yes | What kind of page the link is. | `family` |
+| ` (case 2).family_id` | string | yes | The family the link is the page of. |  |
+| ` (case 2).articles` | array | yes | The family's article codes. |  |
+| ` (case 2).region` | string or null | yes | The storefront the link belongs to. |  |
+| ` (case 3).status` | string | yes | What kind of page the link is. | `variant` |
+| ` (case 3).key` | string | yes | The code in the link. |  |
+| ` (case 3).variant_of` | string or null | yes | The article that has the card, once your account has bought it; null before. |  |
+| ` (case 3).variant_kind` | string or null | yes | Size or colour, once your account has bought it; null before. |  |
+| ` (case 3).label` | string or null | yes | The variation's label, once your account has bought it; null before. |  |
+| ` (case 3).region` | string or null | yes | The storefront the link belongs to. |  |
+| ` (case 4).status` | string | yes | What kind of page the link is. | `not_in_catalog` |
+| ` (case 4).key` | string | yes | The code in the link. |  |
+| ` (case 4).region` | string or null | yes | The storefront the link belongs to. |  |
+| ` (case 5).status` | string | yes | What kind of page the link is. | `unrecognized_url` |
 
 ### `Article`
 
@@ -229,15 +235,15 @@ Responses: 200.
 | `made_in_countries` | array or null | no | Countries of manufacture as ISO 3166 codes (list, same order as made_in) — a filter. |  |
 | `customizable` | boolean | no | The item can be personalised; no colour applies. |  |
 | `dimensions` | object or null | no | Raw and parsed measurements, in centimetres and inches where the house publishes them. |  |
-| `dimensions.raw` | string | no |  |  |
-| `dimensions.unit_raw` | string | no |  |  |
-| `dimensions.axes` | string | no |  |  |
-| `dimensions.length_cm` | number | no |  |  |
-| `dimensions.height_cm` | number | no |  |  |
-| `dimensions.width_cm` | number | no |  |  |
-| `dimensions.length_in` | number | no |  |  |
-| `dimensions.height_in` | number | no |  |  |
-| `dimensions.width_in` | number | no |  |  |
+| `dimensions.raw` | string or null | no | Dimensions as published on the storefront ("29 x 17.5 x 10 cm", "33.5 x 45.3 x 23.6 inches"). |  |
+| `dimensions.unit_raw` | string or null | no | Unit of the published dimensions (cm, inches, mm). |  |
+| `dimensions.axes` | string or null | no | Labels of the dimensions, e.g. L×W or D×H. |  |
+| `dimensions.length_cm` | number or null | no | Length in centimetres (converted when published in inches or millimetres). |  |
+| `dimensions.height_cm` | number or null | no | Height in centimetres. |  |
+| `dimensions.width_cm` | number or null | no | Width or depth in centimetres; for round items the diameter. |  |
+| `dimensions.length_in` | number or null | no | Length in inches (centimetres / 2.54). |  |
+| `dimensions.height_in` | number or null | no | Height in inches. |  |
+| `dimensions.width_in` | number or null | no | Width in inches. |  |
 | `measures` | object | no | Measurements that apply to this kind of thing only: heel height, case diameter, carat, karat. |  |
 | `specs_json` | object | no | The house's own specification rows for this article, as published. |  |
 | `sizes` | array | no | Every size row the house lists for this article, with the storefront each was read from. |  |
@@ -249,6 +255,17 @@ Responses: 200.
 | `weeks_unlisted` | integer | no | Consecutive weeks without a listing or price. |  |
 | `variants` | object | no | How many size and colour codes resolve to this card, and in how many countries. |  |
 | `size_variants` | array | no | The full size rows, not a count: matching a marketplace listing needs the size, the storefront and the code. |  |
+| `size_set` | array or null | no | Every size of the set this card is the main of, in size order: the house sells each size under its own code, and one card stands for all of them. |  |
+| `size_set[].code` | string or null | yes | Machine-readable error code. |  |
+| `size_set[].size_label` | string or null | yes | The size as the house labels it. |  |
+| `size_set[].size_scale` | string or null | yes | The scale the label belongs to (alpha, UK, ring…). |  |
+| `size_set[].size_order` | number or null | yes | Sort position of the size within its scale; the elements come in this order, nulls last. |  |
+| `size_set[].display_label` | string or null | yes | The size in words, as the card prints it (the same words as requested). |  |
+| `size_set[].self` | boolean | yes | True on the element that is this card's own size. |  |
+| `size_set[].regions` | array | yes | The storefronts that list this size, by storefront code. |  |
+| `size_set[].regions[].region` | string | yes | Storefront code. |  |
+| `size_set[].regions[].availability` | string or null | yes | Availability the storefront showed for this size; null when it showed none. |  |
+| `size_set[].regions[].priced` | boolean or null | yes | Whether the storefront showed a price for this size. |  |
 | `variant_codes` | array | no | Related product codes published by the house. |  |
 | `first_seen` | string | no | First week the item was seen: listed on a storefront, live at its address, priced, or on a product page. |  |
 | `last_seen` | string or null | no | Last week the item was seen (see Status names). |  |
@@ -279,7 +296,7 @@ Responses: 200.
 | `color_group_differs` | boolean | no | True when color_group and the brand's own colour group (color_group_lv) are both present and differ (e.g. White against the brand's Beige); false otherwise, including when one of them is empty. |  |
 | `composition_secondary` | string or null | no | Secondary materials: "Lining: 100% Polyamide · Other: Lamb" (lining, inserts, other). |  |
 | `made_in_multi_country` | boolean | no | True when more than one country of manufacture is stated. |  |
-| `size_run` | array or null | no | Sizes listed on the item page, labels as sold, for items whose sizes are not in size_variant. |  |
+| `size_run` | array or null | no | Sizes listed on the item page, labels as sold, for items whose sizes are not listed in size_variants. |  |
 | `size_run_region` | string or null | no | Storefront the size list comes from (its country's size scale applies). |  |
 | `size_scale` | string or null | no | Size scale of the item: EU · US · UK · cm · inches · alpha · ring · ml · months · years · one_size · numeric · other. | `EU`, `US`, `UK`, `US/UK`, `inches`, `cm`, `alpha`, `ring`, `ml`, `months`, `years`, `one_size`, `numeric`, `other`, `null` |
 | `sold_per_unit` | boolean | no | True when the brand sells the item per unit (single earrings, studs, cufflinks). |  |
@@ -288,17 +305,17 @@ Responses: 200.
 | `last_price_regions` | integer or null | no | Number of storefronts with a price in that week. |  |
 | `sellable_anywhere` | boolean | no | True when at least one storefront showing the item this week offers it for online purchase. |  |
 | `price` | object or null | no | The reference price across storefronts, the range, and each storefront's own. |  |
-| `price.usd_ref` | number or null | no |  |  |
-| `price.usd_min` | number or null | no |  |  |
-| `price.usd_max` | number or null | no |  |  |
-| `price.usd_fr` | number or null | no |  |  |
-| `price.usd_us` | number or null | no |  |  |
-| `price.countries` | number | no |  |  |
-| `price.single_market` | boolean | no |  |  |
-| `price.single_market_country` | string or null | no |  |  |
-| `price.last_known_usd` | number or null | no |  |  |
-| `price.last_known_snapshot` | string or null | no |  |  |
-| `price.by_storefront` | array | no |  |  |
+| `price.usd_ref` | number or null | no | USD price for lists: the median of current prices across countries (two storefronts of one country count once). |  |
+| `price.usd_min` | number or null | no | Lowest price across storefronts in USD (on the card). |  |
+| `price.usd_max` | number or null | no | Highest price across storefronts in USD (on the card). |  |
+| `price.usd_fr` | number or null | no | Price on the French storefront in USD (EU price incl. VAT 20%). |  |
+| `price.usd_us` | number or null | no | Price on the US storefront in USD (excl. sales tax). |  |
+| `price.countries` | integer or null | no | Number of countries with a current price (the USD price is the median across them). |  |
+| `price.single_market` | boolean | no | True when the price is known in one country only: the USD price is that storefront's price, not a median across markets. |  |
+| `price.single_market_country` | string or null | no | ISO code of that single country when price.single_market is true; otherwise empty. |  |
+| `price.last_known_usd` | number or null | no | Last known USD price: the median across countries in the last week with a price; equals price.usd_ref for items with a price this week. |  |
+| `price.last_known_snapshot` | string or null | no | Week of the last known price. |  |
+| `price.by_storefront` | array | no | One row per storefront that has published a price for this article: the local price and currency, the dollar figure, tax, availability and the week it is from. |  |
 | `price.by_storefront[].region` | string | no | Storefront code (language_country, e.g. eng_NL): the brand's site for one country and language; see the region table for the country. |  |
 | `price.by_storefront[].country` | string | no | Country of the storefront. |  |
 | `price.by_storefront[].language` | string or null | no | Language of the storefront (ISO 639). |  |
@@ -313,13 +330,15 @@ Responses: 200.
 | `price.by_storefront[].is_current` | boolean | no | true — the price is current (price_state = current); false — no current price: price is empty, price_state says why, and the last known price is in last_price*. |  |
 | `price.by_storefront[].state` | string | no | Price observation status. | `current`, `withdrawn`, `not_checked` |
 | `price.by_storefront[].last_checked_week` | string or null | no | Last week the storefront price was checked; null if never checked. |  |
+| `price.by_storefront[].article` | string or null | no | The code whose price this row is: the article itself, or on a size set's main the size that stands for this storefront. |  |
+| `price.by_storefront[].size_display` | string or null | no | On a size set's main, the size this row's price is for, in words ("Size UK 5.5"), when another size of the set stands for the storefront; null on the article's own rows. |  |
 | `counters` | object | no | Product coverage and media counts. |  |
 | `counters.regions_with_price` | integer or null | no | Number of storefronts with a current price (0 = no prices). |  |
 | `counters.regions_present` | integer | no | Storefronts where the item is listed. |  |
 | `counters.regions_observed` | integer | no | Storefronts where listing was observed. |  |
 | `counters.regions_declared` | integer or null | no | Storefronts reported by the house. |  |
 | `counters.regions_present_ex_e1` | integer | no | Number of country storefronts that showed the item (see Status names), not counting the international storefront. |  |
-| `counters.countries_with_price` | integer or null | no | Number of countries with a current price (same as price_ref_countries). |  |
+| `counters.countries_with_price` | integer or null | no | Number of countries with a current price (same as price.countries). |  |
 | `counters.countries_present` | integer | no | Countries where the item is listed. |  |
 | `counters.countries_observed` | integer | no | Countries where listing was observed. |  |
 | `counters.countries_declared` | integer or null | no | Countries reported by the house. |  |
@@ -333,8 +352,8 @@ Responses: 200.
 | `gallery` | object | no | Photo and video counts. |  |
 | `gallery.photos` | integer or null | no | Number of photos in the current gallery, as shown on the brand's page. |  |
 | `gallery.videos` | integer or null | no | Number of distinct videos. |  |
-| `gallery.links` | string or null | no |  |  |
-| `gallery.note` | string | no |  |  |
+| `gallery.links` | string or null | no | Media links. |  |
+| `gallery.note` | string | no | Why links is null, in words. |  |
 
 ### `SearchRow`
 
@@ -348,7 +367,7 @@ Responses: 200.
 | `product_type` | string or null | no | Type of item in English (sneaker, ankle boot, tote, card holder, bracelet, belt, watch strap…), for filtering. |  |
 | `color_group` | string or null | no | Colour group for the filter, one of 16 values (Black, White, Brown, Beige, Grey, Blue, Green, Red, Pink, Purple, Yellow, Orange, Gold, Silver, Multicolor, Natural). | `Black`, `Blue`, `Brown`, `Beige`, `White`, `Grey`, `Pink`, `Gold`, `Green`, `Silver`, `Red`, `Orange`, `Yellow`, `Multicolor`, `Natural`, `Purple`, `null` |
 | `status` | string | no | Status (see Status names): in_catalog — In catalog (with weeks_unlisted = 1: Not listed this week) · gone — Delisted. | `in_catalog`, `e1_only`, `gone` |
-| `price_usd_band` | string | no |  |  |
+| `price_usd_band` | string or null | no | The price band the article's dollar reference price falls in. |  |
 | `regions_with_price` | integer or null | no | Number of storefronts with a current price (0 = no prices). |  |
 | `countries_with_price` | integer or null | no | Number of countries with a current price (same as price_ref_countries). |  |
 | `weeks_of_history` | integer | no | Number of weeks with a price on at least one storefront. |  |

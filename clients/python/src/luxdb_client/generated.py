@@ -1,5 +1,5 @@
 """LuxDB API models and operations: generated; do not edit."""
-# Public spec SHA256: c0441c664104e7b7323ed71efba5c5bfaa9b634c08ad20d619aa2f8152bffbe2
+# Public spec SHA256: b0235052d6772a22c38da6b0860af1c579261d31a1a61cbc07b7181b092c6092
 from __future__ import annotations
 
 import re
@@ -42,6 +42,12 @@ class Error(_ErrorRequired, total=False):
     member_used: int
     resets_at: str
     retry_after_seconds: int
+    hint: str
+    batch_max: int
+    brands: list[str]
+    plan: str
+    sandbox: bool
+    remaining_today: int
 
 
 class _FamilyArticlesItemRequired(TypedDict):
@@ -128,15 +134,37 @@ class _ArticleDimensionsRequired(TypedDict):
     pass
 
 class ArticleDimensions(_ArticleDimensionsRequired, total=False):
-    raw: str
-    unit_raw: str
-    axes: str
-    length_cm: float
+    raw: str | None
+    unit_raw: str | None
+    axes: str | None
+    length_cm: float | None
     height_cm: float | None
-    width_cm: float
-    length_in: float
+    width_cm: float | None
+    length_in: float | None
     height_in: float | None
-    width_in: float
+    width_in: float | None
+
+
+class _ArticleSizeSetItemRegionsItemRequired(TypedDict):
+    region: str
+    availability: str | None
+    priced: bool | None
+
+class ArticleSizeSetItemRegionsItem(_ArticleSizeSetItemRegionsItemRequired, total=False):
+    pass
+
+
+class _ArticleSizeSetItemRequired(TypedDict):
+    code: str | None
+    size_label: str | None
+    size_scale: str | None
+    size_order: float | None
+    display_label: str | None
+    self: bool
+    regions: list[ArticleSizeSetItemRegionsItem]
+
+class ArticleSizeSetItem(_ArticleSizeSetItemRequired, total=False):
+    pass
 
 
 class _ArticlePriceByStorefrontItemRequired(TypedDict):
@@ -157,6 +185,8 @@ class ArticlePriceByStorefrontItem(_ArticlePriceByStorefrontItemRequired, total=
     is_current: bool
     state: Literal['current', 'withdrawn', 'not_checked']
     last_checked_week: str | None
+    article: str | None
+    size_display: str | None
 
 
 class _ArticlePriceRequired(TypedDict):
@@ -168,7 +198,7 @@ class ArticlePrice(_ArticlePriceRequired, total=False):
     usd_max: float | None
     usd_fr: float | None
     usd_us: float | None
-    countries: float
+    countries: int | None
     single_market: bool
     single_market_country: str | None
     last_known_usd: float | None
@@ -248,6 +278,7 @@ class Article(_ArticleRequired, total=False):
     weeks_unlisted: int
     variants: dict[str, Any]
     size_variants: list[dict[str, Any]]
+    size_set: list[ArticleSizeSetItem] | None
     variant_codes: list[dict[str, Any]]
     first_seen: str
     last_seen: str | None
@@ -317,6 +348,7 @@ class _ArticleResponseResultsValueRequired(TypedDict):
 
 class ArticleResponseResultsValue(_ArticleResponseResultsValueRequired, total=False):
     status: Literal['ok', 'not_found', 'error']
+    reason: str
     article: Article
 
 

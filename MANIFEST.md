@@ -66,7 +66,7 @@ public-safe provenance categories, not internal paths or collection methods.
 | `tools/audit_canonical.py` | Upstream copy and demo membership audit | Canonical copy and public demo allowlist |
 | `tools/build_public_spec.py` | Exact canonical-file importer | API-owner contract; no local schema edits |
 | `tools/check_public.py` | Pre-upload content/structure scanner | Review-controlled allowlist and public policy |
-| `tools/client_compat.py` | Documented client-only nullable compatibility | Live API behaviour confirmed by the API owner |
+| `tools/client_compat.py` | Unmodified canonical client view | Canonical API types; no client-only overrides |
 | `tools/content_policy.py` | Bounded literal normalisation and decoding | Non-executing content checks |
 | `tools/export_dictionary.py` | Public data-definition exporter | Current dictionary; no rows or coverage values |
 | `tools/generate_clients.py` | Local deterministic SDK generator | Canonical contract |

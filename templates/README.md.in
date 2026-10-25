@@ -42,12 +42,15 @@ paid responses in a public report.
 
 The shared demo key allows **1 request per minute and 300 per day per address**.
 Each live example makes one call. Wait at least 60 seconds before another; on 429,
-follow Retry-After. Do not rely on the demo rate-remaining header.
+follow Retry-After. X-RateLimit-Remaining includes the request just served; at
+the one-request-per-minute limit it reports 0.
 The charge is the response body field credits_charged; there is no charge header.
 
-The supplied 2.3.1 contract remains unchanged. Both clients allow null for
-SearchRow.price_usd_band and Article.dimensions.height_cm / height_in because the
-live service can return null there. HTTP errors retain extra keys in ApiError.details;
+Client types come directly from the supplied 2.3.1 contract, including nullable
+prices and dimensions. A set main lists its sizes in size_set; its storefront
+prices cover the set and identify the size whose price is shown. A sandbox member
+code can be null while its size and storefronts remain visible.
+HTTP errors retain extra keys in ApiError.details;
 404 and 405 are ordinary API errors. See [compatibility notes](docs/api-compatibility.md).
 
 ## Support and licenses

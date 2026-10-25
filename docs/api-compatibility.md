@@ -35,15 +35,15 @@ Mode is maintenance or stopped when supplied. On 402, inspect the code before
 deciding whether to add credits or ask the team owner about an allowance.
 Follow Retry-After when present. No failed request is retried automatically.
 
-The live service may return null for SearchRow.price_usd_band and
-Article.dimensions.height_cm / height_in. Both clients relax only these types;
-the committed OpenAPI bytes remain unchanged. Unknown error keys remain in
+Nullable prices, dimensions and country counts come from the canonical
+contract itself; neither client applies manual type overrides. Unknown error keys remain in
 ApiError.details, without appearing in its message. Inspect details explicitly;
 do not log it. 404 and 405 are ordinary HTTP API errors.
 
 The demo key allows 1 request per minute and 300 per day per address.
 Make one call or wait at least 60 seconds; on 429 follow Retry-After.
-Do not depend on the demo rate-remaining header. The charge is the body field
+X-RateLimit-Remaining includes the request just served; at the one-request-
+per-minute limit it reports 0. The charge is the body field
 credits_charged; there is no charge header.
 
 See the [API reference](api-reference.md) for exact fields and response shapes.

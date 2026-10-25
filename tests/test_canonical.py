@@ -72,11 +72,13 @@ class CanonicalTests(unittest.TestCase):
             self.assertEqual(caught.exception.mode, mode if mode != "SYNTHETIC-UNKNOWN" else None)
         self.assertEqual(models.ERROR_MODES, {"maintenance", "stopped"})
 
-    def test_live_nullable_compatibility_keeps_original_contract(self):
+    def test_nullable_types_come_from_the_unmodified_contract(self):
         from client_compat import client_view
         original = json.loads((ROOT / "openapi/openapi.json").read_text())
         view = client_view(original)
-        self.assertEqual(original["components"]["schemas"]["SearchRow"]["properties"]["price_usd_band"]["type"], "string")
+        self.assertEqual(original["components"]["schemas"]["SearchRow"]["properties"]["price_usd_band"]["type"], ["string", "null"])
+        self.assertEqual(view, original)
+        self.assertIsNot(view, original)
         self.assertEqual(typing.get_type_hints(models.SearchRow)["price_usd_band"], str | None)
         dims = typing.get_type_hints(models.ArticleDimensions)
         self.assertEqual(dims["height_cm"], float | None)
@@ -84,6 +86,41 @@ class CanonicalTests(unittest.TestCase):
         self.assertEqual(view["components"]["schemas"]["Article"]["properties"]["dimensions"]["properties"]["height_cm"]["type"], ["number", "null"])
         nullable = {"results": [{"price_usd_band": None}]}
         self.assertIsNone(Client(transport=OneResponse(nullable)).search()["results"][0]["price_usd_band"])
+
+    def test_size_set_main_and_sandbox_prices_parse_without_losing_fields(self):
+        card = {
+            "article": "SYNTHETIC-MAIN",
+            "size_set": [
+                {"code": "SYNTHETIC-MAIN", "size_label": "S", "size_scale": "alpha",
+                 "size_order": 1, "display_label": "Size S", "self": True, "regions": []},
+                {"code": "SYNTHETIC-MEMBER", "size_label": "M", "size_scale": "alpha",
+                 "size_order": None, "display_label": "Size M", "self": False,
+                 "regions": [{"region": "synthetic_en", "availability": None, "priced": True}]},
+            ],
+            "price": {"countries": None, "by_storefront": [
+                {"article": "SYNTHETIC-MEMBER", "size_display": "Size M"},
+                {"article": None, "size_display": "Size M"},
+            ]},
+        }
+        body = {"credits_charged": 0, "results": {"SYNTHETIC-MAIN": {"status": "ok", "article": card}}}
+        transport = OneResponse(body)
+        result = Client(transport=transport).article("SYNTHETIC-MAIN")
+        self.assertEqual(result, body)
+        self.assertEqual(transport.calls, 1)
+        self.assertIsNone(result["results"]["SYNTHETIC-MAIN"]["article"]["price"]["by_storefront"][1]["article"])
+        sandbox = copy.deepcopy(body)
+        sandbox["results"]["SYNTHETIC-MAIN"]["article"]["size_set"][1]["code"] = None
+        self.assertEqual(Client(transport=OneResponse(sandbox)).article("SYNTHETIC-MAIN"), sandbox)
+        hints = typing.get_type_hints(models.Article)
+        self.assertEqual(hints["size_set"], list[models.ArticleSizeSetItem] | None)
+        size = typing.get_type_hints(models.ArticleSizeSetItem)
+        self.assertEqual(size["size_order"], float | None)
+        self.assertEqual(size["code"], str | None)
+        self.assertEqual(set(models.ArticleSizeSetItem.__required_keys__), set(size))
+        price = typing.get_type_hints(models.ArticlePriceByStorefrontItem)
+        self.assertEqual(price["article"], str | None)
+        self.assertEqual(price["size_display"], str | None)
+        self.assertEqual(typing.get_type_hints(models.ArticlePrice)["countries"], int | None)
 
     def test_extra_error_keys_and_plain_404_405(self):
         for status, code in [(404, "not_found"), (405, "method_not_allowed")]:
@@ -148,6 +185,18 @@ class CanonicalTests(unittest.TestCase):
         spec["components"]["schemas"]["Envelope"]["properties"]["snapshot"]["description"] = "A weekly snapshot. Also X-Data-Snapshot."
         self.assertTrue(any(f["pointer"] == header_pointer for f in inspect_contract(spec, demo)["findings"]))
 
+    def test_public_protocol_copy_is_allowed_without_masking_internal_additions(self):
+        spec = json.loads((ROOT / "openapi/openapi.json").read_text())
+        demo = json.loads((ROOT / "config/public-demo.json").read_text())
+        self.assertEqual(inspect_contract(spec, demo)["findings"], [])
+        spec["info"]["description"] += " PDP internal collection per address."
+        findings = inspect_contract(spec, demo)["findings"]
+        self.assertTrue(any(f["pointer"] == "/info/description" for f in findings))
+        header = spec["paths"]["/article"]["get"]["responses"]["200"]["headers"]["X-RateLimit-Limit"]
+        header["description"] += " A weekly snapshot of the CDN probe."
+        self.assertTrue(any(f["pointer"].endswith("/X-RateLimit-Limit/description")
+                            for f in inspect_contract(spec, demo)["findings"]))
+
     def test_evidenced_variant_is_allowed_only_in_its_exact_example_url(self):
         spec = json.loads((ROOT / "openapi/openapi.json").read_text())
         demo = json.loads((ROOT / "config/public-demo.json").read_text())
@@ -208,7 +257,7 @@ class ReviewedProsePolicyTests(unittest.TestCase):
         for pointer in REVIEWED_PROSE_PATHS:
             with self.subTest(pointer=pointer):
                 candidate = copy.deepcopy(self.spec)
-                value = pointer_value(candidate, pointer) + " "
+                value = pointer_value(candidate, pointer) + " M00000"
                 self.put(candidate, pointer, value)
                 viewed = json.loads(inspection_text(json.dumps(candidate), "openapi/openapi.json"))
                 self.assertEqual(pointer_value(viewed, pointer), value)
@@ -223,7 +272,7 @@ class ReviewedProsePolicyTests(unittest.TestCase):
         self.assertIn("unapproved-host", text_checks(json.dumps(candidate), "openapi/openapi.json"))
 
     def test_same_prose_elsewhere_or_in_example_is_not_allowed(self):
-        value = pointer_value(self.spec, REVIEWED_PROSE_PATHS[0])
+        value = pointer_value(self.spec, REVIEWED_PROSE_PATHS[0]) + " M00000"
         for key in ("description", "example"):
             candidate = copy.deepcopy(self.spec)
             candidate["components"]["schemas"]["Article"]["properties"]["brand_name_en"][key] = value

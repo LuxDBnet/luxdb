@@ -81,9 +81,31 @@ test('live null values pass unchanged; extra error keys survive only in explicit
     await assert.rejects(new Client({fetch:fake(reply(body,status)).fetch}).snapshot(),error=>error instanceof ApiError && error.code===code && error.details.hint==='SYNTHETIC-PRIVATE' && error.details.remaining_today===0 && !JSON.stringify(error).includes('SYNTHETIC-PRIVATE') && !String(error).includes('SYNTHETIC-PRIVATE'));
   }
 });
-test('generated declarations include exactly the documented nullable compatibility',()=>{
+test('generated declarations include the canonical nullable fields',()=>{
   const types=readFileSync(new URL('../index.d.ts',import.meta.url),'utf8');
   assert.match(types,/"price_usd_band"\??: \(string \| null\)/);
   assert.match(types,/"height_cm"\??: \(number \| null\)/);
   assert.match(types,/"height_in"\??: \(number \| null\)/);
+});
+
+test('set main and sandbox-shaped prices preserve the new canonical fields',async()=>{
+  const card={article:'SYNTHETIC-MAIN',size_set:[
+    {code:'SYNTHETIC-MAIN',size_label:'S',size_scale:'alpha',size_order:1,display_label:'Size S',self:true,regions:[]},
+    {code:'SYNTHETIC-MEMBER',size_label:'M',size_scale:'alpha',size_order:null,display_label:'Size M',self:false,regions:[{region:'synthetic_en',availability:null,priced:true}]}
+  ],price:{countries:null,by_storefront:[{article:'SYNTHETIC-MEMBER',size_display:'Size M'},{article:null,size_display:'Size M'}]}};
+  for(const sandbox of [false,true]) {
+    const value=structuredClone(card);if(sandbox)value.size_set[1].code=null;
+    const body={credits_charged:0,sandbox,results:{'SYNTHETIC-MAIN':{status:'ok',article:value}}};
+    const f=fake(reply(body));const out=await new Client({fetch:f.fetch}).article({codes:'SYNTHETIC-MAIN'});
+    assert.deepEqual(out,body);assert.equal(f.calls.length,1);
+  }
+  const types=readFileSync(new URL('../index.d.ts',import.meta.url),'utf8');
+  const article=types.split('export type Article = ')[1].split('\n')[0];
+  assert.match(article,/"size_set"\??: \(Array</);
+  assert.match(article,/"size_order": \(number \| null\)/);
+  assert.match(article,/"self": boolean/);
+  assert.match(article,/"regions": Array</);
+  assert.match(article,/"article"\??: \(string \| null\)/);
+  assert.match(article,/"size_display"\??: \(string \| null\)/);
+  assert.match(article,/"countries"\??: \(number \| null\)/);
 });

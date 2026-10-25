@@ -29,7 +29,8 @@ print(response.get("credits_charged"))
 
 The demo is shared and limited to its public selection. A search can be empty. The demo key permits 1 request per minute and 300 per day
 per address. Make one call, then wait at least 60 seconds before another. Do not
-use the rate-remaining header to schedule calls.
+schedule calls from the remaining count alone: it includes the request just served.
+On the one-request-per-minute limit a served answer reports 0.
 If access is refused, follow Retry-After when supplied. The client does not retry.
 
 ## Paid access

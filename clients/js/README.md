@@ -38,10 +38,13 @@ by default). No service-side maximum response size is promised by that limit.
 Code uses MIT; the documentation uses the repository's CC BY 4.0 terms. LuxDB is
 independent of the houses named in the documentation.
 
-Compatibility with the live 2.3.1 service: price_usd_band and dimensions.height_cm /
-height_in are nullable in the types even though the supplied spec says otherwise.
+Types come directly from the canonical 2.3.1 contract, including nullable prices,
+dimensions and country counts. There are no client-only type overrides.
+A set main includes size_set. Its storefront rows identify whose price is shown
+with article and size_display; a sandbox member code can be null.
 Unknown error properties are retained in ApiError.details (non-enumerable), for
 explicit inspection only; never log it. 404 and 405 are ordinary API errors.
 The demo allows 1 request per minute and 300 per day per address. Make one call,
-or wait at least 60 seconds between calls; follow Retry-After on 429. Do not rely
-on the demo rate-remaining header. There is no charge header.
+or wait at least 60 seconds between calls; follow Retry-After on 429.
+X-RateLimit-Remaining includes the request just served; at the one-request-per-
+minute limit it reports 0. There is no charge header.

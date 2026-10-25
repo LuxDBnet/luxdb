@@ -1,5 +1,5 @@
 // Generated from the public contract; do not edit.
-// Public spec SHA256: c0441c664104e7b7323ed71efba5c5bfaa9b634c08ad20d619aa2f8152bffbe2
+// Public spec SHA256: b0235052d6772a22c38da6b0860af1c579261d31a1a61cbc07b7181b092c6092
 export const API_BASE_URL = "https://luxdb.net/api/v1";
 export const ERROR_CODES = [
   "unauthorized",

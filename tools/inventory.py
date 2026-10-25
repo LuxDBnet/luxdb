@@ -60,7 +60,7 @@ FILES = {
     "templates/CONTRIBUTING.md.in": ("Static contribution template", "Publication policy"),
     "templates/SECURITY.md.in": ("Static security template", "Owner contact decision"),
     "templates/NOTICE.md.in": ("Static scope/disclaimer template", "Owner license and independence policy"),
-    "tools/client_compat.py": ("Documented client-only nullable compatibility", "Live API behaviour confirmed by the API owner"),
+    "tools/client_compat.py": ("Unmodified canonical client view", "Canonical API types; no client-only overrides"),
     "tools/generate_js.py": ("ESM metadata and TypeScript declarations generator", "Committed public OpenAPI"),
     "tools/javascript_policy.py": ("Non-executing JS literal policy", "Reviewed fixed-source and content policy"),
     "tests/test_javascript_public.py": ("JavaScript scanner negative cases", "Synthetic attacks only"),
