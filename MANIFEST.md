@@ -21,6 +21,10 @@ public-safe provenance categories, not internal paths or collection methods.
 | `NOTICE.md` | License boundaries and independence disclaimer | Reviewed notice template |
 | `README.md` | Live developer introduction | Reviewed README template and project configuration |
 | `SECURITY.md` | Private reporting contact | Reviewed security template |
+| `assets/icon-512-light.png` | Organisation avatar image | Published brand asset; pinned bytes |
+| `assets/lockup-600-dark.png` | README logo for dark themes | Published brand asset; pinned bytes |
+| `assets/lockup-600-light.png` | README logo for light themes | Published brand asset; pinned bytes |
+| `assets/og-1200x630.png` | Repository social preview image | Published brand asset; pinned bytes |
 | `clients/js/LICENSE` | MIT code license | Repository code license |
 | `clients/js/README.md` | JavaScript and TypeScript client guide | Reviewed client behaviour |
 | `clients/js/generated.js` | Generated operation metadata | Public 2.3.1 contract |
@@ -56,6 +60,7 @@ public-safe provenance categories, not internal paths or collection methods.
 | `templates/SECURITY.md.in` | Static security template | Owner contact decision |
 | `templates/quickstart.md.in` | Static usage template | SDK safety policy |
 | `tests/fixtures/synthetic-response.json` | Invented empty search response | Hand-authored synthetic fixture; no observed data |
+| `tests/test_assets.py` | Pinned image and README logo negative cases | Synthetic probes only |
 | `tests/test_canonical.py` | Canonical types and definition-source tests | Verified inputs and synthetic mocks |
 | `tests/test_generation.py` | Schema, rendering and draft acceptance tests | Public schema, metadata and deterministic tools |
 | `tests/test_javascript_public.py` | JavaScript scanner negative cases | Synthetic attacks only |

@@ -20,7 +20,7 @@ from urllib.parse import urlsplit
 
 sys.dont_write_bytecode = True
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from inventory import FILES, manifest
+from inventory import ASSETS, FILES, manifest
 from render_public import outputs
 from generate_clients import expected, OUTPUT
 from generate_js import outputs as js_outputs
@@ -43,6 +43,24 @@ URL = re.compile(r"https?://[^\s<>\"'`]+")
 HOST = re.compile(r"(?<![\w.-])(?:[a-zA-Z0-9-]+\.)+(?:com|net|org|io|lan|corp|local|internal|invalid|test)(?![\w.-])")
 IP = re.compile(r"(?<![\w.])(?:[0-9]{1,3}\.){3}[0-9]{1,3}(?![\w.])")
 IPV6 = re.compile(r"(?<![A-Za-z0-9])(?:[A-Fa-f0-9]{0,4}:){2,}[A-Fa-f0-9:.]{0,45}(?![A-Za-z0-9])")
+# The one approved embedded-media block: the README template may start with
+# exactly this text, and README.md with it rendered under the configured name.
+# Any other img/picture/source markup, anywhere, still blocks.
+README_LOGO = """<p align="center">
+  <a href="https://luxdb.net/">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="assets/lockup-600-dark.png">
+      <source media="(prefers-color-scheme: light)" srcset="assets/lockup-600-light.png">
+      <img src="assets/lockup-600-light.png" alt="{{PROJECT_NAME}}" width="300">
+    </picture>
+  </a>
+</p>
+
+"""
+README_LOGO_RENDERED = README_LOGO.replace("{{PROJECT_NAME}}", json.loads((ROOT / "config/project.json").read_text())["project_name"])
+ASSET_PIN_LINES = {f'"{rel}": "{digest}",' for rel, digest in ASSETS.items()}
+PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
+PNG_CHUNKS = {b"IHDR", b"PLTE", b"tRNS", b"bKGD", b"IDAT", b"IEND"}
 ITEM_CODE = re.compile(r"(?<![A-Za-z0-9_])(?:[MN][0-9]{5}|[0-9][A-Z0-9]{5}|LP[0-9]{4}|H[0-9]{6}[A-Z][A-Z0-9]*|P[0-9]{6}|[A-Z0-9]{8,}[-.][A-Z0-9]{2,}|[0-9]{8})(?![A-Za-z0-9_])")
 
 
@@ -75,6 +93,22 @@ def tree_files(root: Path, *, checkout: bool = False) -> tuple[dict[str, Path], 
     for rel in set(FILES) - set(files):
         issues.append(Finding("missing-file", rel))
     return files, issues
+
+
+def png_clean(raw: bytes) -> bool:
+    """A well-formed PNG with image chunks only: no text, EXIF or time chunks."""
+    if not raw.startswith(PNG_SIGNATURE):
+        return False
+    offset = len(PNG_SIGNATURE)
+    while offset + 12 <= len(raw):
+        length = int.from_bytes(raw[offset:offset + 4], "big")
+        kind = raw[offset + 4:offset + 8]
+        if kind not in PNG_CHUNKS or offset + 12 + length > len(raw):
+            return False
+        offset += 12 + length
+        if kind == b"IEND":
+            return offset == len(raw)
+    return False
 
 
 def entropy(token: str) -> float:
@@ -192,6 +226,11 @@ def text_checks(text: str, path: str) -> set[str]:
     # Exact, evidenced URL nodes are screened as placeholders. No file content
     # is changed; digest, schema and semantic checks still use original bytes.
     text = inspection_text(text, path)
+    logo = {"README.md": README_LOGO_RENDERED, "templates/README.md.in": README_LOGO}.get(path)
+    if logo and text.startswith(logo):
+        text = text[len(logo):]
+    if path == "tools/check_public.py" and text.count(README_LOGO) == 1:
+        text = text.replace(README_LOGO, "")
     categories = plain_checks(text, path)
     strings = []
     if path.endswith(".py"):
@@ -213,6 +252,8 @@ def text_checks(text: str, path: str) -> set[str]:
             categories.update(record_categories(obj))
     # JSON-bearing Markdown/code strings and transformed standalone tokens are
     # inspected even when the containing file is not named .json.
+    if path == "tools/check_public.py":
+        strings = [value for value in strings if value != README_LOGO]
     strings.extend(re.findall(r"[A-Za-z0-9+/_-]{8,}={0,2}", text))
     categories.update(inspect_strings(strings, lambda value: plain_checks(value, path, decoded=True)))
     return categories
@@ -242,6 +283,11 @@ def scan(root: Path = ROOT) -> list[Finding]:
     for rel, path in files.items():
         if path.stat().st_size > 1024 * 1024:
             issues.append(Finding("file-size", rel))
+            continue
+        if rel in ASSETS:
+            raw = path.read_bytes()
+            if hashlib.sha256(raw).hexdigest() != ASSETS[rel] or not png_clean(raw):
+                issues.append(Finding("asset-drift", rel))
             continue
         try:
             raw = path.read_bytes()
@@ -294,8 +340,14 @@ def scan(root: Path = ROOT) -> list[Finding]:
             clean = re.sub(r"(?m)^(?:#|//) Public spec SHA256: [a-f0-9]{64}$", "", text)
             if "high-entropy-secret" not in text_checks(clean, rel):
                 categories.discard("high-entropy-secret")
+        if rel == "tools/inventory.py":
+            # Only the exact pin lines; each digest must also match its image
+            # bytes (asset-drift above), so no other string can ride along.
+            clean = "\n".join(line for line in text.splitlines() if line.strip() not in ASSET_PIN_LINES)
+            if "high-entropy-secret" not in text_checks(clean, rel):
+                categories.discard("high-entropy-secret")
         issues.extend(Finding(category, rel) for category in categories)
-    if set(contents) != set(FILES):
+    if set(contents) != set(FILES) - set(ASSETS):
         return sorted(set(issues), key=lambda x: (x.path, x.category))
     try:
         if contents["config/fixed-hashes.json"].encode() != TRUSTED_FIXED_BYTES:
@@ -342,7 +394,7 @@ def main() -> None:
         for issue in issues:
             print(f"BLOCKED: {issue.category} in {issue.path}")
         raise SystemExit(1)
-    print(f"PASS: {len(FILES)} approved text files; fixed content, typed schema and generated artifacts agree.")
+    print(f"PASS: {len(FILES) - len(ASSETS)} approved text files and {len(ASSETS)} pinned images; fixed content, typed schema and generated artifacts agree.")
     print("Independent review and owner authorisation are still required before publication.")
 
 

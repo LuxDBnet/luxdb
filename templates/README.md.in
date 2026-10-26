@@ -1,13 +1,64 @@
-# {{PROJECT_NAME}}
+<p align="center">
+  <a href="https://luxdb.net/">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="assets/lockup-600-dark.png">
+      <source media="(prefers-color-scheme: light)" srcset="assets/lockup-600-light.png">
+      <img src="assets/lockup-600-light.png" alt="{{PROJECT_NAME}}" width="300">
+    </picture>
+  </a>
+</p>
 
-The storefront and API are live. API contract version: **2.3.1**.
+# {{PROJECT_NAME}} — luxury product database and price history API
 
-{{PROJECT_NAME}} provides weekly price and availability history across luxury houses,
-including items no longer listed. Delisted does not mean discontinued.
+{{PROJECT_NAME}} is a paid catalogue of luxury items with **weekly price and
+availability history across countries' storefronts**, including items no longer
+listed. Use it to compare recorded prices and research an item's history.
 
-This developer repository includes Python and JavaScript/TypeScript clients,
-OpenAPI and a snapshot of the field definitions. Access to
-item records uses credits; the API response reports the charge.
+[Pricing: choose a plan or buy credits](https://luxdb.net/pricing) ·
+[Catalogue](https://luxdb.net/catalog) · [API docs](https://luxdb.net/docs/api)
+
+Subscriptions start at **$29/month for Collector (1,000 credits; no paid API)**.
+API access is available with retail credits from **$50 once**, Pro or Business.
+One credit opens an item card. See the access options and repeat rules below.
+
+For resellers, dealers, analysts, journalists and developers. Records cover
+Louis Vuitton, Hermès, Dior, Loewe, Kenzo, Givenchy and Tiffany & Co.
+Coverage and observation dates vary by house, item and storefront.
+
+{{DISCLAIMER}}
+
+The storefront and API are live. This repository contains Python and
+JavaScript/TypeScript clients, an OpenAPI specification and field definitions;
+the paid catalogue records are accessed through {{PROJECT_NAME}}, not downloaded
+with this repository. API contract version: **2.3.1**.
+
+## Choose catalogue or API access
+
+| Option | Price in USD | Credits | Paid API access |
+|---|---|---|---|
+| Retail credits | From $50 once | 1,000 in the smallest pack; never expire | Included |
+| Collector | $29/month or $279/year | 1,000/month | Not included |
+| Pro | $149/month or $1,429/year | 6,000/month | 1 key |
+| Business | $499/month or $4,790/year | 25,000/month, pooled | 1 key per seat |
+
+For current prices, allowances and purchase terms, use the
+[pricing page](https://luxdb.net/pricing). A paid record requires paid access;
+the public `demo` API key is limited to demo data and needs no account.
+
+## Research with recorded product data
+
+- **Resellers and dealers:** compare recorded storefront prices by country and
+  inspect earlier observations when researching an item.
+- **Analysts and journalists:** examine weekly price changes and listing history;
+  retain the observation dates when reporting a comparison.
+- **Collectors and buyers:** look up a reference and its available history,
+  including records of items no longer listed.
+- **Developers:** use the REST API's documented JSON fields and local Python or
+  JavaScript/TypeScript clients in an integration.
+
+Read the [data dictionary](https://luxdb.net/docs/data) to check the fields before
+buying. Weekly observations are not a real-time stock guarantee. Storefront
+prices are not resale transaction prices or an authentication of an item.
 
 ## Start offline
 
@@ -53,6 +104,42 @@ code can be null while its size and storefronts remain visible.
 HTTP errors retain extra keys in ApiError.details;
 404 and 405 are ordinary API errors. See [compatibility notes](docs/api-compatibility.md).
 
+## Questions before buying
+
+### How does the 24-hour repeat work?
+
+Opening an item card costs one credit. A repeat within its 24-hour window is
+free. The website and API have separate repeat windows: opening on one does not
+make the first opening on the other free. The API window is shared by the
+account's keys. Check `credits_charged` in the response and the
+[API documentation](https://luxdb.net/docs/api) for charging rules.
+
+### Can I research items no longer listed?
+
+Yes, where {{PROJECT_NAME}} has recorded them. "Not listed this week" describes an
+observation, not a manufacturing decision. Delisted does not mean discontinued.
+History starts with the observations available for that item; it is not a promise
+of complete history from launch.
+
+### Does the API include original photos and videos?
+
+The API returns documented fields and media counts, not the media files.
+Original media is accessed through the paid website card and its export.
+Check the [field definitions](docs/data-dictionary.md) and
+[API reference](docs/api-reference.md) for what each interface returns.
+
+### Can I keep my downloads?
+
+Downloads are yours to keep. A download link can expire; save the files while the
+link is valid. Repository code and documentation licenses do not license the
+catalogue data or third-party material.
+
+### Is this a free luxury dataset?
+
+The repository's clients and field definitions are public. Full catalogue access
+is paid. The offline examples use synthetic responses; the public `demo` API key
+serves only its sample selection. It is not unrestricted access to the archive.
+
 ## Support and licenses
 
 Issues are off at launch. Contact {{CONTACT}} privately for support or security.
@@ -61,4 +148,3 @@ Code and synthetic tests use [MIT](LICENSE); original docs use
 [Contributing](CONTRIBUTING.md). These licenses do not grant rights to catalogue data
 or third-party material.
 
-{{DISCLAIMER}}

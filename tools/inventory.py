@@ -72,6 +72,19 @@ FILES = {
     "clients/js/index.d.ts": ("Generated response models and method declarations", "Public 2.3.1 contract"),
     "clients/js/test/client.test.mjs": ("Offline client tests", "Injected fetch and synthetic responses"),
     "examples/demo.mjs": ("Offline JavaScript example", "Synthetic fixture and client"),
+    "assets/lockup-600-light.png": ("README logo for light themes", "Published brand asset; pinned bytes"),
+    "assets/lockup-600-dark.png": ("README logo for dark themes", "Published brand asset; pinned bytes"),
+    "assets/og-1200x630.png": ("Repository social preview image", "Published brand asset; pinned bytes"),
+    "assets/icon-512-light.png": ("Organisation avatar image", "Published brand asset; pinned bytes"),
+    "tests/test_assets.py": ("Pinned image and README logo negative cases", "Synthetic probes only"),
+}
+
+# The only non-text files: exact bytes, reviewed by sight, no PNG text chunks.
+ASSETS = {
+    "assets/lockup-600-light.png": "a9018d88ceb7e184d6dd35add338522384de6ff344cf4c9a3379143cf6d2ae81",
+    "assets/lockup-600-dark.png": "076786a40d5d02956a97166f9e687a32b071c9de4563ed12158c6726c2dab1c8",
+    "assets/og-1200x630.png": "2e8ec25c69539cdca67ad544a09fbac6d05977415c7e818c81d25fce4e91b68e",
+    "assets/icon-512-light.png": "92b720bfb596406902d82b4b2fcfc3b6a63e3671dd7d40d09a3ccc47159ab3b0",
 }
 
 
