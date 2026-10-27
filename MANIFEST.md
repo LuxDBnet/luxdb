@@ -22,8 +22,8 @@ public-safe provenance categories, not internal paths or collection methods.
 | `README.md` | Live developer introduction | Reviewed README template and project configuration |
 | `SECURITY.md` | Private reporting contact | Reviewed security template |
 | `assets/icon-512-light.png` | Organisation avatar image | Published brand asset; pinned bytes |
-| `assets/lockup-600-dark.png` | README logo for dark themes | Published brand asset; pinned bytes |
-| `assets/lockup-600-light.png` | README logo for light themes | Published brand asset; pinned bytes |
+| `assets/mark-dark.png` | README mark for dark themes | Published brand asset; pinned bytes |
+| `assets/mark-light.png` | README mark for light themes | Published brand asset; pinned bytes |
 | `assets/og-1200x630.png` | Repository social preview image | Published brand asset; pinned bytes |
 | `clients/js/LICENSE` | MIT code license | Repository code license |
 | `clients/js/README.md` | JavaScript and TypeScript client guide | Reviewed client behaviour |

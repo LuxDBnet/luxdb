@@ -3,7 +3,6 @@
   "sha256": {
     ".github/disabled-issue-templates/bug_report.yml": "704a5bde1b1458922a827df5151829cdbc974a1a7cb927830d0bc4848da3c0e3",
     "tests/test_public.py": "d69f57da450a8026ca73a95584ccde884c0de0b553142948eef610c03fbd0c7c",
-    "assets/lockup-600-light.png": "a9018d88ceb7e184d6dd35add338522384de6ff344cf4c9a3379143cf6d2ae81",
     "tests/test_javascript_public.py": "e8cb0984581c19e06d0f888dd30a39a55e1dfa718fd56c362024f8f8c054f9ea",
     "clients/js/LICENSE": "0f8341e9824ce0e6dd57b2d8326cd507d1bafe982f3e89959018ce1b9aa11fb4",
     "tools/client_compat.py": "6de8b94d3bcaa5e453cf3ea0cf508aa453421edcef15fb1c077cf63299f5a715",
@@ -12,7 +11,7 @@
     "examples/paid_item.py": "b37e076f5b077ef4df5bc1e1b4517a25cda2291d62e95dd9165f17498444d48e",
     ".gitattributes": "e688d83b6e35a38f689d2f8fd847064502b04c0c3b630c465276a5991788dbe5",
     "config/public-demo.json": "233b638ca69257481bdfd0dc0e665e65464d3258ad8ffda580b3c15fc27d2367",
-    "tools/inventory.py": "1f0e855c4fd90e47eeeb8599d44278d98e3c7f8a6178793030111c896ea392c4",
+    "tools/inventory.py": "31270fd3b0b0d5489809a65fb9768d34b34e2d66e2327f629b16a6f8ef0be2ee",
     "clients/python/src/luxdb_client/__init__.py": "cf630cb86812afee939b858364de58050368c9a2958e94002cb9c241cc19676e",
     "tools/update_reviewed_policy.py": "3f3244ec9cda54785eeff347bad65699aa5878743bcb85c8ba3e5f02edd1fc25",
     "tests/test_canonical.py": "133a568e001ae84d40c9c362b0da33b45fa751caab6ea42f0cdc1b7eef72db5b",
@@ -21,9 +20,8 @@
     "tools/javascript_policy.py": "f1ad9ada6bcd6d75f3e1e2106d4cd7ff6f7066371dbf41b30be8fb34164d6587",
     "metadata/houses.json": "1e01be0740c7350679f8d25211026c471f96df6923e1674aff0ac55186ae0b37",
     "tools/content_policy.py": "63bfc9dda0b3d9592286be5a17d67789f60e2a0f0e49c9865cf3b12779722be4",
-    "assets/lockup-600-dark.png": "076786a40d5d02956a97166f9e687a32b071c9de4563ed12158c6726c2dab1c8",
     "tools/build_public_spec.py": "75a68a8cdeff477e83783d795f5682f4f98d7f521d1413e09ad3c6cc00e00137",
-    "tools/check_public.py": "8f48f47bfa754fb4c66ecbb4d7eaddc29a74dd50e425ba51ce9ad2356fcd0b13",
+    "tools/check_public.py": "e8dc337df9fc5ba4d891e4133476bf531cf4678e65258335f8f788d8b06ed95d",
     "clients/python/src/luxdb_client/transport.py": "da98efa91d85437f911a138e1d277bf820c50390822090ac158270182ce694a5",
     "LICENSE": "0f8341e9824ce0e6dd57b2d8326cd507d1bafe982f3e89959018ce1b9aa11fb4",
     "examples/demo.py": "93cfcae63ede72e04359cd803d303863de0dd6febb86ef51f44fd99193a8834a",
@@ -33,7 +31,7 @@
     "tools/schema_policy.py": "dd2d084bec65c507118bb98bd1046c9c081a36f41d1f478337b8f795c2bc5fcc",
     "examples/demo.mjs": "cfcb1279ad8c3650571e9d71ab30c4b09f324c56a21c8215d8c1436ee8080153",
     "templates/SECURITY.md.in": "9ec78f538521a60b399559847c664c5b1730a3a144d0a0cf9896b26b4027e133",
-    "tests/test_assets.py": "7757cc21e97cf4018ce121e9a6edbc3707e7bea836640bbf8c5bc62fdc13725f",
+    "tests/test_assets.py": "ab1e43419344d81869c9a172f843cd676c53e28be4e02298276f19d6fec0f790",
     ".github/workflows/ci.yml": "c25516bc53425467ae7ac9b3823471af110576bdbaea42c3cd62f9e6cbd26f02",
     ".github/disabled-issue-templates/feature_request.yml": "34c28f7f1d2c1fdb85570d10ee216a8026998f187fcf0b4ebfa371ec9adbdd8c",
     "tools/stage_public.py": "8f31ad83ee68a29dffdb03affcff31b4b734132f108d1a9d1af4466e1e2a6c1d",
@@ -59,8 +57,10 @@
     "tools/render_public.py": "11d9a8e7fee0bfda3ba0a0a914c2ba02ae0cf17765e0dade8d7627748433d84a",
     "templates/NOTICE.md.in": "97777bdb65cd2fbb013060b3c99f5707fa59a785713195d5f0cbd56bbad586e3",
     "config/project.json": "7a02fe0b0a4d73e2a5cb085b3ef57dde0994b9331eea7908e5dca66761a19d1c",
-    "assets/og-1200x630.png": "2e8ec25c69539cdca67ad544a09fbac6d05977415c7e818c81d25fce4e91b68e",
+    "assets/og-1200x630.png": "5e82773faee180f3c0a9c5272ada9397b86b1644149e3ccc1b11e20d929c9738",
     "tests/test_generation.py": "e8e636dc7bd64d0ffb04655163f8d2e5b4801bc504abfb9f6cfeeab1577e6b98",
-    "templates/README.md.in": "2459c88b2b67a26c6958e4bba78eeaaf44cd7f9ec2367ed23c123f7849bc9463"
+    "templates/README.md.in": "be7479b595c9ec0babeae64b86ed8c7e84c9724a00dfaab68576b666d865289d",
+    "assets/mark-dark.png": "62afa86ea1b0a096822723e65d12187c4a65e2361b577cdb756ef7648e4b7733",
+    "assets/mark-light.png": "809937116486e9e2c710709b87f545b231dcdb22c0b639c6a369dfb26f83de2f"
   }
 }

@@ -49,9 +49,9 @@ IPV6 = re.compile(r"(?<![A-Za-z0-9])(?:[A-Fa-f0-9]{0,4}:){2,}[A-Fa-f0-9:.]{0,45}
 README_LOGO = """<p align="center">
   <a href="https://luxdb.net/">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="assets/lockup-600-dark.png">
-      <source media="(prefers-color-scheme: light)" srcset="assets/lockup-600-light.png">
-      <img src="assets/lockup-600-light.png" alt="{{PROJECT_NAME}}" width="300">
+      <source media="(prefers-color-scheme: dark)" srcset="assets/mark-dark.png">
+      <source media="(prefers-color-scheme: light)" srcset="assets/mark-light.png">
+      <img src="assets/mark-light.png" alt="{{PROJECT_NAME}}" width="120">
     </picture>
   </a>
 </p>
