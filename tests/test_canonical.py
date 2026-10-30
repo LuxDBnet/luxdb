@@ -272,6 +272,19 @@ class HeaderTokenTests(unittest.TestCase):
     def test_prefix_is_not_an_allowed_header(self):
         self.assertTrue(self.findings("Other-X-RateLimit-Scope"))
 
+    def test_plus_suffix_is_not_an_allowed_header(self):
+        self.assertTrue(self.findings("X-RateLimit-Scope+Private"))
+
+    def test_bang_suffix_is_not_an_allowed_header(self):
+        self.assertTrue(self.findings("X-RateLimit-Scope!Private"))
+
+    def test_plus_prefix_is_not_an_allowed_header(self):
+        self.assertTrue(self.findings("Other+X-RateLimit-Scope"))
+
+    def test_code_span_inside_a_longer_name_is_not_allowed(self):
+        spec = {"info": {"description": "The X-`snapshot`-Private header is documented."}}
+        self.assertTrue(inspect_contract(spec, {"articles": []})["findings"])
+
     def test_plain_header_in_prose_is_allowed(self):
         self.assertEqual(self.findings("X-RateLimit-Scope"), [])
 

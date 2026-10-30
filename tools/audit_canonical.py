@@ -9,6 +9,8 @@ import re
 
 JARGON = re.compile(r"\b(?:FAT|PLP|PDP|CDN|probe|sibling|snapshots?)\b", re.I)
 RULES = re.compile(r"X-RateLimit-Scope|counted\s*=|basis\s*=|presence_current|code.lookup|ladder|per.address", re.I)
+# An allowed spelling counts only when no HTTP token character touches it on either side.
+TCHAR_EDGE = r"(?<![!#$%&'*+\-.^_`|~0-9A-Za-z]){}(?![!#$%&'*+\-.^_`|~0-9A-Za-z])"
 CODE = re.compile(r"(?<![A-Za-z0-9_])(?:[A-Z0-9][A-Z0-9_.-]{5,}|[HPV][A-Z0-9]{5,}v[A-Za-z0-9]+)(?![A-Za-z0-9_])")
 
 
@@ -75,7 +77,10 @@ def inspect_contract(spec: dict, public_demo: dict) -> dict:
             # Public protocol identifiers and the published demo allowance are not
             # collection jargon. Remove only these spellings before the prose scan;
             # surrounding text (including any added internal terms) remains checked.
-            prose_text = re.sub(r"(?<![A-Za-z0-9_.-])X-(?:Data-Snapshot|RateLimit-Scope)(?![A-Za-z0-9_.-])|`snapshot`", "", obj)
+            # Whole HTTP tokens only (RFC 9110 tchar), optionally as a Markdown code span:
+            # an allowed name inside a longer header name is not the allowed name.
+            prose_text = re.sub(TCHAR_EDGE.format(r"`?X-(?:Data-Snapshot|RateLimit-Scope)`?") + "|"
+                                + TCHAR_EDGE.format(r"`snapshot`"), "", obj)
             if pointer == "/info/description":
                 prose_text = prose_text.replace("one request a minute and 300 a day per address", "")
             if JARGON.search(prose_text):

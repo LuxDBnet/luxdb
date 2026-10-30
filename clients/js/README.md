@@ -44,7 +44,8 @@ A set main includes size_set. Its storefront rows identify whose price is shown
 with article and size_display; a sandbox member code can be null.
 The sizes rows include shades and scents. also_written lists other spellings,
 or is null. In the sandbox, a spelling that names any code but the card's own
-becomes a null entry, without shortening the list. Size rows remain opaque objects
+(its article, or a code folded into it) becomes a null entry, without shortening
+the list, even when that code is another demo card's. Size rows remain opaque objects
 in the generated declarations, as in the contract.
 Unknown error properties are retained in ApiError.details (non-enumerable), for
 explicit inspection only; never log it. 404 and 405 are ordinary API errors.

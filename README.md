@@ -103,7 +103,8 @@ prices cover the set and identify the size whose price is shown. A sandbox membe
 code can be null while its size and storefronts remain visible.
 The sizes rows include shades and scents. also_written lists other spellings,
 or is null. In the sandbox, a spelling that names any code but the card's own
-becomes a null entry, without shortening the list. The clients keep size rows as opaque
+(its article, or a code folded into it) becomes a null entry, without shortening
+the list, even when that code is another demo card's. The clients keep size rows as opaque
 objects, as the contract defines them.
 HTTP errors retain extra keys in ApiError.details;
 404 and 405 are ordinary API errors. See [compatibility notes](docs/api-compatibility.md).
