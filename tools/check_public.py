@@ -204,7 +204,7 @@ def inspection_text(text: str, path: str) -> str:
             if node.get(parts[-1]) == approval["value"]:
                 node[parts[-1]] = "SYNTHETIC-APPROVED-URL"
                 changed = True
-        # Exact reviewed public demo URL in 2.3.1, not arbitrary paths/strings.
+        # Exact reviewed public demo URL, not arbitrary paths/strings.
         pointer = "/components/schemas/Article/properties/lv_url/example"
         node, key = pointer_parent(document, pointer)
         reviewed = pointer_value(TRUSTED_SCHEMA["contract"], pointer)
@@ -217,6 +217,13 @@ def inspection_text(text: str, path: str) -> str:
             if type(node[key]) is str and node[key] == expected_text:
                 node[key] = "SYNTHETIC-APPROVED-PROSE"
                 changed = True
+        # The service's field-definition digest is public metadata. Mask only
+        # this exact reviewed value at this node; all other hashes stay scanned.
+        reviewed_digest = TRUSTED_SCHEMA["contract"].get("info", {}).get("x-luxdb-fields")
+        if (isinstance(reviewed_digest, str) and HEX_HASH.fullmatch(reviewed_digest)
+                and document.get("info", {}).get("x-luxdb-fields") == reviewed_digest):
+            document["info"]["x-luxdb-fields"] = "SYNTHETIC-APPROVED-DIGEST"
+            changed = True
         return json.dumps(obj, ensure_ascii=False) if changed else text
     except (ValueError, KeyError, TypeError, AttributeError):
         return text

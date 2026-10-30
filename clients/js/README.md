@@ -38,10 +38,14 @@ by default). No service-side maximum response size is promised by that limit.
 Code uses MIT; the documentation uses the repository's CC BY 4.0 terms. LuxDB is
 independent of the houses named in the documentation.
 
-Types come directly from the canonical 2.3.1 contract, including nullable prices,
+Types come directly from the canonical 2.5.3 contract, including nullable prices,
 dimensions and country counts. There are no client-only type overrides.
 A set main includes size_set. Its storefront rows identify whose price is shown
 with article and size_display; a sandbox member code can be null.
+The sizes rows include shades and scents. also_written lists other spellings,
+or is null. In the sandbox, a spelling that names any code but the card's own
+becomes a null entry, without shortening the list. Size rows remain opaque objects
+in the generated declarations, as in the contract.
 Unknown error properties are retained in ApiError.details (non-enumerable), for
 explicit inspection only; never log it. 404 and 405 are ordinary API errors.
 The demo allows 1 request per minute and 300 per day per address. Make one call,

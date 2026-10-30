@@ -1211,6 +1211,10 @@
       "description",
       "type"
     ],
+    "/paths//article/get/responses/200/content/application/json/schema/allOf/1/properties/results/additionalProperties/properties/code": [
+      "description",
+      "type"
+    ],
     "/paths//article/get/responses/200/content/application/json/schema/allOf/1/properties/results/additionalProperties/properties/article": [
       "$ref"
     ],
@@ -2060,16 +2064,18 @@
     "openapi": "3.1.0",
     "info": {
       "title": "LuxDB API",
-      "version": "2.3.1",
+      "version": "2.5.3",
       "x-schema-versions": {
-        "lv": "2.3.1",
-        "dior": "2.3.1",
-        "givenchy": "2.3.1",
-        "hermes": "2.3.1",
-        "kenzo": "2.3.1",
-        "loewe": "2.3.1",
-        "tiffany": "2.3.1"
+        "lv": "2.5.3",
+        "dior": "2.5.3",
+        "givenchy": "2.5.3",
+        "hermes": "2.5.1",
+        "kenzo": "2.5.3",
+        "loewe": "2.5.3",
+        "tiffany": "2.5.3"
       },
+      "x-luxdb-canon": "2.5",
+      "x-luxdb-fields": "186152fb7969f09cc057597b51142cd6d8542ae0414647f84465694feb273b42",
       "description": "LuxDB: the luxury-house article archive. Search with the house's article code or a product name; `article` returns the full record.\n\nEvery answer carries the envelope below and says what it charged. One credit is one article, whole: all card fields, the price in every storefront, and the entire observed history. A code the archive does not hold costs nothing; a repeat of the same article within 24 hours costs nothing; a batch the balance cannot cover is refused whole and charges nothing.\n\nThe public sandbox key is `demo`: every endpoint answers in the same shape over a fixed set of demo articles, so this document can be read with live requests and no account. The sandbox allows one request a minute and 300 a day per address; beyond that the answer is 429 with Retry-After, so a script trying several endpoints should wait between calls. If the service is temporarily unavailable, no credits are charged. Follow Retry-After before trying again.\n\nField names that carry `lv` (lv_url, lv_url_status, lv_url_region, name_lv, color_group_lv) date from the first house in the archive. They mean the same thing for every house: the house's own site, its own name for the item and its own colour group.\n\nEvery answer carries X-Request-Id; quote it when reporting a problem."
     },
     "servers": [
@@ -2506,7 +2512,7 @@
           "properties": {
             "article": {
               "type": "string",
-              "description": "Article — the brand's reference code for the item; with brand, the key of every table. For Louis Vuitton: six characters, e.g. 1ACVHU. For Dior: model code, underscore, colour or variant code, e.g. 15JOU090I602_C545. For Loewe: model code, hyphen, four-digit colour code; fragrances use a five-digit model code. For Kenzo: model code, dot, colour code. For Tiffany & Co.: eight-digit item number. For Givenchy: model code, hyphen, three-digit colour code. For Hermès: model code, colour code and an optional size, e.g. H041054CK18; tableware uses P-codes; belts sold as a set combine the buckle and strap codes.",
+              "description": "Article — the brand's reference code for the item; with brand, the key of every table. For Louis Vuitton: six characters, e.g. M14880. For Dior: model code, underscore, colour or variant code, e.g. M0455CBAA_M900. For Loewe: model code, hyphen, four-digit colour code; fragrances use a five-digit model code. For Kenzo: model code, dot, colour code. For Tiffany & Co.: eight-digit item number. For Givenchy: model code, hyphen, three-digit colour code. For Hermès: model code, colour code and an optional size, e.g. H041054CK18; tableware uses P-codes; belts sold as a set combine the buckle and strap codes.",
               "example": "1ACVHU"
             },
             "requested": {
@@ -2518,7 +2524,7 @@
               "properties": {
                 "code": {
                   "type": "string",
-                  "description": "The code as asked, upper-cased."
+                  "description": "The code asked, as the house writes it."
                 },
                 "article": {
                   "type": [
@@ -2600,7 +2606,7 @@
             },
             "family_id": {
               "type": "string",
-              "description": "Model: the brand's page or code that groups the colours and sizes of one model. For Louis Vuitton: the Louis Vuitton page id (nvprod…). For Dior, Loewe, Kenzo and Givenchy: the brand's model code, shared by all colours of one model. For Tiffany & Co.: the Tiffany design number (M…), shared by the metals, stones and sizes of one design. For Hermès: the model code without colour and size, e.g. H041054CK.",
+              "description": "Model: the brand's page or code that groups the colours and sizes of one model. For Louis Vuitton: the Louis Vuitton page id (nvprod…). For Dior, Loewe, Kenzo and Givenchy: the brand's model code, shared by all colours of one model. For Tiffany & Co.: the Tiffany design number (M…), shared by the metals, stones and sizes of one design. For Hermès: the model code without colour and size, e.g. H800690E.",
               "example": "nvprod5190267v"
             },
             "family_alias_of": {
@@ -2869,7 +2875,7 @@
               "items": {
                 "type": "object"
               },
-              "description": "Every size row the house lists for this article, with the storefront each was read from."
+              "description": "Every size row the house lists for this article, one per storefront it was read from. Shades and scents are size rows too (scale shade or scent): every storefront's row for one code carries the label most storefronts write, and also_written lists the other spellings (null on other rows; in the sandbox a spelling that names a code outside the sample is null, so the list keeps its length). The code of each row is in size_variants."
             },
             "family_sizes": {
               "type": "array",
@@ -2910,7 +2916,7 @@
             "weeks_unlisted": {
               "type": "integer",
               "description": "Consecutive weeks without a listing or price; 0 means seen this week.",
-              "example": 13
+              "example": 14
             },
             "variants": {
               "type": "object",
@@ -3331,6 +3337,8 @@
                 "one_size",
                 "numeric",
                 "other",
+                "shade",
+                "scent",
                 null
               ]
             },
@@ -3377,7 +3385,7 @@
                     "null"
                   ],
                   "description": "USD price for lists: the median of current prices across countries (two storefronts of one country count once). Empty = no price anywhere (\"price not published\").",
-                  "example": 3209.69
+                  "example": 3196.09
                 },
                 "usd_min": {
                   "type": [
@@ -3385,7 +3393,7 @@
                     "null"
                   ],
                   "description": "Lowest price across storefronts in USD (on the card).",
-                  "example": 2869.52
+                  "example": 2854.2
                 },
                 "usd_max": {
                   "type": [
@@ -3393,7 +3401,7 @@
                     "null"
                   ],
                   "description": "Highest price across storefronts in USD (on the card).",
-                  "example": 4092.23
+                  "example": 4121.67
                 },
                 "usd_fr": {
                   "type": [
@@ -3401,7 +3409,7 @@
                     "null"
                   ],
                   "description": "Price on the French storefront in USD (EU price incl. VAT 20%). Empty = no price in France.",
-                  "example": 2869.52
+                  "example": 2854.2
                 },
                 "usd_us": {
                   "type": [
@@ -3554,7 +3562,7 @@
                           "null"
                         ],
                         "description": "Last week the storefront price was checked; null if never checked.",
-                        "example": "2026-W43"
+                        "example": "2026-W44"
                       },
                       "article": {
                         "type": [
@@ -3729,7 +3737,7 @@
           "properties": {
             "article": {
               "type": "string",
-              "description": "Article — the brand's reference code for the item; with brand, the key of every table. For Louis Vuitton: six characters, e.g. 1ACVHU. For Dior: model code, underscore, colour or variant code, e.g. 15JOU090I602_C545. For Loewe: model code, hyphen, four-digit colour code; fragrances use a five-digit model code. For Kenzo: model code, dot, colour code. For Tiffany & Co.: eight-digit item number. For Givenchy: model code, hyphen, three-digit colour code. For Hermès: model code, colour code and an optional size, e.g. H041054CK18; tableware uses P-codes; belts sold as a set combine the buckle and strap codes.",
+              "description": "Article — the brand's reference code for the item; with brand, the key of every table. For Louis Vuitton: six characters, e.g. M14880. For Dior: model code, underscore, colour or variant code, e.g. M0455CBAA_M900. For Loewe: model code, hyphen, four-digit colour code; fragrances use a five-digit model code. For Kenzo: model code, dot, colour code. For Tiffany & Co.: eight-digit item number. For Givenchy: model code, hyphen, three-digit colour code. For Hermès: model code, colour code and an optional size, e.g. H041054CK18; tableware uses P-codes; belts sold as a set combine the buckle and strap codes.",
               "example": "1ACVHU"
             },
             "name": {
@@ -3742,7 +3750,7 @@
             },
             "family_id": {
               "type": "string",
-              "description": "Model: the brand's page or code that groups the colours and sizes of one model. For Louis Vuitton: the Louis Vuitton page id (nvprod…). For Dior, Loewe, Kenzo and Givenchy: the brand's model code, shared by all colours of one model. For Tiffany & Co.: the Tiffany design number (M…), shared by the metals, stones and sizes of one design. For Hermès: the model code without colour and size, e.g. H041054CK.",
+              "description": "Model: the brand's page or code that groups the colours and sizes of one model. For Louis Vuitton: the Louis Vuitton page id (nvprod…). For Dior, Loewe, Kenzo and Givenchy: the brand's model code, shared by all colours of one model. For Tiffany & Co.: the Tiffany design number (M…), shared by the metals, stones and sizes of one design. For Hermès: the model code without colour and size, e.g. H800690E.",
               "example": "nvprod5190267v"
             },
             "department": {
@@ -3948,7 +3956,7 @@
                         "properties": {
                           "results": {
                             "type": "object",
-                            "description": "One entry per code asked, keyed by the code.",
+                            "description": "One entry per code asked, keyed by the code exactly as sent (spaces around it trimmed). Two spellings of one code, such as m46373 and M46373, are two keys for one article and cost one credit; `code` in each entry is the house's own spelling.",
                             "additionalProperties": {
                               "type": "object",
                               "properties": {
@@ -3964,6 +3972,10 @@
                                 "reason": {
                                   "type": "string",
                                   "description": "On `error`: why this code was not served."
+                                },
+                                "code": {
+                                  "type": "string",
+                                  "description": "On `ok`: the code as the house writes it, whatever the spelling sent."
                                 },
                                 "article": {
                                   "$ref": "#/components/schemas/Article"
@@ -4180,7 +4192,7 @@
       "/search": {
         "get": {
           "summary": "Find articles by text and filters",
-          "description": "Free. Returns a light row with the price as a BAND; the exact shelf, the regions, the history and the gallery are what a credit buys. A code typed here is looked up rather than matched; a size or colour code finds the article it belongs to only once your account has bought that product, and before is no match, like a code the archive does not hold. A duplicate code (duplicate_of) is left out of a text or filter search and found by its exact code.",
+          "description": "Free. Returns a light row with the price as a BAND; the exact shelf, the regions, the history and the gallery are what a credit buys. A code of any house typed here, in any case and with or without its spaces and dashes, is looked up rather than matched (a composite code longer than 40 characters is looked up when pasted as one run, without inner spaces); a size or colour code finds the article it belongs to only once your account has bought that product, and before is no match, like a code the archive does not hold. A duplicate code (duplicate_of) is left out of a text or filter search and found by its exact code.",
           "parameters": [
             {
               "name": "q",

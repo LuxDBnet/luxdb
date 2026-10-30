@@ -75,7 +75,7 @@ def inspect_contract(spec: dict, public_demo: dict) -> dict:
             # Public protocol identifiers and the published demo allowance are not
             # collection jargon. Remove only these spellings before the prose scan;
             # surrounding text (including any added internal terms) remains checked.
-            prose_text = re.sub(r"\bX-(?:Data-Snapshot|RateLimit-Scope)\b|`snapshot`", "", obj)
+            prose_text = re.sub(r"(?<![A-Za-z0-9_.-])X-(?:Data-Snapshot|RateLimit-Scope)(?![A-Za-z0-9_.-])|`snapshot`", "", obj)
             if pointer == "/info/description":
                 prose_text = prose_text.replace("one request a minute and 300 a day per address", "")
             if JARGON.search(prose_text):

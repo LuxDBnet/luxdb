@@ -30,7 +30,7 @@ LuxDB is an independent service and is not affiliated with, endorsed by, or spon
 The storefront and API are live. This repository contains Python and
 JavaScript/TypeScript clients, an OpenAPI specification and field definitions;
 the paid catalogue records are accessed through LuxDB, not downloaded
-with this repository. API contract version: **2.3.1**.
+with this repository. API contract version: **2.5.3**.
 
 ## Choose catalogue or API access
 
@@ -97,10 +97,14 @@ follow Retry-After. X-RateLimit-Remaining includes the request just served; at
 the one-request-per-minute limit it reports 0.
 The charge is the response body field credits_charged; there is no charge header.
 
-Client types come directly from the supplied 2.3.1 contract, including nullable
+Client types come directly from the supplied 2.5.3 contract, including nullable
 prices and dimensions. A set main lists its sizes in size_set; its storefront
 prices cover the set and identify the size whose price is shown. A sandbox member
 code can be null while its size and storefronts remain visible.
+The sizes rows include shades and scents. also_written lists other spellings,
+or is null. In the sandbox, a spelling that names any code but the card's own
+becomes a null entry, without shortening the list. The clients keep size rows as opaque
+objects, as the contract defines them.
 HTTP errors retain extra keys in ApiError.details;
 404 and 405 are ordinary API errors. See [compatibility notes](docs/api-compatibility.md).
 

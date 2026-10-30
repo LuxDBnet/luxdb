@@ -27,8 +27,8 @@ public-safe provenance categories, not internal paths or collection methods.
 | `assets/og-1200x630.png` | Repository social preview image | Published brand asset; pinned bytes |
 | `clients/js/LICENSE` | MIT code license | Repository code license |
 | `clients/js/README.md` | JavaScript and TypeScript client guide | Reviewed client behaviour |
-| `clients/js/generated.js` | Generated operation metadata | Public 2.3.1 contract |
-| `clients/js/index.d.ts` | Generated response models and method declarations | Public 2.3.1 contract |
+| `clients/js/generated.js` | Generated operation metadata | Public 2.5.3 contract |
+| `clients/js/index.d.ts` | Generated response models and method declarations | Public 2.5.3 contract |
 | `clients/js/index.js` | Demo-first one-shot fetch client | Reviewed public contract and safety rules |
 | `clients/js/package.json` | Private local ESM package and type entry | Zero-dependency client packaging |
 | `clients/js/test/client.test.mjs` | Offline client tests | Injected fetch and synthetic responses |
@@ -41,7 +41,7 @@ public-safe provenance categories, not internal paths or collection methods.
 | `config/project.json` | Single project-name variable and public address | Owner naming/contact policy and supplied public server |
 | `config/public-demo.json` | Public demo reference-code allowlist | The site's 31 public sample items supplied for review |
 | `config/schema-lock.json` | Hash of draft public spec | Customer contract bytes; not semantic approval |
-| `config/schema-policy.json` | Typed path-specific draft contract policy | Reviewed public 2.3.1 definitions; publication separately approved |
+| `config/schema-policy.json` | Typed path-specific draft contract policy | Reviewed public 2.5.3 definitions; publication separately approved |
 | `config/sources.json` | Digests of supplied public definition sources | Verified source inputs |
 | `docs/api-compatibility.md` | Draft SDK limitations | Public contract and generator capabilities |
 | `docs/api-reference.md` | API operations and response field definitions | Canonical contract, excluding example values |
@@ -53,7 +53,7 @@ public-safe provenance categories, not internal paths or collection methods.
 | `examples/paid_item.py` | Explicit opt-in single-item request | Public SDK method; user supplies key/code locally |
 | `metadata/fields.json` | Public data-field definitions | Static supplied dictionary snapshot; public names, hidden fields excluded |
 | `metadata/houses.json` | Static house-name snapshot only | Approved task context; live export pending |
-| `openapi/openapi.json` | Exact canonical customer contract | API-owner 2.3.1 public file copied byte-for-byte |
+| `openapi/openapi.json` | Exact canonical customer contract | API-owner 2.5.3 public file copied byte-for-byte |
 | `templates/CONTRIBUTING.md.in` | Static contribution template | Publication policy |
 | `templates/NOTICE.md.in` | Static scope/disclaimer template | Owner license and independence policy |
 | `templates/README.md.in` | Static intro template | Owner decisions and reviewed product copy |

@@ -246,7 +246,7 @@ Responses: 200.
 | `dimensions.width_in` | number or null | no | Width in inches. |  |
 | `measures` | object | no | Measurements that apply to this kind of thing only: heel height, case diameter, carat, karat. |  |
 | `specs_json` | object | no | The house's own specification rows for this article, as published. |  |
-| `sizes` | array | no | Every size row the house lists for this article, with the storefront each was read from. |  |
+| `sizes` | array | no | Every size row the house lists for this article, one per storefront it was read from. |  |
 | `family_sizes` | array | no | Sizes the family offers that this item does not list. |  |
 | `colors` | array | no | Colour names we hold in English. |  |
 | `colors_untranslated` | number | no | Number of colour names not available in English. |  |
@@ -298,7 +298,7 @@ Responses: 200.
 | `made_in_multi_country` | boolean | no | True when more than one country of manufacture is stated. |  |
 | `size_run` | array or null | no | Sizes listed on the item page, labels as sold, for items whose sizes are not listed in size_variants. |  |
 | `size_run_region` | string or null | no | Storefront the size list comes from (its country's size scale applies). |  |
-| `size_scale` | string or null | no | Size scale of the item: EU · US · UK · cm · inches · alpha · ring · ml · months · years · one_size · numeric · other. | `EU`, `US`, `UK`, `US/UK`, `inches`, `cm`, `alpha`, `ring`, `ml`, `months`, `years`, `one_size`, `numeric`, `other`, `null` |
+| `size_scale` | string or null | no | Size scale of the item: EU · US · UK · cm · inches · alpha · ring · ml · months · years · one_size · numeric · other. | `EU`, `US`, `UK`, `US/UK`, `inches`, `cm`, `alpha`, `ring`, `ml`, `months`, `years`, `one_size`, `numeric`, `other`, `shade`, `scent`, `null` |
 | `sold_per_unit` | boolean | no | True when the brand sells the item per unit (single earrings, studs, cufflinks). |  |
 | `lv_url_region` | string | no | Storefront the link points to. |  |
 | `last_price_countries` | integer or null | no | Number of countries with a price in the last week with a price (goes with price_usd_last). |  |

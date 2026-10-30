@@ -33,6 +33,32 @@ class CanonicalTests(unittest.TestCase):
         sources = json.loads((ROOT / "config/sources.json").read_text())
         self.assertEqual(hashlib.sha256((ROOT / "openapi/openapi.json").read_bytes()).hexdigest(), sources["openapi_sha256"])
 
+    def test_fields_digest_is_masked_only_at_its_reviewed_node(self):
+        for path in ("openapi/openapi.json", "config/schema-policy.json"):
+            with self.subTest(path=path):
+                document = json.loads((ROOT / path).read_text())
+                viewed = json.loads(inspection_text(json.dumps(document), path))
+                contract = viewed["contract"] if path == "config/schema-policy.json" else viewed
+                self.assertEqual(contract["info"]["x-luxdb-fields"], "SYNTHETIC-APPROVED-DIGEST")
+                self.assertNotIn("high-entropy-secret", text_checks(json.dumps(contract), "openapi/openapi.json"))
+
+    def test_fields_digest_changes_and_relocation_remain_scanned(self):
+        for path in ("openapi/openapi.json", "config/schema-policy.json"):
+            for change in ("replace", "relocate"):
+                with self.subTest(path=path, change=change):
+                    document = json.loads((ROOT / path).read_text())
+                    contract = document["contract"] if path == "config/schema-policy.json" else document
+                    digest = contract["info"]["x-luxdb-fields"]
+                    if change == "replace":
+                        contract["info"]["x-luxdb-fields"] = ("0" if digest[0] != "0" else "1") + digest[1:]
+                    else:
+                        contract["info"]["x-synthetic-extra"] = digest
+                    viewed = json.loads(inspection_text(json.dumps(document), path))
+                    viewed_contract = viewed["contract"] if path == "config/schema-policy.json" else viewed
+                    key = "x-luxdb-fields" if change == "replace" else "x-synthetic-extra"
+                    self.assertEqual(viewed_contract["info"][key], contract["info"][key])
+                    self.assertIn("high-entropy-secret", text_checks(json.dumps(viewed_contract), "openapi/openapi.json"))
+
     def test_public_names_and_nullable_storefront_language(self):
         article = typing.get_type_hints(models.Article)
         spec = json.loads((ROOT / "openapi/openapi.json").read_text())["components"]["schemas"]
@@ -230,6 +256,24 @@ class CanonicalTests(unittest.TestCase):
         for example in audit["examples"]:
             for reference in example["codes"]:
                 self.assertEqual(reference["public_demo"], any(row["article"] == reference["article"] for row in demo["articles"]))
+
+
+class HeaderTokenTests(unittest.TestCase):
+    def findings(self, token):
+        spec = {"info": {"description": f"The `{token}` header is documented."}}
+        return inspect_contract(spec, {"articles": []})["findings"]
+
+    def test_private_suffix_is_not_an_allowed_header(self):
+        self.assertTrue(self.findings("X-RateLimit-Scope-Private"))
+
+    def test_dot_suffix_is_not_an_allowed_header(self):
+        self.assertTrue(self.findings("X-RateLimit-Scope.Internal"))
+
+    def test_prefix_is_not_an_allowed_header(self):
+        self.assertTrue(self.findings("Other-X-RateLimit-Scope"))
+
+    def test_plain_header_in_prose_is_allowed(self):
+        self.assertEqual(self.findings("X-RateLimit-Scope"), [])
 
 
 class ReviewedProsePolicyTests(unittest.TestCase):

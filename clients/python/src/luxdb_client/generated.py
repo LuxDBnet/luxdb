@@ -1,5 +1,5 @@
 """LuxDB API models and operations: generated; do not edit."""
-# Public spec SHA256: b0235052d6772a22c38da6b0860af1c579261d31a1a61cbc07b7181b092c6092
+# Public spec SHA256: efad44769877e7403dfc7981b22e27b8bf6e0bc4f57fd988b8653c892b7705ce
 from __future__ import annotations
 
 import re
@@ -311,7 +311,7 @@ class Article(_ArticleRequired, total=False):
     made_in_multi_country: bool
     size_run: list[str] | None
     size_run_region: str | None
-    size_scale: Literal['EU', 'US', 'UK', 'US/UK', 'inches', 'cm', 'alpha', 'ring', 'ml', 'months', 'years', 'one_size', 'numeric', 'other', None]
+    size_scale: Literal['EU', 'US', 'UK', 'US/UK', 'inches', 'cm', 'alpha', 'ring', 'ml', 'months', 'years', 'one_size', 'numeric', 'other', 'shade', 'scent', None]
     sold_per_unit: bool
     lv_url_region: str
     last_price_countries: int | None
@@ -349,6 +349,7 @@ class _ArticleResponseResultsValueRequired(TypedDict):
 class ArticleResponseResultsValue(_ArticleResponseResultsValueRequired, total=False):
     status: Literal['ok', 'not_found', 'error']
     reason: str
+    code: str
     article: Article
 
 
