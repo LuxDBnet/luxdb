@@ -1,10 +1,10 @@
 {
-  "openapi_sha256": "efad44769877e7403dfc7981b22e27b8bf6e0bc4f57fd988b8653c892b7705ce",
+  "openapi_sha256": "09edbc37fc1f7a36ae4f0f8b143479781799008a2e3e468eed97a7ab080ea818",
   "dictionary_sha256": "941b79ecd2ce78ce2c33e26f63e70504569a18e27cdb377fc94d7d7e052424a0",
   "dictionary_site_commit": "ff8341a",
   "demo_source_sha256": "30ad8ccba9463acdd1fcd3db12605d3bcd7bde95d9b9ed8e05f1761bfcd5651d",
   "status": "reviewed_draft_no_publication",
   "openapi_version": "2.5.3",
   "dictionary_status": "snapshot",
-  "api_commit": "afd1d4c"
+  "api_commit": "cccf631"
 }

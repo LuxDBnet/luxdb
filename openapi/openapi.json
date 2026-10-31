@@ -813,7 +813,7 @@
             "items": {
               "type": "object"
             },
-            "description": "Every size row the house lists for this article, one per storefront it was read from. Shades and scents are size rows too (scale shade or scent): every storefront's row for one code carries the label most storefronts write, and also_written lists the other spellings (null on other rows; in the sandbox a spelling that names a code outside the sample is null, so the list keeps its length). The code of each row is in size_variants."
+            "description": "Every size row the house lists for this article, one per storefront it was read from. Shades and scents are size rows too (scale shade or scent): every storefront's row for one code carries the label most storefronts write, and also_written lists the other spellings (null on other rows; in the sandbox a spelling that names any code but this card's own is null, so the list keeps its length). The code of each row is in size_variants."
           },
           "family_sizes": {
             "type": "array",
@@ -872,7 +872,7 @@
               "array",
               "null"
             ],
-            "description": "Every size of the set this card is the main of, in size order: the house sells each size under its own code, and one card stands for all of them. Each element names the size's code, its label and scale, the words the card prints for it and the storefronts that list it. Null when the article is the main of no set, or its set has one size. A size's own code answers with this card and says which size was asked (requested). In the sandbox a size's code outside the sample is null; the sizes and storefronts stay.",
+            "description": "Every size of the set this card is the main of, in size order: the house sells each size under its own code, and one card stands for all of them. Each element names the size's code, its label and scale, the words the card prints for it and the storefronts that list it. Null when the article is the main of no set, or its set has one size. A size's own code answers with this card and says which size was asked (requested). In the sandbox every size's code but this card's own is null, even one that is itself a sample card; the sizes and storefronts stay.",
             "items": {
               "type": "object",
               "properties": {
@@ -1507,7 +1507,7 @@
                         "string",
                         "null"
                       ],
-                      "description": "The code whose price this row is: the article itself, or on a size set's main the size that stands for this storefront. Null in the sandbox when that size is outside the sample."
+                      "description": "The code whose price this row is: the article itself, or on a size set's main the size that stands for this storefront. Null in the sandbox when it is not this card's own code."
                     },
                     "size_display": {
                       "type": [

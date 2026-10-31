@@ -1,5 +1,5 @@
 """LuxDB API models and operations: generated; do not edit."""
-# Public spec SHA256: efad44769877e7403dfc7981b22e27b8bf6e0bc4f57fd988b8653c892b7705ce
+# Public spec SHA256: 09edbc37fc1f7a36ae4f0f8b143479781799008a2e3e468eed97a7ab080ea818
 from __future__ import annotations
 
 import re
