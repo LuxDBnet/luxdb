@@ -38,9 +38,11 @@ by default). No service-side maximum response size is promised by that limit.
 Code uses MIT; the documentation uses the repository's CC BY 4.0 terms. LuxDB is
 independent of the houses named in the documentation.
 
-Types come directly from the canonical 2.5.3 contract, including nullable prices,
+Types come directly from the canonical 2.6.0 contract, including nullable prices,
 dimensions and country counts. There are no client-only type overrides.
-A set main includes size_set. Its storefront rows identify whose price is shown
+A set main includes size_set. When size_set_one_price is true, its storefront
+rows cover the set; when false, they show only the main size. Each size's own
+prices are in size_set[].regions[]. Storefront rows identify whose price is shown
 with article and size_display; a sandbox member code can be null.
 The sizes rows include shades and scents. also_written lists other spellings,
 or is null. In the sandbox, a spelling that names any code but the card's own

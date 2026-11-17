@@ -2,18 +2,18 @@
   "openapi": "3.1.0",
   "info": {
     "title": "LuxDB API",
-    "version": "2.5.3",
+    "version": "2.6.0",
     "x-schema-versions": {
-      "lv": "2.5.3",
-      "dior": "2.5.3",
-      "givenchy": "2.5.3",
-      "hermes": "2.5.1",
-      "kenzo": "2.5.3",
-      "loewe": "2.5.3",
-      "tiffany": "2.5.3"
+      "lv": "2.6.0",
+      "dior": "2.6.0",
+      "givenchy": "2.6.0",
+      "hermes": "2.6.0",
+      "kenzo": "2.6.0",
+      "loewe": "2.6.0",
+      "tiffany": "2.6.0"
     },
-    "x-luxdb-canon": "2.5",
-    "x-luxdb-fields": "186152fb7969f09cc057597b51142cd6d8542ae0414647f84465694feb273b42",
+    "x-luxdb-canon": "2.6",
+    "x-luxdb-fields": "f18e5e42d7dcec6af4f64444aa057fa2cd60f35ba5e3cc7e0de66605b1f0b0a8",
     "description": "LuxDB: the luxury-house article archive. Search with the house's article code or a product name; `article` returns the full record.\n\nEvery answer carries the envelope below and says what it charged. One credit is one article, whole: all card fields, the price in every storefront, and the entire observed history. A code the archive does not hold costs nothing; a repeat of the same article within 24 hours costs nothing; a batch the balance cannot cover is refused whole and charges nothing.\n\nThe public sandbox key is `demo`: every endpoint answers in the same shape over a fixed set of demo articles, so this document can be read with live requests and no account. The sandbox allows one request a minute and 300 a day per address; beyond that the answer is 429 with Retry-After, so a script trying several endpoints should wait between calls. If the service is temporarily unavailable, no credits are charged. Follow Retry-After before trying again.\n\nField names that carry `lv` (lv_url, lv_url_status, lv_url_region, name_lv, color_group_lv) date from the first house in the archive. They mean the same thing for every house: the house's own site, its own name for the item and its own colour group.\n\nEvery answer carries X-Request-Id; quote it when reporting a problem."
   },
   "servers": [
@@ -544,7 +544,7 @@
           },
           "family_id": {
             "type": "string",
-            "description": "Model: the brand's page or code that groups the colours and sizes of one model. For Louis Vuitton: the Louis Vuitton page id (nvprod…). For Dior, Loewe, Kenzo and Givenchy: the brand's model code, shared by all colours of one model. For Tiffany & Co.: the Tiffany design number (M…), shared by the metals, stones and sizes of one design. For Hermès: the model code without colour and size, e.g. H800690E.",
+            "description": "Model: the brand's page or code that groups the colours and sizes of one model. For Louis Vuitton: the Louis Vuitton page id (nvprod…). For Dior, Loewe, Kenzo and Givenchy: the brand's model code, shared by all colours of one model. For Tiffany & Co.: the Tiffany design number (M…), shared by the metals, stones and sizes of one design. For Hermès: the model code without colour and size, e.g. H800690E. /family/{id} lists a family's articles for: `lv`.",
             "example": "nvprod5190267v"
           },
           "family_alias_of": {
@@ -854,7 +854,7 @@
           "weeks_unlisted": {
             "type": "integer",
             "description": "Consecutive weeks without a listing or price; 0 means seen this week.",
-            "example": 14
+            "example": 16
           },
           "variants": {
             "type": "object",
@@ -917,7 +917,7 @@
                 },
                 "regions": {
                   "type": "array",
-                  "description": "The storefronts that list this size, by storefront code.",
+                  "description": "The storefronts that list this size, by storefront code, each with this size's own price there.",
                   "items": {
                     "type": "object",
                     "properties": {
@@ -938,12 +938,51 @@
                           "null"
                         ],
                         "description": "Whether the storefront showed a price for this size."
+                      },
+                      "currency": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "description": "Currency of this size's price in the storefront; null when the storefront has no price row for this size."
+                      },
+                      "local": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "description": "This size's own local price in the storefront, as price.by_storefront[].local gives a price: the last known one where the storefront stopped publishing it. Null when the storefront has no price row for this size."
+                      },
+                      "usd": {
+                        "type": [
+                          "number",
+                          "null"
+                        ],
+                        "description": "The same price in US dollars, as price.by_storefront[].usd."
+                      },
+                      "state": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "description": "The state of this size's price in the storefront, with the values of price.by_storefront[].state; null when the storefront has no price row for this size.",
+                        "enum": [
+                          "current",
+                          "withdrawn",
+                          "not_checked",
+                          "no_online_price",
+                          null
+                        ]
                       }
                     },
                     "required": [
                       "region",
                       "availability",
-                      "priced"
+                      "priced",
+                      "currency",
+                      "local",
+                      "usd",
+                      "state"
                     ],
                     "additionalProperties": false
                   }
@@ -960,6 +999,13 @@
               ],
               "additionalProperties": false
             }
+          },
+          "size_set_one_price": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Whether the sizes of this set share one price: true when every storefront where two or more sizes have a current price shows them at the same price. When true, price.by_storefront covers the whole set; when false, it is the price of the main size, and each size's own price is in size_set[].regions[]. Null when size_set is null."
           },
           "variant_codes": {
             "type": "array",
@@ -1032,7 +1078,7 @@
             "items": {
               "type": "object"
             },
-            "description": "The article's page on each regional storefront, with its status (alive, repointed, gone) and the weeks it was first seen, last seen and last checked."
+            "description": "The card's page on each regional storefront, with its status (alive, repointed, gone) and the weeks it was first seen, last seen and last checked. At most one link per storefront: where the storefront has a price row, the page of the code whose price it is (the card itself, a size of the set, or a duplicate), and no link when that code has no page there; where it has none, the card's own page."
           },
           "description": {
             "type": [
@@ -1167,8 +1213,61 @@
               "object",
               "null"
             ],
-            "description": "The brand's own name for the item in each storefront language, as published (ISO 639-1 → list of names); the English name is in name_en. Use it to search in the shopper's language. Empty = no local-language name in these data.",
+            "description": "The brand's own name for the item in each storefront language, as published (ISO 639-1 → list of names); the English name is in name_en. Use it to search in the shopper's language. Empty = no local-language name in these data. For search; to show names, use names.",
             "example": null
+          },
+          "names": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "description": "The item's name as the house shows it in each storefront language, one record per language, keyed by lower-case ISO 639-1 code; Chinese is keyed by script, zh-Hans or zh-Hant. The name is the house's own text, never a translation. {} when no name is recorded; null in the sandbox. For search, names_by_lang holds every local form.",
+            "example": null,
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "The name exactly as the storefronts below show it."
+                },
+                "storefronts": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1,
+                  "uniqueItems": true,
+                  "description": "Every storefront that showed exactly this name in observed_week, by this source; the same storefront codes as price.by_storefront[].region."
+                },
+                "source": {
+                  "type": "string",
+                  "enum": [
+                    "page",
+                    "listing",
+                    "house_api",
+                    "sitemap"
+                  ],
+                  "description": "Where it was read: page (the product page), listing (a category or grid tile), house_api (a separate house API not proven equal to the page), sitemap."
+                },
+                "observed_week": {
+                  "type": "string",
+                  "pattern": "^\\d{4}-W\\d{2}$",
+                  "description": "The ISO week of the latest read that showed this exact name."
+                },
+                "historical": {
+                  "type": "boolean",
+                  "description": "True when a later read on every one of these storefronts showed a different name or proved the item absent there. False does not mean it was checked this week."
+                }
+              },
+              "required": [
+                "name",
+                "storefronts",
+                "source",
+                "observed_week",
+                "historical"
+              ],
+              "additionalProperties": false
+            }
           },
           "carried_fields": {
             "type": [
@@ -1323,7 +1422,7 @@
                   "null"
                 ],
                 "description": "USD price for lists: the median of current prices across countries (two storefronts of one country count once). Empty = no price anywhere (\"price not published\").",
-                "example": 3196.09
+                "example": 3189.63
               },
               "usd_min": {
                 "type": [
@@ -1331,7 +1430,7 @@
                   "null"
                 ],
                 "description": "Lowest price across storefronts in USD (on the card).",
-                "example": 2854.2
+                "example": 2847.06
               },
               "usd_max": {
                 "type": [
@@ -1339,7 +1438,7 @@
                   "null"
                 ],
                 "description": "Highest price across storefronts in USD (on the card).",
-                "example": 4121.67
+                "example": 3779.28
               },
               "usd_fr": {
                 "type": [
@@ -1347,7 +1446,7 @@
                   "null"
                 ],
                 "description": "Price on the French storefront in USD (EU price incl. VAT 20%). Empty = no price in France.",
-                "example": 2854.2
+                "example": 2847.06
               },
               "usd_us": {
                 "type": [
@@ -1455,7 +1554,7 @@
                         "string",
                         "null"
                       ],
-                      "description": "Availability on the storefront: sellable · no · backorder · InStoreOnly · not_sold_online · empty (not reported by the storefront). For Louis Vuitton: the China storefront reports no availability. For Dior: not_sold_online = shown on Dior's site but sold only in boutiques. For Tiffany & Co.: backorder = can be ordered now, ships later. For Hermès: not_sold_online = the page shows the item, but it is sold in boutiques only.",
+                      "description": "Availability on the storefront: sellable · no · backorder · InStoreOnly · not_sold_online · empty (not reported by the storefront). With price_state no_online_price it is this week's availability, without a price. For Louis Vuitton: the China storefront reports no availability. For Dior: not_sold_online = shown on Dior's site but sold only in boutiques. For Tiffany & Co.: backorder = can be ordered now, ships later. For Hermès: not_sold_online = the page shows the item, but it is sold in boutiques only.",
                       "example": "sellable",
                       "enum": [
                         "sellable",
@@ -1491,7 +1590,8 @@
                       "enum": [
                         "current",
                         "withdrawn",
-                        "not_checked"
+                        "not_checked",
+                        "no_online_price"
                       ]
                     },
                     "last_checked_week": {
@@ -1500,25 +1600,25 @@
                         "null"
                       ],
                       "description": "Last week the storefront price was checked; null if never checked.",
-                      "example": "2026-W44"
+                      "example": "2026-W46"
                     },
                     "article": {
                       "type": [
                         "string",
                         "null"
                       ],
-                      "description": "The code whose price this row is: the article itself, or on a size set's main the size that stands for this storefront. Null in the sandbox when it is not this card's own code."
+                      "description": "The code whose price this row is: the article itself, on a size set's main the size that stands for this storefront, or a duplicate's code (duplicate_of) whose storefront the card carries. Null in the sandbox when it is not this card's own code."
                     },
                     "size_display": {
                       "type": [
                         "string",
                         "null"
                       ],
-                      "description": "On a size set's main, the size this row's price is for, in words (\"Size UK 5.5\"), when another size of the set stands for the storefront; null on the article's own rows."
+                      "description": "On a size set's main, the size this row's price is for, in words (\"Size UK 5.5\"). Where the sizes share one price, it names another size of the set that stands for the storefront and is null on the article's own rows; where they are priced differently, every row is the price of the main size and names it. Null on an article that is no set's main."
                     }
                   }
                 },
-                "description": "One row per storefront that has published a price for this article: the local price and currency, the dollar figure, tax, availability and the week it is from. A storefront that stopped publishing keeps its last known row, marked by its state. On a size set's main the rows cover the whole set: a current price wins wherever it is, then the main's own row, then the earliest size in order; article and size_display say whose price a row is."
+                "description": "One row per storefront that has published a price for this article: the local price and currency, the dollar figure, tax, availability and the week it is from. A storefront that stopped publishing keeps its last known row, marked by its state. On a size set's main whose sizes share one price (size_set_one_price true) the rows cover the whole set: a current price wins wherever it is, then the main's own row, then the earliest size in order; article and size_display say whose price a row is. On a set whose sizes are priced differently (size_set_one_price false) the rows are the price of the main size only, each naming that size in size_display, and a storefront where only another size is priced is not among them: every size's own price is in size_set[].regions[]."
               }
             },
             "description": "The reference price across storefronts, the range, and each storefront's own."
@@ -1599,7 +1699,7 @@
                   "null"
                 ],
                 "description": "Number of photos in the current gallery, as shown on the brand's page. Removed photos count in counters.photos_ever; photos the brand has but does not show on its page are counted in counters.photos_additional. 0 = no photos. For Tiffany & Co.: When a card has no photo under its own item number, the photos its page shows for another carat or size of the same design and metal count. Null means media information is unavailable; 0 means none.",
-                "example": 0
+                "example": 1
               },
               "photos_ever": {
                 "type": [
@@ -1607,7 +1707,7 @@
                   "null"
                 ],
                 "description": "How many photos the gallery has ever had, including photos the brand later removed (see image.last_seen). Only photos shown on the brand's page count. For Tiffany & Co.: When a card has no photo under its own item number, the photos its page shows for another carat or size of the same design and metal count. Null means media information is unavailable; 0 means none.",
-                "example": 3
+                "example": 4
               },
               "photos_additional": {
                 "type": [
@@ -1633,7 +1733,7 @@
             "items": {
               "type": "object"
             },
-            "description": "Every price observation the archive holds for this article, by storefront and week, in the local currency and in dollars at that week's rate. Most of what a credit buys."
+            "description": "Every price observation the archive holds for this card, by storefront and week, in the local currency and in dollars at that week's rate, from the week the card was first seen. A storefront that only a code folded into this card as a duplicate (duplicate_of) sells is part of it: one row per storefront and week. Most of what a credit buys."
           },
           "gallery": {
             "type": "object",
@@ -1644,7 +1744,7 @@
                   "null"
                 ],
                 "description": "Number of photos in the current gallery, as shown on the brand's page. Removed photos count in photos_ever; photos the brand has but does not show on its page are counted in photos_additional. 0 = no photos. For Tiffany & Co.: When a card has no photo under its own item number, the photos its page shows for another carat or size of the same design and metal count. Null means media information is unavailable; 0 means none.",
-                "example": 0
+                "example": 1
               },
               "videos": {
                 "type": [
@@ -1801,7 +1901,7 @@
               "null"
             ],
             "description": "Number of photos in the current gallery, as shown on the brand's page. Removed photos count in photos_ever; photos the brand has but does not show on its page are counted in photos_additional. 0 = no photos. For Tiffany & Co.: When a card has no photo under its own item number, the photos its page shows for another carat or size of the same design and metal count. Null means media information is unavailable; 0 means none.",
-            "example": 0
+            "example": 1
           },
           "videos": {
             "type": [
@@ -1913,7 +2013,7 @@
                               },
                               "code": {
                                 "type": "string",
-                                "description": "On `ok`: the code as the house writes it, whatever the spelling sent."
+                                "description": "On `ok`: the code as the house writes it, whatever the spelling sent. It echoes the requested code, also in the sandbox where the card it leads to (for a duplicate's code, the card it duplicates) does not name it."
                               },
                               "article": {
                                 "$ref": "#/components/schemas/Article"
@@ -2577,7 +2677,7 @@
                           "items": {
                             "type": "object"
                           },
-                          "description": "What moved: the article, the kind of change and its week; region and detail only for articles your account has bought."
+                          "description": "What moved: the article, the kind of change and its week; region and detail only for articles your account has bought. A code folded into a card as a duplicate (duplicate_of) is told under that card; a price change on a storefront the card shows from the duplicate names the duplicate's code in detail.code (not in the sandbox)."
                         }
                       }
                     }
@@ -2770,7 +2870,7 @@
     "/family/{id}": {
       "get": {
         "summary": "Every article of one family",
-        "description": "Free. The variants LV publishes under one family id. Only LV-format family IDs are supported: nvprod followed by digits and v. Every member's code, name and status are listed; its colour and size scale only once your account has bought that product, null before. Automated code enumeration is not permitted. A duplicate code (duplicate_of) is left out; its target is listed.",
+        "description": "Free. Every article of one model, by the house's own family id: send an article's `family_id` as the card gives it. Name the house with `brand` (`lv` when omitted). Family lookup is available for: `lv` (`^nvprod[0-9]{1,12}v$`). Another open house is refused with 400 bad_request, \"family ids are not supported for house <brand>\"; an unknown or unopened brand gets the usual 400 with the list of brands. The id is trimmed; one that is not 1 to 64 of A-Z, a-z, 0-9, dot, underscore or hyphen is refused with 400 bad_request. An id within those limits that names no family of the house answers an empty list. Every member's code, name and status are listed; its colour and size scale only once your account has bought that product, null before. Automated code enumeration is not permitted. A duplicate code (duplicate_of) is left out; its target is listed.",
         "parameters": [
           {
             "name": "id",
@@ -2778,9 +2878,9 @@
             "required": true,
             "schema": {
               "type": "string",
-              "pattern": "^nvprod\\d+v$"
+              "pattern": "^[A-Za-z0-9._-]{1,64}$"
             },
-            "description": "An LV-format family ID; other family identifier formats are not supported.",
+            "description": "The house's family id, as an article's family_id gives it; formats: `lv` (`^nvprod[0-9]{1,12}v$`).",
             "example": "nvprod5190267v"
           },
           {

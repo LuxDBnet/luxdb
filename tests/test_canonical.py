@@ -116,12 +116,16 @@ class CanonicalTests(unittest.TestCase):
     def test_size_set_main_and_sandbox_prices_parse_without_losing_fields(self):
         card = {
             "article": "SYNTHETIC-MAIN",
+            "size_set_one_price": False,
+            "names": {"en": {"name": "Synthetic item", "storefronts": ["synthetic_en"],
+                              "source": "page", "observed_week": "2026-W01", "historical": False}},
             "size_set": [
                 {"code": "SYNTHETIC-MAIN", "size_label": "S", "size_scale": "alpha",
                  "size_order": 1, "display_label": "Size S", "self": True, "regions": []},
                 {"code": "SYNTHETIC-MEMBER", "size_label": "M", "size_scale": "alpha",
                  "size_order": None, "display_label": "Size M", "self": False,
-                 "regions": [{"region": "synthetic_en", "availability": None, "priced": True}]},
+                 "regions": [{"region": "synthetic_en", "availability": None, "priced": True,
+                              "currency": "USD", "local": "12.00", "usd": 12, "state": "current"}]},
             ],
             "price": {"countries": None, "by_storefront": [
                 {"article": "SYNTHETIC-MEMBER", "size_display": "Size M"},
@@ -136,13 +140,28 @@ class CanonicalTests(unittest.TestCase):
         self.assertIsNone(result["results"]["SYNTHETIC-MAIN"]["article"]["price"]["by_storefront"][1]["article"])
         sandbox = copy.deepcopy(body)
         sandbox["results"]["SYNTHETIC-MAIN"]["article"]["size_set"][1]["code"] = None
+        sandbox["results"]["SYNTHETIC-MAIN"]["article"]["names"] = None
         self.assertEqual(Client(transport=OneResponse(sandbox)).article("SYNTHETIC-MAIN"), sandbox)
         hints = typing.get_type_hints(models.Article)
         self.assertEqual(hints["size_set"], list[models.ArticleSizeSetItem] | None)
+        self.assertEqual(hints["size_set_one_price"], bool | None)
+        self.assertEqual(hints["names"], dict[str, models.ArticleNamesValue] | None)
+        self.assertTrue({"names", "size_set_one_price"} <= models.Article.__optional_keys__)
+        names = typing.get_type_hints(models.ArticleNamesValue)
+        self.assertEqual(set(models.ArticleNamesValue.__required_keys__), set(names))
+        self.assertEqual(names["storefronts"], list[str])
+        self.assertEqual(names["historical"], bool)
         size = typing.get_type_hints(models.ArticleSizeSetItem)
         self.assertEqual(size["size_order"], float | None)
         self.assertEqual(size["code"], str | None)
         self.assertEqual(set(models.ArticleSizeSetItem.__required_keys__), set(size))
+        regions = typing.get_type_hints(models.ArticleSizeSetItemRegionsItem)
+        self.assertEqual(set(models.ArticleSizeSetItemRegionsItem.__required_keys__), set(regions))
+        for field in ("currency", "local"):
+            self.assertEqual(regions[field], str | None)
+        self.assertEqual(regions["usd"], float | None)
+        self.assertEqual(set(typing.get_args(regions["state"])),
+                         {"current", "withdrawn", "not_checked", "no_online_price", None})
         price = typing.get_type_hints(models.ArticlePriceByStorefrontItem)
         self.assertEqual(price["article"], str | None)
         self.assertEqual(price["size_display"], str | None)
@@ -197,7 +216,7 @@ class CanonicalTests(unittest.TestCase):
         self.assertEqual(row["last_checked_week"], str | None)
         self.assertEqual(row["local"], str | None)
         self.assertEqual(row["usd"], float | None)
-        self.assertEqual(set(typing.get_args(row["state"])), {"current", "withdrawn", "not_checked"})
+        self.assertEqual(set(typing.get_args(row["state"])), {"current", "withdrawn", "not_checked", "no_online_price"})
 
     def test_protocol_header_and_exact_placeholder_are_not_copy_leaks(self):
         spec = json.loads((ROOT / "openapi/openapi.json").read_text())

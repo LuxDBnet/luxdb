@@ -93,9 +93,18 @@ class ClientTests(unittest.TestCase):
             client.search(page=1)
         with self.assertRaises(ValueError):
             client.changes("")
-        for identifier in (".", ".."):
+        for identifier in ("SYNTHETIC/FAMILY", "synthetic family", "synthetic?", "synthetic\n", "é", "x" * 65):
             with self.assertRaises(ValueError):
                 client.family(identifier)
+
+    def test_family_accepts_the_contract_id_format_before_server_lookup(self):
+        mock = MockTransport()
+        client = Client(transport=mock)
+        for identifier in ("SYNTHETIC.FAMILY_0-v", "x", "x" * 64, "nvprod0v"):
+            client.family(identifier, brand="lv")
+            self.assertEqual(urlsplit(mock.requests[-1].url).path, "/api/v1/family/" + identifier)
+            self.assertEqual(parse_qs(urlsplit(mock.requests[-1].url).query), {"brand": ["lv"]})
+        self.assertEqual(len(mock.requests), 4)
 
     def test_error_is_redacted_and_not_retried(self):
         body = json.dumps({"code": "maintenance", "error": "SYNTHETIC-KEY", "retry_after_seconds": 99}).encode()

@@ -50,8 +50,10 @@ item code and `--accept-credit-usage`; it never prints the item response.
 
 ## Families and the index
 
-Family IDs must match `nvprod` followed by digits and `v`. Other family formats
-are not accepted by this endpoint.
+The client accepts family IDs of 1 to 64 ASCII letters, digits, dots, underscores
+or hyphens. Family lookup is available for `lv` (the default brand), whose IDs
+match `^nvprod[0-9]{1,12}v$`. Other open houses are refused with 400 bad_request;
+an ID within the accepted limits that names no family returns an empty list.
 
 The index requires Business access. A successful download uses the account's daily
 allowance, even if the data is unchanged. Do not poll it with this client. The HTTP

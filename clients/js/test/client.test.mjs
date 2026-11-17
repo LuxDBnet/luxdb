@@ -34,10 +34,19 @@ test('every operation uses one request, and public openapi carries no key', asyn
 test('batch and parameter checks happen before fetch; encoding cannot change origin', async () => {
   const f=fake();const c=new Client({fetch:f.fetch});
   for(const params of [{codes:''},{codes:'a,,b'},{codes:Array(21).fill('synthetic').join(',')},{codes:4},{codes:'a',extra:'b'}]) await assert.rejects(c.article(params),TypeError);
-  await assert.rejects(c.family({id:'bad-family'}),TypeError);assert.equal(f.calls.length,0);
+  for(const id of ['SYNTHETIC/FAMILY','synthetic family','synthetic?','synthetic\n','é','x'.repeat(65)]) await assert.rejects(c.family({id}),TypeError);
+  assert.equal(f.calls.length,0);
   await c.resolve({url:'synthetic & ? # /',brand:'synthetic'});
   assert.equal(new URL(f.calls[0][0]).searchParams.get('url'),'synthetic & ? # /');
   assert.equal(new URL(f.calls[0][0]).origin,'https://luxdb.net');
+});
+test('family accepts the contract id format before server lookup',async()=>{
+  for(const id of ['SYNTHETIC.FAMILY_0-v','x','x'.repeat(64),'nvprod0v']) {
+    const f=fake();await new Client({fetch:f.fetch}).family({id,brand:'lv'});
+    const url=new URL(f.calls[0][0]);
+    assert.equal(url.pathname,'/api/v1/family/'+id);assert.equal(url.searchParams.get('brand'),'lv');
+    assert.equal(f.calls.length,1);
+  }
 });
 test('errors expose only approved code, mode and retry delay, with no retry',async()=>{
   const f=fake(reply({code:'member_limit_reached',secret:'SYNTHETIC-SECRET'},402,{'Retry-After':'17'}));
@@ -89,12 +98,12 @@ test('generated declarations include the canonical nullable fields',()=>{
 });
 
 test('set main and sandbox-shaped prices preserve the new canonical fields',async()=>{
-  const card={article:'SYNTHETIC-MAIN',size_set:[
+  const card={article:'SYNTHETIC-MAIN',size_set_one_price:false,names:{en:{name:'Synthetic item',storefronts:['synthetic_en'],source:'page',observed_week:'2026-W01',historical:false}},size_set:[
     {code:'SYNTHETIC-MAIN',size_label:'S',size_scale:'alpha',size_order:1,display_label:'Size S',self:true,regions:[]},
-    {code:'SYNTHETIC-MEMBER',size_label:'M',size_scale:'alpha',size_order:null,display_label:'Size M',self:false,regions:[{region:'synthetic_en',availability:null,priced:true}]}
+    {code:'SYNTHETIC-MEMBER',size_label:'M',size_scale:'alpha',size_order:null,display_label:'Size M',self:false,regions:[{region:'synthetic_en',availability:null,priced:true,currency:'USD',local:'12.00',usd:12,state:'current'}]}
   ],price:{countries:null,by_storefront:[{article:'SYNTHETIC-MEMBER',size_display:'Size M'},{article:null,size_display:'Size M'}]}};
   for(const sandbox of [false,true]) {
-    const value=structuredClone(card);if(sandbox)value.size_set[1].code=null;
+    const value=structuredClone(card);if(sandbox){value.size_set[1].code=null;value.names=null;}
     const body={credits_charged:0,sandbox,results:{'SYNTHETIC-MAIN':{status:'ok',article:value}}};
     const f=fake(reply(body));const out=await new Client({fetch:f.fetch}).article({codes:'SYNTHETIC-MAIN'});
     assert.deepEqual(out,body);assert.equal(f.calls.length,1);
@@ -108,4 +117,11 @@ test('set main and sandbox-shaped prices preserve the new canonical fields',asyn
   assert.match(article,/"article"\??: \(string \| null\)/);
   assert.match(article,/"size_display"\??: \(string \| null\)/);
   assert.match(article,/"countries"\??: \(number \| null\)/);
+  assert.match(article,/"size_set_one_price"\?: \(boolean \| null\)/);
+  assert.match(article,/"names"\?: \(Record<string,/);
+  assert.match(article,/"historical": boolean/);
+  assert.match(article,/"currency": \(string \| null\)/);
+  assert.match(article,/"local": \(string \| null\)/);
+  assert.match(article,/"usd": \(number \| null\)/);
+  assert.match(article,/"state": "current" \| "withdrawn" \| "not_checked" \| "no_online_price" \| null/);
 });

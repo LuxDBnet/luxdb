@@ -1,5 +1,5 @@
 // Generated from the public contract; do not edit.
-// Public spec SHA256: 09edbc37fc1f7a36ae4f0f8b143479781799008a2e3e468eed97a7ab080ea818
+// Public spec SHA256: 59835b02db639640bbffde0b001f2f7285008b4df4f6cfb2a0d8b6fb98162511
 export const API_BASE_URL = "https://luxdb.net/api/v1";
 export const ERROR_CODES = [
   "unauthorized",
@@ -154,7 +154,7 @@ export const OPERATIONS = {
         "required": true,
         "schema": {
           "type": "string",
-          "pattern": "^nvprod\\d+v$"
+          "pattern": "^[A-Za-z0-9._-]{1,64}$"
         }
       },
       {

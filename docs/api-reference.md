@@ -67,7 +67,7 @@ Read items in a family. IDs must match the documented format.
 
 | Parameter | Location | Required | Type | Format |
 |---|---|---|---|---|
-| `id` | path | yes | string | ^nvprod\d+v$ |
+| `id` | path | yes | string | ^[A-Za-z0-9._-]{1,64}$ |
 | `brand` | query | no | string |  |
 
 Responses: 200, 400, 401, 403, 404, 405, 429, 503.
@@ -262,10 +262,15 @@ Responses: 200.
 | `size_set[].size_order` | number or null | yes | Sort position of the size within its scale; the elements come in this order, nulls last. |  |
 | `size_set[].display_label` | string or null | yes | The size in words, as the card prints it (the same words as requested). |  |
 | `size_set[].self` | boolean | yes | True on the element that is this card's own size. |  |
-| `size_set[].regions` | array | yes | The storefronts that list this size, by storefront code. |  |
+| `size_set[].regions` | array | yes | The storefronts that list this size, by storefront code, each with this size's own price there. |  |
 | `size_set[].regions[].region` | string | yes | Storefront code. |  |
 | `size_set[].regions[].availability` | string or null | yes | Availability the storefront showed for this size; null when it showed none. |  |
 | `size_set[].regions[].priced` | boolean or null | yes | Whether the storefront showed a price for this size. |  |
+| `size_set[].regions[].currency` | string or null | yes | Currency of this size's price in the storefront; null when the storefront has no price row for this size. |  |
+| `size_set[].regions[].local` | string or null | yes | This size's own local price in the storefront, as price.by_storefront[].local gives a price: the last known one where the storefront stopped publishing it. |  |
+| `size_set[].regions[].usd` | number or null | yes | The same price in US dollars, as price.by_storefront[].usd. |  |
+| `size_set[].regions[].state` | string or null | yes | The state of this size's price in the storefront, with the values of price.by_storefront[].state; null when the storefront has no price row for this size. | `current`, `withdrawn`, `not_checked`, `no_online_price`, `null` |
+| `size_set_one_price` | boolean or null | no | Whether the sizes of this set share one price: true when every storefront where two or more sizes have a current price shows them at the same price. |  |
 | `variant_codes` | array | no | Related product codes published by the house. |  |
 | `first_seen` | string | no | First week the item was seen: listed on a storefront, live at its address, priced, or on a product page. |  |
 | `last_seen` | string or null | no | Last week the item was seen (see Status names). |  |
@@ -275,7 +280,7 @@ Responses: 200.
 | `lv_url` | string | no | Link to the item on the brand's site: an English storefront where the page is live, otherwise a local one; see lv_url_status and page_checked_snapshot. |  |
 | `lv_url_status` | string | no | Link status: alive — live this week · repointed — points to another storefront where the page is live · gone_all — not found on any storefront at the latest check · unverified — not confirmed live this week · none — no link known. | `alive`, `repointed`, `gone_all`, `unverified`, `none` |
 | `page_checked_snapshot` | string or null | no | Week the link was last checked. |  |
-| `storefront_urls` | array | no | The article's page on each regional storefront, with its status (alive, repointed, gone) and the weeks it was first seen, last seen and last checked. |  |
+| `storefront_urls` | array | no | The card's page on each regional storefront, with its status (alive, repointed, gone) and the weeks it was first seen, last seen and last checked. |  |
 | `description` | string or null | no | Marketing description in the brand's words; sizes, dimensions, care and "Made in" are in their own fields. |  |
 | `description_short` | string or null | no | The brand's short blurb — the opening text of the card; in lists it stands in for the description. |  |
 | `description_local` | string or null | no | Description in the language of the local storefront. |  |
@@ -290,6 +295,7 @@ Responses: 200.
 | `features_source` | string or null | no | Source of the product features. | `page`, `house_api`, `same_model`, `carried`, `null` |
 | `description_from` | string or null | no | Article whose English page the description comes from. |  |
 | `names_by_lang` | object or null | no | The brand's own name for the item in each storefront language, as published (ISO 639-1 → list of names); the English name is in name_en. |  |
+| `names` | object or null | no | The item's name as the house shows it in each storefront language, one record per language, keyed by lower-case ISO 639-1 code; Chinese is keyed by script, zh-Hans or zh-Hant. |  |
 | `carried_fields` | array or null | no | Text fields taken from an earlier week: description · features · care. |  |
 | `text_source_snapshot` | string or null | no | Week the English text is from, when it is older than this week: the latest page had no English, so description, features and care come from that week. |  |
 | `color_group_lv` | string or null | no | The brand's own colour group, mapped to the same 16 groups (Preto / 블랙 / ブラック → Black); shown next to color_group on the card, while the filter uses color_group. | `Black`, `Blue`, `Brown`, `Beige`, `White`, `Grey`, `Pink`, `Gold`, `Green`, `Silver`, `Red`, `Orange`, `Yellow`, `Multicolor`, `Natural`, `Purple`, `null` |
@@ -328,10 +334,10 @@ Responses: 200.
 | `price.by_storefront[].observed_at` | string | no | When this row was seen (UTC). |  |
 | `price.by_storefront[].snapshot_id` | string | no | Week identifier. |  |
 | `price.by_storefront[].is_current` | boolean | no | true — the price is current (price_state = current); false — no current price: price is empty, price_state says why, and the last known price is in last_price*. |  |
-| `price.by_storefront[].state` | string | no | Price observation status. | `current`, `withdrawn`, `not_checked` |
+| `price.by_storefront[].state` | string | no | Price observation status. | `current`, `withdrawn`, `not_checked`, `no_online_price` |
 | `price.by_storefront[].last_checked_week` | string or null | no | Last week the storefront price was checked; null if never checked. |  |
-| `price.by_storefront[].article` | string or null | no | The code whose price this row is: the article itself, or on a size set's main the size that stands for this storefront. |  |
-| `price.by_storefront[].size_display` | string or null | no | On a size set's main, the size this row's price is for, in words ("Size UK 5.5"), when another size of the set stands for the storefront; null on the article's own rows. |  |
+| `price.by_storefront[].article` | string or null | no | The code whose price this row is: the article itself, on a size set's main the size that stands for this storefront, or a duplicate's code (duplicate_of) whose storefront the card carries. |  |
+| `price.by_storefront[].size_display` | string or null | no | On a size set's main, the size this row's price is for, in words ("Size UK 5.5"). |  |
 | `counters` | object | no | Product coverage and media counts. |  |
 | `counters.regions_with_price` | integer or null | no | Number of storefronts with a current price (0 = no prices). |  |
 | `counters.regions_present` | integer | no | Storefronts where the item is listed. |  |
@@ -348,7 +354,7 @@ Responses: 200.
 | `counters.photos_ever` | integer or null | no | How many photos the gallery has ever had, including photos the brand later removed (see image.last_seen). |  |
 | `counters.photos_additional` | integer or null | no | Number of additional product photos not shown on the product page. |  |
 | `counters.videos` | integer or null | no | Number of distinct videos. |  |
-| `history` | array | no | Every price observation the archive holds for this article, by storefront and week, in the local currency and in dollars at that week's rate. |  |
+| `history` | array | no | Every price observation the archive holds for this card, by storefront and week, in the local currency and in dollars at that week's rate, from the week the card was first seen. |  |
 | `gallery` | object | no | Photo and video counts. |  |
 | `gallery.photos` | integer or null | no | Number of photos in the current gallery, as shown on the brand's page. |  |
 | `gallery.videos` | integer or null | no | Number of distinct videos. |  |

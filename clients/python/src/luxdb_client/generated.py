@@ -1,5 +1,5 @@
 """LuxDB API models and operations: generated; do not edit."""
-# Public spec SHA256: 09edbc37fc1f7a36ae4f0f8b143479781799008a2e3e468eed97a7ab080ea818
+# Public spec SHA256: 59835b02db639640bbffde0b001f2f7285008b4df4f6cfb2a0d8b6fb98162511
 from __future__ import annotations
 
 import re
@@ -149,6 +149,10 @@ class _ArticleSizeSetItemRegionsItemRequired(TypedDict):
     region: str
     availability: str | None
     priced: bool | None
+    currency: str | None
+    local: str | None
+    usd: float | None
+    state: Literal['current', 'withdrawn', 'not_checked', 'no_online_price', None]
 
 class ArticleSizeSetItemRegionsItem(_ArticleSizeSetItemRegionsItemRequired, total=False):
     pass
@@ -164,6 +168,17 @@ class _ArticleSizeSetItemRequired(TypedDict):
     regions: list[ArticleSizeSetItemRegionsItem]
 
 class ArticleSizeSetItem(_ArticleSizeSetItemRequired, total=False):
+    pass
+
+
+class _ArticleNamesValueRequired(TypedDict):
+    name: str
+    storefronts: list[str]
+    source: Literal['page', 'listing', 'house_api', 'sitemap']
+    observed_week: str
+    historical: bool
+
+class ArticleNamesValue(_ArticleNamesValueRequired, total=False):
     pass
 
 
@@ -183,7 +198,7 @@ class ArticlePriceByStorefrontItem(_ArticlePriceByStorefrontItemRequired, total=
     observed_at: str
     snapshot_id: str
     is_current: bool
-    state: Literal['current', 'withdrawn', 'not_checked']
+    state: Literal['current', 'withdrawn', 'not_checked', 'no_online_price']
     last_checked_week: str | None
     article: str | None
     size_display: str | None
@@ -279,6 +294,7 @@ class Article(_ArticleRequired, total=False):
     variants: dict[str, Any]
     size_variants: list[dict[str, Any]]
     size_set: list[ArticleSizeSetItem] | None
+    size_set_one_price: bool | None
     variant_codes: list[dict[str, Any]]
     first_seen: str
     last_seen: str | None
@@ -303,6 +319,7 @@ class Article(_ArticleRequired, total=False):
     features_source: Literal['page', 'house_api', 'same_model', 'carried', None]
     description_from: str | None
     names_by_lang: dict[str, Any] | None
+    names: dict[str, ArticleNamesValue] | None
     carried_fields: list[str] | None
     text_source_snapshot: str | None
     color_group_lv: Literal['Black', 'Blue', 'Brown', 'Beige', 'White', 'Grey', 'Pink', 'Gold', 'Green', 'Silver', 'Red', 'Orange', 'Yellow', 'Multicolor', 'Natural', 'Purple', None]
@@ -528,7 +545,7 @@ class GeneratedOperations:
     def family(self, id: str, *, brand: str | None = None) -> FamilyResponse:
         if not isinstance(id, str) or not id.strip():
             raise ValueError("required parameter must be a nonempty string")
-        if id is not None and re.fullmatch('^nvprod\\d+v$', id, flags=re.ASCII) is None:
+        if id is not None and re.fullmatch('^[A-Za-z0-9._-]{1,64}$', id, flags=re.ASCII) is None:
             raise ValueError("parameter does not match the documented format")
         return cast(FamilyResponse, self._request('/family/{id}'.replace('{id}', quote(id, safe='')), {'brand': brand}, authenticated=True))
 

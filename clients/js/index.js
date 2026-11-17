@@ -54,7 +54,10 @@ export class Client {
       const value = params[p.name];
       if (value === undefined) { if (p.required) throw new TypeError('Required parameter missing'); continue; }
       if (typeof value !== 'string' || (p.required && !value.trim())) throw new TypeError('Invalid parameter');
-      if (p.schema.pattern && !(new RegExp(p.schema.pattern)).test(value)) throw new TypeError('Invalid parameter format');
+      if (p.schema.pattern) {
+        const match = value.match(new RegExp(p.schema.pattern));
+        if (!match || match[0] !== value) throw new TypeError('Invalid parameter format');
+      }
       if (p.in === 'path') path = path.replace('{' + p.name + '}', encodeURIComponent(value));
       else query.set(p.name, value);
     }
