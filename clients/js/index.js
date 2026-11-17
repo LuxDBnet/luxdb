@@ -58,6 +58,8 @@ export class Client {
         const match = value.match(new RegExp(p.schema.pattern));
         if (!match || match[0] !== value) throw new TypeError('Invalid parameter format');
       }
+      // A URL path normalises «.» and «..» away, so the request would reach another endpoint.
+      if (p.in === 'path' && (value === '.' || value === '..')) throw new TypeError('Invalid parameter format');
       if (p.in === 'path') path = path.replace('{' + p.name + '}', encodeURIComponent(value));
       else query.set(p.name, value);
     }

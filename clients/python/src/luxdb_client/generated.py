@@ -547,6 +547,8 @@ class GeneratedOperations:
             raise ValueError("required parameter must be a nonempty string")
         if id is not None and re.fullmatch('^[A-Za-z0-9._-]{1,64}$', id, flags=re.ASCII) is None:
             raise ValueError("parameter does not match the documented format")
+        if id in ('.', '..'):
+            raise ValueError("a path identifier cannot be . or ..")
         return cast(FamilyResponse, self._request('/family/{id}'.replace('{id}', quote(id, safe='')), {'brand': brand}, authenticated=True))
 
     def resolve(self, url: str, *, brand: str | None = None) -> ResolveResponse:

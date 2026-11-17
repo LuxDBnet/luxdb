@@ -38,7 +38,8 @@ Follow Retry-After when present. No failed request is retried automatically.
 Nullable prices, dimensions and country counts come from the canonical
 contract itself; neither client applies manual type overrides. Unknown error keys remain in
 ApiError.details, without appearing in its message. Inspect details explicitly;
-do not log it. 404 and 405 are ordinary HTTP API errors.
+do not log it. 404 and 405 are ordinary HTTP API errors. The clients reject
+`.` and `..` as path identifiers to prevent URL path normalization.
 
 The demo key allows 1 request per minute and 300 per day per address.
 Make one call or wait at least 60 seconds; on 429 follow Retry-After.

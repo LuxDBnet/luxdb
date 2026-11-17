@@ -48,6 +48,17 @@ test('family accepts the contract id format before server lookup',async()=>{
     assert.equal(f.calls.length,1);
   }
 });
+test('family refuses dot segments before any request',async()=>{
+  // «.» and «..» fit the id format, but a URL path normalises them away.
+  for(const id of ['.','..']) {
+    const f=fake();await assert.rejects(new Client({fetch:f.fetch}).family({id,brand:'lv'}),TypeError);
+    assert.equal(f.calls.length,0);
+  }
+  for(const id of ['...','A.B']) {
+    const f=fake();await new Client({fetch:f.fetch}).family({id,brand:'lv'});
+    assert.equal(new URL(f.calls[0][0]).pathname,'/api/v1/family/'+id);
+  }
+});
 test('errors expose only approved code, mode and retry delay, with no retry',async()=>{
   const f=fake(reply({code:'member_limit_reached',secret:'SYNTHETIC-SECRET'},402,{'Retry-After':'17'}));
   await assert.rejects(new Client({fetch:f.fetch}).article({codes:'SYNTHETIC-ITEM'}),e=>e instanceof ApiError && e.status===402 && e.code==='member_limit_reached' && e.retryAfterSeconds===17 && !String(e).includes('SYNTHETIC-SECRET'));

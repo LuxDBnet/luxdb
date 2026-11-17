@@ -163,6 +163,11 @@ def generate(spec: dict, name: str, digest: str) -> str:
                 arg = par["name"]
                 lines += [f"        if {arg} is not None and re.fullmatch({pattern!r}, {arg}, flags=re.ASCII) is None:",
                           '            raise ValueError("parameter does not match the documented format")']
+        for par in parameters:
+            if par["in"] == "path":
+                # A URL path normalises «.» and «..» away, so the request would reach another endpoint.
+                lines += [f"        if {par['name']} in ('.', '..'):",
+                          '            raise ValueError("a path identifier cannot be . or ..")']
         if path == "/article":
             lines += ['        if len(codes.split(",")) > 20 or any(not part.strip() for part in codes.split(",")):',
                       '            raise ValueError("codes must contain 1 to 20 nonempty codes")']

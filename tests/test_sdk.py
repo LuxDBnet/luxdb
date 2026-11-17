@@ -106,6 +106,20 @@ class ClientTests(unittest.TestCase):
             self.assertEqual(parse_qs(urlsplit(mock.requests[-1].url).query), {"brand": ["lv"]})
         self.assertEqual(len(mock.requests), 4)
 
+    def test_family_refuses_dot_segments_before_any_request(self):
+        # «.» and «..» fit the id format, but a URL path normalises them away: the
+        # request would reach another endpoint with the key attached.
+        mock = MockTransport()
+        client = Client(transport=mock)
+        for identifier in (".", ".."):
+            with self.assertRaises(ValueError):
+                client.family(identifier, brand="lv")
+        self.assertEqual(len(mock.requests), 0)
+        for identifier in ("...", "A.B"):
+            client.family(identifier, brand="lv")
+            self.assertEqual(urlsplit(mock.requests[-1].url).path, "/api/v1/family/" + identifier)
+        self.assertEqual(len(mock.requests), 2)
+
     def test_error_is_redacted_and_not_retried(self):
         body = json.dumps({"code": "maintenance", "error": "SYNTHETIC-KEY", "retry_after_seconds": 99}).encode()
         mock = MockTransport(Response(503, {"rEtRy-AfTeR": "3600"}, body))
