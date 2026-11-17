@@ -8,11 +8,13 @@
   </a>
 </p>
 
-# {{PROJECT_NAME}} — luxury product database and price history API
+# {{PROJECT_NAME}} — luxury product archive and API: prices, availability, descriptions, specifications, photos
 
-{{PROJECT_NAME}} is a paid catalogue of luxury items with **weekly price and
-availability history across countries' storefronts**, including items no longer
-listed. Use it to compare recorded prices and research an item's history.
+{{PROJECT_NAME}} keeps a **weekly record of each item on the houses' storefronts**:
+not only its price, but its description, materials, dimensions, sizes,
+availability by country and original photos. The record stays after the item
+leaves the site. Use it to identify an item, compare recorded prices and research
+what a house published about it, week by week.
 
 [Pricing: choose a plan or buy credits](https://luxdb.net/pricing) ·
 [Catalogue](https://luxdb.net/catalog) · [API docs](https://luxdb.net/docs/api)
@@ -45,16 +47,41 @@ For current prices, allowances and purchase terms, use the
 [pricing page](https://luxdb.net/pricing). A paid record requires paid access;
 the public `demo` API key is limited to demo data and needs no account.
 
+## What the archive records
+
+| Area | What is kept, week by week | Where |
+|---|---|---|
+| Identity | House, reference code, model, names in English and in the local storefront's language, collection, season, campaigns | Card, API, export |
+| Texts | The house's description, short text and feature list, care notes; the storefront and week a text comes from; a text kept from an earlier week when the page lost it | Card, API, export |
+| Classification | Department, category, item type (normalised and in the house's own words), audience | Card, API, filters |
+| Materials and make | Material, composition with percentages, colour and colour group, country of manufacture | Card, API, filters |
+| Dimensions | As published, and in centimetres and inches | Card, API |
+| Sizes and variants | Sizes, shades and scents, other colours of the model, other spellings of the code | Card, API |
+| Prices | Current price per storefront, and weekly price history per storefront with conversion to USD | Card, API, export |
+| Availability | Listed or not listed per storefront each week; first and last week seen | Card, API |
+| Lifecycle | Items stay in the archive after they leave the site; links per storefront with their status and the week checked | Card, API |
+| Photos | Original-resolution gallery: views, size, and the first and last week each photo was in the gallery; photos removed from the house's site stay on the card | Paid card and its export only |
+| Videos | The house's product videos and the weeks they were attached | Paid card and its export only |
+| Weekly releases | One dated release per house per week | API, documentation |
+
+Fields are filled where the house publishes them; coverage differs by house, item
+and storefront. The API returns fields and media counts, not media files. The
+public `demo` key shows the shape of a record on its sample selection, without the
+houses' descriptions, feature lists or care notes. Brand texts and photos are
+third-party material: access through {{PROJECT_NAME}} does not license them for reuse.
+
 ## Research with recorded product data
 
-- **Resellers and dealers:** compare recorded storefront prices by country and
-  inspect earlier observations when researching an item.
-- **Analysts and journalists:** examine weekly price changes and listing history;
-  retain the observation dates when reporting a comparison.
-- **Collectors and buyers:** look up a reference and its available history,
-  including records of items no longer listed.
-- **Developers:** use the REST API's documented JSON fields and local Python or
-  JavaScript/TypeScript clients in an integration.
+- **Resellers and dealers:** identify a piece from its recorded specifications,
+  sizes and photos, and compare recorded storefront prices by country.
+- **Researchers and journalists:** read the original description of an item that
+  has left the house's site and see its recorded photos, with the weeks they were
+  recorded; retain the observation dates when reporting.
+- **Stylists and collectors:** check when a colour, size or shade was offered,
+  and on which storefronts.
+- **Developers:** read specifications, texts, prices and availability through the
+  REST API's documented JSON fields and the local Python or JavaScript/TypeScript
+  clients.
 
 Read the [data dictionary](https://luxdb.net/docs/data) to check the fields before
 buying. Weekly observations are not a real-time stock guarantee. Storefront
@@ -119,6 +146,15 @@ free. The website and API have separate repeat windows: opening on one does not
 make the first opening on the other free. The API window is shared by the
 account's keys. Check `credits_charged` in the response and the
 [API documentation](https://luxdb.net/docs/api) for charging rules.
+
+### Is {{PROJECT_NAME}} only price history?
+
+No. Each item's record also keeps the house's description and feature list,
+materials and composition, dimensions, sizes and variants, availability by
+storefront and the photo gallery, week by week, where the house publishes them.
+The API returns these fields and media counts; photos and videos come with the
+paid card and its export. History starts with the observations available for that
+item, and coverage differs by house, item and storefront.
 
 ### Can I research items no longer listed?
 
